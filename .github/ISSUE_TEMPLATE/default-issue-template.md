@@ -11,16 +11,13 @@ assignees: Goonco
 
 A straightforward but detailed description about the issue
 
-<br>
 
 ### 📌 ToDo
 
 - [ ] todos
 
-<br>
 
 ### 💬 Others
 
-Maybe comments or memo for future you or other teamates
+Maybe comments or memo for future you or other teammates
 
-<br>
