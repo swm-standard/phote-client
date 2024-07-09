@@ -9,7 +9,7 @@ assignees: Goonco
 
 ### 🤔 Description
 
-A straightforward but detailed description about the issue
+* A straightforward but detailed description about the issue
 
 
 ### 📌 ToDo
@@ -19,5 +19,5 @@ A straightforward but detailed description about the issue
 
 ### 💬 Others
 
-Maybe comments or memo for future you or other teammates
+* Maybe comments or memo for future you or other teammates
 
