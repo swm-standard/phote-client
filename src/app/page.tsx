@@ -1,13 +1,13 @@
 'use client';
 
-import { testingVanilla } from '@/app/style.css';
-import BearCounter from '@/app/zustand_test';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <>
-      <h1 className={testingVanilla}>Testing Prettier</h1>
-      <BearCounter />
-    </>
-  );
-}
+const Authenticate = () => {
+  const isUser: boolean = true;
+  const router = useRouter();
+
+  if (isUser) router.push('/main/workbook');
+  else router.push('/signinup');
+};
+
+export default Authenticate;
