@@ -2,33 +2,33 @@
 
 import WorkbookCards from '@/app/main/workbook/workbook-cards';
 import { Workbook } from '@/app/main/workbook/workbook-cards';
+import { useEffect, useState } from 'react';
 
-const TestData: Workbook[] = [
-  {
-    id: '1',
-    title: '2023 기말고사',
-    description: '2023 포철고 기말고사 대비',
-    emoji: '🤓',
-    quantity: 23,
-    modifiedAt: new Date('2023-09-13'),
-  },
-  {
-    id: '2',
-    title: '2024 중간고사',
-    description: '2024 제철중 중간고사 대비',
-    emoji: '😜',
-    quantity: 15,
-    modifiedAt: new Date('2024-04-15'),
-  },
-];
+type Status = 'loading' | 'error' | 'success';
 
 const WorkbookArea = () => {
-  return (
-    <div>
-      Area for workbook
-      <WorkbookCards workbooks={TestData} />
-    </div>
-  );
+  const [status, setStatus] = useState<Status>('loading');
+  const [workbooks, setWorkbooks] = useState<Workbook[] | []>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/workbooks')
+      .then((res) => res.json())
+      .then((res) => {
+        setWorkbooks(res);
+        setStatus('success');
+      })
+      .catch((err) => setStatus('error'));
+  }, []);
+
+  if (status === 'loading') return <div>loading..</div>;
+  else if (status === 'error') return <div>error</div>;
+  else
+    return (
+      <div>
+        Area for workbook
+        <WorkbookCards workbooks={workbooks} />
+      </div>
+    );
 };
 
 export default WorkbookArea;
