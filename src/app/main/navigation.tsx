@@ -39,7 +39,7 @@ const Navigation = () => {
         if (isSelected) return item.buttonText;
         else
           return (
-            <li>
+            <li key={idx}>
               <Link
                 className={isSelected ? selectedNavigationItem : ''}
                 key={idx}

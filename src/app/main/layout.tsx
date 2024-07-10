@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { main } from '@/app/main/main.css';
 import Navigation from '@/app/main/navigation';
 
