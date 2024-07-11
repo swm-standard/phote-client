@@ -1,14 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import WorkbookCards, { Workbook } from '@/app/main/workbook/workbook-cards';
-import WorkbookArea from '@/app/main/workbook/workbook-area';
+import { Workbook } from '@/app/main/workbook/workbook-cards';
 
 import { http, HttpResponse, delay } from 'msw';
 import Page from './page';
 import { readWorkbooksUrl } from '@/app/main/workbook/endpoint';
 
 const meta = {
-  title: 'Test',
+  title: 'Workbook',
   component: Page,
+  decorators: [
+    (Story) => (
+      <div className="w-[430px] h-[932px] bg-white relative">
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: 'centered',
   },
