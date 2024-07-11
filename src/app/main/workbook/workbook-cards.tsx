@@ -1,7 +1,5 @@
 'use client';
 
-import { workbookCard } from '@/app/main/workbook/workbook.css';
-
 export type Workbook = {
   id: string;
   title: string;
@@ -13,8 +11,7 @@ export type Workbook = {
 
 const WorkbookCard = ({ workbook }: { workbook: Workbook }) => {
   return (
-    // <div className={workbookCard}>
-    <div>
+    <div className="w-4/5 p-1 border-black border-[1px]">
       <div>{workbook.emoji}</div>
       <div>{workbook.title}</div>
       <div>{workbook.description}</div>
