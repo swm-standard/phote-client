@@ -3,6 +3,7 @@
 import WorkbookCards from '@/app/main/workbook/workbook-cards';
 import { Workbook } from '@/app/main/workbook/workbook-cards';
 import { useEffect, useState } from 'react';
+import { readWorkbooksUrl } from '@/app/main/workbook/endpoint';
 
 type Status = 'loading' | 'error' | 'success';
 
@@ -11,7 +12,7 @@ const WorkbookArea = () => {
   const [workbooks, setWorkbooks] = useState<Workbook[] | []>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/workbooks')
+    fetch(readWorkbooksUrl)
       .then((res) => res.json())
       .then((res) => {
         setWorkbooks(res);

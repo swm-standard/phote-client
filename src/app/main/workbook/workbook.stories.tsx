@@ -1,17 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 import WorkbookCards, { Workbook } from '@/app/main/workbook/workbook-cards';
 import WorkbookArea from '@/app/main/workbook/workbook-area';
 
 import { http, HttpResponse, delay } from 'msw';
+import Page from './page';
+import { readWorkbooksUrl } from '@/app/main/workbook/endpoint';
 
 const meta = {
   title: 'Test',
-  component: WorkbookArea,
+  component: Page,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof WorkbookArea>;
+} satisfies Meta<typeof Page>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -35,13 +36,11 @@ const TestData: Workbook[] = [
   },
 ];
 
-const url = 'http://localhost:3000/api/workbooks';
-
-export const MockedSuccess: Story = {
+export const Success: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(url, () => {
+        http.get(readWorkbooksUrl, () => {
           return HttpResponse.json(TestData);
         }),
       ],
@@ -49,12 +48,12 @@ export const MockedSuccess: Story = {
   },
 };
 
-export const MockedFailure: Story = {
+export const FailReadingWorkbooks: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(url, async () => {
-          await delay(800);
+        http.get(readWorkbooksUrl, async () => {
+          await delay(1000);
           return new HttpResponse(null, {
             status: 403,
           });
