@@ -1,3 +1,5 @@
+'use client';
+
 const Page = () => {
   return <div>마이페이지</div>;
 };
