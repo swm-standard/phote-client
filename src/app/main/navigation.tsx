@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { navigation, selectedNavigationItem } from '@/app/main/main.css';
 import { usePathname } from 'next/navigation';
 
 interface NavigationItem {
@@ -32,19 +31,16 @@ const Navigation = () => {
   const path = usePathname();
 
   return (
-    <ul className={navigation}>
+    <ul className="flex flex-row justify-between w-full fixed bg-red-500 left-0 bottom-0">
       {navigationList.map((item, idx) => {
         const isSelected = path === item.path;
 
-        if (isSelected) return item.buttonText;
+        if (isSelected)
+          return <li className="text-green-500">{item.buttonText}</li>;
         else
           return (
             <li key={idx}>
-              <Link
-                className={isSelected ? selectedNavigationItem : ''}
-                key={idx}
-                href={item.path}
-              >
+              <Link key={idx} href={item.path}>
                 {item.buttonText}
               </Link>
             </li>

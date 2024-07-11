@@ -1,11 +1,10 @@
 'use client';
 
-import { main } from '@/app/main/main.css';
 import Navigation from '@/app/main/navigation';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className={main}>
+    <div className="w-full h-full relative bg-cyan-500">
       {children}
       <Navigation />
     </div>
