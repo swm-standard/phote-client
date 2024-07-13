@@ -2,6 +2,15 @@
 @tailwind utilities;
 @tailwind components;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: inherit;
+    text-decoration: none;
+    list-style-type: none;
+}
+
 /*@layer base {*/
 /*  :root {*/
 /*    --background: 0 0% 100%;*/
