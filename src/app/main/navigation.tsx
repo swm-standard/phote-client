@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { MAIN_ROUTES } from '@/app/routing';
 
 interface NavigationItem {
   path: string;
@@ -10,19 +11,19 @@ interface NavigationItem {
 
 const navigationList: NavigationItem[] = [
   {
-    path: '/main/workbook',
+    path: MAIN_ROUTES.workbook,
     buttonText: '문제집',
   },
   {
-    path: '/main/question',
+    path: MAIN_ROUTES.question,
     buttonText: '문제',
   },
   {
-    path: '/main/share',
+    path: MAIN_ROUTES.share,
     buttonText: '공유',
   },
   {
-    path: '/main/mypage',
+    path: MAIN_ROUTES.mypage,
     buttonText: '마이페이지',
   },
 ];

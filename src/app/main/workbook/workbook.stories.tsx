@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { Workbook } from '@/app/main/workbook/workbook-cards';
+import { Workbook } from '@/app/types';
 
 import { http, HttpResponse, delay } from 'msw';
 import Page from './page';

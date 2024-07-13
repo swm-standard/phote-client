@@ -1,9 +1,10 @@
 'use client';
 
-import WorkbookCards from '@/app/main/workbook/workbook-cards';
-import { Workbook } from '@/app/main/workbook/workbook-cards';
 import { useEffect, useState } from 'react';
 import { readWorkbooksUrl } from '@/app/main/workbook/endpoint';
+import { Workbook } from '@/app/types';
+
+import WorkbookCards from '@/app/main/workbook/workbook-cards';
 
 type Status = 'loading' | 'error' | 'success';
 
