@@ -1,9 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { Workbook } from '@/app/main/workbook/workbook-cards';
 
 import { http, HttpResponse, delay } from 'msw';
 import Page from './page';
-import { readWorkbooksUrl } from '@/app/main/workbook/endpoint';
+import {
+  createWorkbookUrl,
+  readWorkbooksUrl,
+} from '@/app/main/workbook/endpoint';
 
 const meta = {
   title: 'Workbook',
@@ -23,7 +27,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const TestData: Workbook[] = [
+const Dummy_Workbooks: Workbook[] = [
   {
     id: '1',
     title: '2023 기말고사',
@@ -47,7 +51,13 @@ export const Success: Story = {
     msw: {
       handlers: [
         http.get(readWorkbooksUrl, () => {
-          return HttpResponse.json(TestData);
+          return HttpResponse.json(Dummy_Workbooks);
+        }),
+        http.post(createWorkbookUrl, () => {
+          return HttpResponse.json({
+            result: 'SUCCESS',
+            status: 200,
+          });
         }),
       ],
     },
@@ -62,6 +72,23 @@ export const FailReadingWorkbooks: Story = {
           await delay(1000);
           return new HttpResponse(null, {
             status: 403,
+          });
+        }),
+      ],
+    },
+  },
+};
+
+export const FailCreatingWorkbooks: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(readWorkbooksUrl, () => {
+          return HttpResponse.json(Dummy_Workbooks);
+        }),
+        http.post(createWorkbookUrl, () => {
+          return new HttpResponse(null, {
+            status: 500,
           });
         }),
       ],
