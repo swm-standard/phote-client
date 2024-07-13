@@ -31,12 +31,16 @@ const Navigation = () => {
   const path = usePathname();
 
   return (
-    <ul className="flex flex-row justify-between w-[inherit] fixed bg-red-500 left-0 bottom-0">
+    <ul className="flex flex-row justify-between w-full absolute bg-red-500 left-0 bottom-0">
       {navigationList.map((item, idx) => {
         const isSelected = path === item.path;
 
         if (isSelected)
-          return <li className="text-green-500">{item.buttonText}</li>;
+          return (
+            <li key={idx} className="text-green-500">
+              {item.buttonText}
+            </li>
+          );
         else
           return (
             <li key={idx}>
