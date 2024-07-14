@@ -1,11 +1,10 @@
 'use client';
 
-import WorkbookCards from '@/app/main/workbook/workbook-cards';
-import { Workbook } from '@/app/main/workbook/workbook-cards';
 import { useEffect, useState } from 'react';
-import { readWorkbooksUrl } from '@/app/main/workbook/endpoint';
+import { readWorkbooksUrl } from '@/app/endpoint';
+import { Workbook, Status } from '@/app/types';
 
-type Status = 'loading' | 'error' | 'success';
+import WorkbookCards from '@/app/main/workbook/workbook-cards';
 
 const WorkbookArea = () => {
   const [status, setStatus] = useState<Status>('loading');
