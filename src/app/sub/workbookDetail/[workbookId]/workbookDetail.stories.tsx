@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse, delay } from 'msw';
-import { readWorkbookByIdUrl } from '@/app/endpoint';
+import { deleteWorkbookByIdUrl, readWorkbookByIdUrl } from '@/app/endpoint';
 import { Dummy_Workbook } from '@/app/dummy';
 
 import Page from './page';
@@ -36,6 +36,12 @@ export const Success: Story = {
         http.get(readWorkbookByIdUrl('1'), () => {
           return HttpResponse.json(Dummy_Workbook);
         }),
+        http.delete(deleteWorkbookByIdUrl('1'), () => {
+          return HttpResponse.json({
+            result: 'SUCCESS',
+            status: 200,
+          });
+        }),
       ],
     },
   },
@@ -47,6 +53,23 @@ export const FailReadingWorkbookById: Story = {
       handlers: [
         http.get(readWorkbookByIdUrl('1'), async () => {
           await delay(1000);
+          return new HttpResponse(null, {
+            status: 403,
+          });
+        }),
+      ],
+    },
+  },
+};
+
+export const FailDeletingWorkbookById: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(readWorkbookByIdUrl('1'), () => {
+          return HttpResponse.json(Dummy_Workbook);
+        }),
+        http.delete(deleteWorkbookByIdUrl('1'), () => {
           return new HttpResponse(null, {
             status: 403,
           });
