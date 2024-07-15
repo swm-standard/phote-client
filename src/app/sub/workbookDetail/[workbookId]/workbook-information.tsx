@@ -20,7 +20,6 @@ const WorkbookInformation = () => {
         setStatus('success');
       })
       .catch((err) => {
-        console.error(err);
         setStatus('error');
       });
   }, []);
