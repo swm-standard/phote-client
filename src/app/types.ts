@@ -9,8 +9,11 @@ export type Workbook = {
 
 export type Question = {
   id: string;
-  status: string;
-  options: string;
+  statement: string;
+  // options: {
+  //   [key: string]: string;
+  // };
+  options: string[];
   image: string;
   answer: string;
   category: string;
