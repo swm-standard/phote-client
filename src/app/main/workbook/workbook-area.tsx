@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { readWorkbooksUrl } from '@/app/endpoint';
 import { Workbook, Status } from '@/app/types';
+import { BASE_URL } from '@/app/constants';
 
 import WorkbookCards from '@/app/main/workbook/workbook-cards';
 
@@ -11,7 +11,7 @@ const WorkbookArea = () => {
   const [workbooks, setWorkbooks] = useState<Workbook[] | []>([]);
 
   useEffect(() => {
-    fetch(readWorkbooksUrl)
+    fetch(`${BASE_URL}/workbooks`)
       .then((res) => res.json())
       .then((res) => {
         setWorkbooks(res);

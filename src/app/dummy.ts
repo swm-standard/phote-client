@@ -38,6 +38,7 @@ export const Dummy_Questions_In_Workbook: QuestionInWorkbook[] = [
     category: '객관식',
     tags: ['미적분II', '3번틀린문제'],
     sequence: 1,
+    modifiedAt: new Date('2023-09-13'),
   },
   {
     id: '1',
@@ -48,5 +49,6 @@ export const Dummy_Questions_In_Workbook: QuestionInWorkbook[] = [
     category: '객관식',
     tags: ['수학II', '이건태그얌'],
     sequence: 2,
+    modifiedAt: new Date('2023-09-13'),
   },
 ];

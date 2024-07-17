@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/alert-dialog';
 
 import React, { useState } from 'react';
-import { deleteWorkbookByIdUrl } from '@/app/endpoint';
 import { Status } from '@/app/types';
 import { useParams } from 'next/navigation';
+import { BASE_URL } from '@/app/constants';
 
 function DeleteAlertDialog({
   isOpen,
@@ -28,7 +28,7 @@ function DeleteAlertDialog({
     HTMLButtonElement
   > = async () => {
     try {
-      const res = await fetch(deleteWorkbookByIdUrl(params.workbookId), {
+      const res = await fetch(`${BASE_URL}/workbook/${params.workbookId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse, delay } from 'msw';
-import {
-  deleteWorkbookByIdUrl,
-  readQuestionInWorkbook,
-  readWorkbookByIdUrl,
-} from '@/app/endpoint';
+import { BASE_URL } from '@/app/constants';
 import { Dummy_Questions_In_Workbook, Dummy_Workbook } from '@/app/dummy';
 
 import Page from './page';
@@ -37,13 +33,13 @@ export const Success: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(readWorkbookByIdUrl('1'), () => {
+        http.get(`${BASE_URL}/workbook/1`, () => {
           return HttpResponse.json(Dummy_Workbook);
         }),
-        http.get(readQuestionInWorkbook('1'), () => {
+        http.get(`${BASE_URL}/workbook/questions/1`, () => {
           return HttpResponse.json(Dummy_Questions_In_Workbook);
         }),
-        http.delete(deleteWorkbookByIdUrl('1'), () => {
+        http.delete(`${BASE_URL}/workbook/1`, () => {
           return HttpResponse.json({
             result: 'SUCCESS',
             status: 200,
@@ -58,13 +54,13 @@ export const FailReadingWorkbookAndQuestion: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(readWorkbookByIdUrl('1'), async () => {
+        http.get(`${BASE_URL}/workbook/1`, async () => {
           await delay(1000);
           return new HttpResponse(null, {
             status: 403,
           });
         }),
-        http.get(readQuestionInWorkbook('1'), async () => {
+        http.get(`${BASE_URL}/workbook/questions/1`, async () => {
           await delay(1000);
           return new HttpResponse(null, {
             status: 403,
@@ -79,10 +75,10 @@ export const FailDeletingWorkbookById: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(readWorkbookByIdUrl('1'), () => {
+        http.get(`${BASE_URL}/workbook/1`, () => {
           return HttpResponse.json(Dummy_Workbook);
         }),
-        http.delete(deleteWorkbookByIdUrl('1'), () => {
+        http.delete(`${BASE_URL}/workbook/1`, () => {
           return new HttpResponse(null, {
             status: 403,
           });

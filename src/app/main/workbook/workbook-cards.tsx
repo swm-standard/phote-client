@@ -2,11 +2,10 @@
 
 import { Workbook } from '@/app/types';
 import Link from 'next/link';
-import { SUB_ROUTES } from '@/app/routing';
 
 const WorkbookCard = ({ workbook }: { workbook: Workbook }) => {
   return (
-    <Link href={SUB_ROUTES.workbookDetail(workbook.id)} passHref>
+    <Link href={`sub/workbookDetail/${workbook.id}`} passHref>
       <div className="w-4/5 p-1 border-black border-[1px]">
         <div>{workbook.emoji}</div>
         <div>{workbook.title}</div>

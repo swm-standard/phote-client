@@ -1,8 +1,7 @@
 'use client';
 
 import WorkbookArea from '@/app/main/workbook/workbook-area';
-import { DrawerDemo } from '@/app/main/workbook/drawer';
-import DrawerRefactor from '@/app/main/workbook/drawer-refactor';
+import CreateWorkbookDrawer from '@/app/main/workbook/create-workbook-drawer';
 
 const Page = () => {
   return (
@@ -10,7 +9,7 @@ const Page = () => {
       <h1>문제집 관리</h1>
       <WorkbookArea />
       {/*<DrawerDemo />*/}
-      <DrawerRefactor />
+      <CreateWorkbookDrawer />
     </div>
   );
 };

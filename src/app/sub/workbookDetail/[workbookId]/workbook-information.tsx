@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Status, Workbook } from '@/app/types';
 import { useParams, usePathname } from 'next/navigation';
-import { readWorkbookByIdUrl } from '@/app/endpoint';
+import { BASE_URL } from '@/app/constants';
 
 const WorkbookInformation = () => {
   const [workbook, setWorkbook] = useState<Workbook | null>(null);
@@ -13,7 +13,7 @@ const WorkbookInformation = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    fetch(readWorkbookByIdUrl(params.workbookId))
+    fetch(`${BASE_URL}/workbook/${params.workbookId}`)
       .then((res) => res.json())
       .then((res) => {
         setWorkbook(res);

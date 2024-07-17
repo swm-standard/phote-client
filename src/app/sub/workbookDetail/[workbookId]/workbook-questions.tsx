@@ -1,8 +1,8 @@
 import QuestionCard from '@/app/sub/workbookDetail/[workbookId]/question-card';
 import { useEffect, useState } from 'react';
 import { QuestionInWorkbook, Status } from '@/app/types';
-import { readQuestionInWorkbook } from '@/app/endpoint';
 import { useParams } from 'next/navigation';
+import { BASE_URL } from '@/app/constants';
 
 const WorkbookQuestions = () => {
   const [status, setStatus] = useState<Status>('loading');
@@ -10,7 +10,7 @@ const WorkbookQuestions = () => {
   const params = useParams<{ workbookId: string }>();
 
   useEffect(() => {
-    fetch(readQuestionInWorkbook(params.workbookId))
+    fetch(`${BASE_URL}/workbook/questions/${params.workbookId}`)
       .then((res) => res.json())
       .then((res) => {
         setQuestions(res);
