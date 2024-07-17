@@ -5,9 +5,9 @@ type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   allowClear?: boolean;
 };
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+const UnctrlTextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ({ className, allowClear = false, ...props }, ref) => {
-    const [inputValue, setInputValue] = useState<string>('');
+    const [inputValue, setInputValue] = useState<string>();
 
     const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
       e,
@@ -41,6 +41,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     );
   },
 );
-TextInput.displayName = 'TextInput';
+UnctrlTextInput.displayName = 'TextInput';
 
-export { TextInput };
+export default UnctrlTextInput;

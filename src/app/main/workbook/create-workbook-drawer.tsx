@@ -10,38 +10,18 @@ import {
 } from '@/components/ui/drawer';
 
 import { Label } from '@/components/ui/label';
-import { CustomTextInput } from '@/components/custom/custom-text-input';
-import React, { useState } from 'react';
+import UnctrlTextInput from '@/components/custom/unctrl-text-input';
+import React, { useRef, useState } from 'react';
 import { createWorkbookUrl } from '@/app/endpoint';
 
-export function DrawerDemo() {
+function CreateWorkbookDrawer() {
   const [open, setOpen] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
   const [response, setResponse] = useState<string>('');
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
 
   const handleToggleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setOpen(!open);
-  };
-
-  const handleTitleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleDescriptionChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e,
-  ) => {
-    setDescription(e.target.value);
-  };
-
-  const handleTitleXClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setTitle('');
-  };
-
-  const handleDescriptionXClick: React.MouseEventHandler<
-    HTMLButtonElement
-  > = () => {
-    setDescription('');
   };
 
   const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -55,7 +35,10 @@ export function DrawerDemo() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({
+          title: titleRef.current?.value,
+          description: descriptionRef.current?.value,
+        }),
       });
 
       const data = await res.json();
@@ -80,23 +63,14 @@ export function DrawerDemo() {
         {response}
         <form onSubmit={handleFormSubmit}>
           <Label htmlFor="title">문제집 제목</Label>
-          <CustomTextInput
-            id="title"
-            value={title}
-            onChange={handleTitleChange}
-            onClick={handleTitleXClick}
-          />
+          <UnctrlTextInput id="title" allowClear ref={titleRef} />
           <Label htmlFor="description">문제집 설명</Label>
-          <CustomTextInput
-            id="description"
-            value={description}
-            onChange={handleDescriptionChange}
-            onClick={handleDescriptionXClick}
-          />
-
+          <UnctrlTextInput id="description" allowClear ref={descriptionRef} />
           <button>확인</button>
         </form>
       </DrawerContent>
     </Drawer>
   );
 }
+
+export default CreateWorkbookDrawer;
