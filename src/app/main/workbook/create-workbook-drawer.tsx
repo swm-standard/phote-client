@@ -12,7 +12,7 @@ import {
 import { Label } from '@/components/ui/label';
 import UnctrlTextInput from '@/components/custom/unctrl-text-input';
 import React, { useRef, useState } from 'react';
-import { createWorkbookUrl } from '@/app/endpoint';
+import { BASE_URL } from '@/app/constants';
 
 function CreateWorkbookDrawer() {
   const [open, setOpen] = useState<boolean>(false);
@@ -30,7 +30,7 @@ function CreateWorkbookDrawer() {
     e.preventDefault();
 
     try {
-      const res = await fetch(createWorkbookUrl, {
+      const res = await fetch(`${BASE_URL}/workbook`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

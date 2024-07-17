@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse, delay } from 'msw';
-import { createWorkbookUrl, readWorkbooksUrl } from '@/app/endpoint';
+import { BASE_URL } from '@/app/constants';
 import { Dummy_Workbooks } from '@/app/dummy';
 import Page from './page';
 
@@ -26,10 +26,10 @@ export const Success: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(readWorkbooksUrl, () => {
+        http.get(`${BASE_URL}/workbooks`, () => {
           return HttpResponse.json(Dummy_Workbooks);
         }),
-        http.post(createWorkbookUrl, () => {
+        http.post(`${BASE_URL}/workbook`, () => {
           return HttpResponse.json({
             result: 'SUCCESS',
             status: 200,
@@ -44,7 +44,7 @@ export const FailReadingWorkbooks: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(readWorkbooksUrl, async () => {
+        http.get(`${BASE_URL}/workbooks`, async () => {
           await delay(1000);
           return new HttpResponse(null, {
             status: 403,
@@ -59,10 +59,10 @@ export const FailCreatingWorkbooks: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(readWorkbooksUrl, () => {
+        http.get(`${BASE_URL}/workbooks`, () => {
           return HttpResponse.json(Dummy_Workbooks);
         }),
-        http.post(createWorkbookUrl, () => {
+        http.post(`${BASE_URL}/workbook`, () => {
           return new HttpResponse(null, {
             status: 500,
           });
