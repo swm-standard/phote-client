@@ -45,12 +45,18 @@ export const Success: Story = {
             status: 200,
           });
         }),
+        http.patch(`${BASE_URL}/workbook/question-sequence/1`, () => {
+          return HttpResponse.json({
+            result: 'SUCCESS',
+            status: 200,
+          });
+        }),
       ],
     },
   },
 };
 
-export const FailReadingWorkbookAndQuestion: Story = {
+export const FailReadingWorkbookAndQuestionAndDeletingWorkbook: Story = {
   parameters: {
     msw: {
       handlers: [
@@ -71,16 +77,20 @@ export const FailReadingWorkbookAndQuestion: Story = {
   },
 };
 
-export const FailDeletingWorkbookById: Story = {
+export const FailSwappingQuestion: Story = {
   parameters: {
     msw: {
       handlers: [
         http.get(`${BASE_URL}/workbook/1`, () => {
           return HttpResponse.json(Dummy_Workbook);
         }),
+        http.get(`${BASE_URL}/workbook/questions/1`, () => {
+          return HttpResponse.json(Dummy_Questions_In_Workbook);
+        }),
         http.delete(`${BASE_URL}/workbook/1`, () => {
-          return new HttpResponse(null, {
-            status: 403,
+          return HttpResponse.json({
+            result: 'SUCCESS',
+            status: 200,
           });
         }),
       ],
