@@ -3,7 +3,7 @@ import { QuestionInWorkbook, Status } from '@/app/types';
 import { useParams } from 'next/navigation';
 import { BASE_URL } from '@/app/constants';
 import { Reorder } from 'framer-motion';
-import QuestionCards from '@/app/sub/workbookDetail/[workbookId]/question-card';
+import QuestionCards from '@/components/question-card';
 
 const WorkbookQuestionArea = () => {
   const [status, setStatus] = useState<Status>('loading');
@@ -34,7 +34,7 @@ const WorkbookQuestionArea = () => {
         layoutScroll
         style={{ overflowY: 'scroll' }}
       >
-        <QuestionCards questions={questions} />
+        <QuestionCards questions={questions} allowSwap />
       </Reorder.Group>
     </div>
   );
