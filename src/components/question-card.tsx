@@ -135,13 +135,20 @@ const QuestionCards = ({
   };
 
   useEffect(() => {
-    updateQuestionSequence();
+    (async () => {
+      await updateQuestionSequence();
+    })();
   }, [debouncedQuestions]);
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <p>{`question_swap_status:${status}`}</p>
-      <p>{`API calls : ${countApiCalls}`}</p>
+      {allowSwap && (
+        <>
+          <p>Debounce Check</p>
+          <p>{`question_swap_status:${status}`}</p>
+          <p>{`API calls : ${countApiCalls}`}</p>
+        </>
+      )}
       {questions.map((ques, idx) => {
         if (allowSwap)
           return (

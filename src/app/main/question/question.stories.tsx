@@ -33,6 +33,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Success: Story = {
+  args: {
+    searchParams: {
+      tags: 't1,t2',
+      keywords: 'k1,k2',
+    },
+  },
+
   parameters: {
     msw: {
       handlers: [
