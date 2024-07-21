@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Status, Workbook } from '@/app/types';
+import { Status, Workbook } from '@/app/_lib/types';
 import { useParams, usePathname } from 'next/navigation';
-import { BASE_URL } from '@/app/constants';
+import { BASE_URL } from '@/app/_lib/constants';
 
 const WorkbookInformation = () => {
   const [workbook, setWorkbook] = useState<Workbook | null>(null);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { QuestionInWorkbook, Status } from '@/app/types';
+import { QuestionInWorkbook, Status } from '@/app/_lib/types';
 import { useParams } from 'next/navigation';
-import { BASE_URL } from '@/app/constants';
+import { BASE_URL } from '@/app/_lib/constants';
 import { Reorder } from 'framer-motion';
 import QuestionCards from '@/components/question-card';
 

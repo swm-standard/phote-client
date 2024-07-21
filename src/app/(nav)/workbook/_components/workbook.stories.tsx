@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse, delay } from 'msw';
-import { BASE_URL } from '@/app/constants';
-import { Dummy_Workbooks } from '@/app/dummy';
-import Page from './page';
+import { BASE_URL } from '@/app/_lib/constants';
+import { Dummy_Workbooks } from '@/app/_lib/dummy';
+import Page from '../page';
 
 const meta = {
   title: 'Workbook',

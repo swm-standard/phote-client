@@ -12,7 +12,7 @@ import {
 import { Label } from '@/components/ui/label';
 import UnctrlTextInput from '@/components/custom/unctrl-text-input';
 import React, { useRef, useState } from 'react';
-import { BASE_URL } from '@/app/constants';
+import { BASE_URL } from '@/app/_lib/constants';
 
 function CreateWorkbookDrawer() {
   const [open, setOpen] = useState<boolean>(false);

@@ -1,10 +1,10 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import Header from '@/app/(top)/workbookDetail/[workbookId]/header';
-import WorkbookInformation from '@/app/(top)/workbookDetail/[workbookId]/workbook-information';
-import WorkbookEditButtons from '@/app/(top)/workbookDetail/[workbookId]/workbook-edit-buttons';
-import WorkbookQuestionArea from '@/app/(top)/workbookDetail/[workbookId]/workbook-question-area';
+import Header from '@/app/(top)/workbookDetail/[workbookId]/_components/header';
+import WorkbookInformation from '@/app/(top)/workbookDetail/[workbookId]/_components/workbook-information';
+import WorkbookEditButtons from '@/app/(top)/workbookDetail/[workbookId]/_components/workbook-edit-buttons';
+import WorkbookQuestionArea from '@/app/(top)/workbookDetail/[workbookId]/_components/workbook-question-area';
 
 const Page = () => {
   const params = useParams<{ workbookId: string }>();

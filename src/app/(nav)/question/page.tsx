@@ -3,8 +3,8 @@
 import SearchHeader from '@/app/(nav)/question/search-header';
 import SearchedQuestions from '@/app/(nav)/question/searched-questions';
 import React, { useEffect, useState } from 'react';
-import { Question, Status } from '@/app/types';
-import { BASE_URL } from '@/app/constants';
+import { Question, Status } from '@/app/_lib/types';
+import { BASE_URL } from '@/app/_lib/constants';
 
 const Page = ({
   searchParams,

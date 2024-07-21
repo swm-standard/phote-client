@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse, delay } from 'msw';
-import { BASE_URL } from '@/app/constants';
-import { Dummy_Questions } from '@/app/dummy';
+import { BASE_URL } from '@/app/_lib/constants';
+import { Dummy_Questions } from '@/app/_lib/dummy';
 
 import Page from './page';
 

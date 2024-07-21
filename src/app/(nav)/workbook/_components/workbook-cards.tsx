@@ -1,6 +1,6 @@
 'use client';
 
-import { Workbook } from '@/app/types';
+import { Workbook } from '@/app/_lib/types';
 import Link from 'next/link';
 
 const WorkbookCard = ({ workbook }: { workbook: Workbook }) => {

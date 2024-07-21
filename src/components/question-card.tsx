@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Question, Status } from '@/app/types';
+import { Question, Status } from '@/app/_lib/types';
 import { DragControls, Reorder, useDragControls } from 'framer-motion';
-import { BASE_URL } from '@/app/constants';
+import { BASE_URL } from '@/app/_lib/constants';
 import { useParams } from 'next/navigation';
 import { useDebounce } from 'use-debounce';
 

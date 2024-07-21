@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/alert-dialog';
 
 import React, { useState } from 'react';
-import { Status } from '@/app/types';
+import { Status } from '@/app/_lib/types';
 import { useParams } from 'next/navigation';
-import { BASE_URL } from '@/app/constants';
+import { BASE_URL } from '@/app/_lib/constants';
 
 function DeleteAlertDialog({
   isOpen,

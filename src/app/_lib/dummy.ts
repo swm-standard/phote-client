@@ -1,4 +1,4 @@
-import { Workbook, QuestionInWorkbook, Question } from '@/app/types';
+import { Workbook, QuestionInWorkbook, Question } from '@/app/_lib/types';
 
 export const Dummy_Workbooks: Workbook[] = [
   {

@@ -1,7 +1,7 @@
 'use client';
 
-import WorkbookArea from '@/app/(nav)/workbook/workbook-area';
-import CreateWorkbookDrawer from '@/app/(nav)/workbook/create-workbook-drawer';
+import WorkbookArea from '@/app/(nav)/workbook/_components/workbook-area';
+import CreateWorkbookDrawer from '@/app/(nav)/workbook/_components/create-workbook-drawer';
 
 const Page = () => {
   return (
