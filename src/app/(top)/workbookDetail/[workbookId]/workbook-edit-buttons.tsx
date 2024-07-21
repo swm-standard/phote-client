@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import DeleteAlertDialog from '@/app/sub/workbookDetail/[workbookId]/delete-alert-dialog';
+import DeleteAlertDialog from '@/app/(top)/workbookDetail/[workbookId]/delete-alert-dialog';
 
 const WorkbookEditButtons = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);

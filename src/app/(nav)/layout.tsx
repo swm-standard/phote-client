@@ -1,6 +1,6 @@
 'use client';
 
-import Navigation from '@/app/main/navigation';
+import Navigation from '@/app/(nav)/navigation';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (

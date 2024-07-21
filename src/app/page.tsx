@@ -1,13 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const Authenticate = () => {
-  const isUser: boolean = true;
+const RedirectByAuth = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
   const router = useRouter();
 
-  if (isUser) router.push('/main/workbook');
-  else router.push('/signinup');
+  if (isLoggedIn) router.replace('workbook');
+  else return router.replace('register');
 };
 
-export default Authenticate;
+export default RedirectByAuth;

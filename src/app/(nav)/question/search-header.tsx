@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import CtrlTextInput from '@/components/custom/ctrl-text-input';
 import { useImmer } from 'use-immer';
-import SearchedWords from '@/app/main/question/searched-words';
+import SearchedWords from '@/app/(nav)/question/searched-words';
 import { useSearchParams } from '@storybook/nextjs/navigation.mock';
 
 const SearchHeader = ({

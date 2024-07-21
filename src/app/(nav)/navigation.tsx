@@ -10,19 +10,19 @@ interface NavigationItem {
 
 const navigationList: NavigationItem[] = [
   {
-    path: '/main/workbook',
+    path: '/workbook',
     buttonText: '문제집',
   },
   {
-    path: '/main/question',
+    path: '/question',
     buttonText: '문제',
   },
   {
-    path: '/main/share',
+    path: '/share',
     buttonText: '공유',
   },
   {
-    path: '/main/my',
+    path: '/my',
     buttonText: '마이페이지',
   },
 ];
