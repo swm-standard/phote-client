@@ -1,24 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import DeleteAlertDialog from '@/app/(top)/workbookDetail/[workbookId]/_components/delete-alert-dialog';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const WorkbookEditButtons = () => {
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
-
-  const toggleDeleteDialog = () => {
-    setIsDeleteDialogOpen((prev) => !prev);
-  };
+  const pathname = usePathname();
 
   return (
-    <div>
+    <div className="flex flex-row gap-4">
       <button>문제집 편집</button>
-      <button onClick={toggleDeleteDialog}>문제집 삭제</button>
+      <Link href={`${pathname}/intercepted/removeWorkbook`}>문제집 삭제</Link>
       <button>문제집 공유</button>
-      <DeleteAlertDialog
-        isOpen={isDeleteDialogOpen}
-        toggleDeleteDialog={toggleDeleteDialog}
-      />
     </div>
   );
 };
