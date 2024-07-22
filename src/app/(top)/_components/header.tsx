@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const getHeaderText = (pathname: string): string => {
   if (pathname.includes('workbookDetail')) return '문제집 상세';
-  if (pathname.includes('questionCreation')) return '문제 생성';
+  if (pathname.includes('createQuestion')) return '문제 생성';
   return 'not found';
 };
 

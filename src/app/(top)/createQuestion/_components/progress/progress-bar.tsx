@@ -10,7 +10,7 @@ const ProgressBullet = ({
 }) => {
   if (completed)
     return (
-      <div className="bg-red-500 h-[100px]">
+      <div className="bg-gray-100 h-[100px]">
         <div className={`w-[80px] h-0 border-2 border-blue-500`}>
           <div className="translate-x-1/2 -translate-y-1/2 flex flex-col items-center relative">
             <div className={`border-8 border-blue-500 rounded-full`} />
@@ -25,7 +25,7 @@ const ProgressBullet = ({
     );
   else
     return (
-      <div className="bg-red-500 h-[100px]">
+      <div className="bg-gray-100 h-[100px]">
         <div className={`w-[80px] h-0 border-2 border-gray-300`}>
           <div className="translate-x-1/2 -translate-y-1/2 flex flex-col items-center relative">
             <div className={`border-8 border-gray-300 rounded-full`} />
