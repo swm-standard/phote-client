@@ -8,10 +8,10 @@ const Layout = ({
   drawer: ReactNode;
 }) => {
   return (
-    <div>
+    <>
       {children}
       {drawer}
-    </div>
+    </>
   );
 };
 

@@ -1,13 +1,14 @@
 'use client';
 
 import Navigation from '@/app/(nav)/_components/navigation';
+import Container from '@/components/container';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="mx-auto max-w-[600px] h-[100vh] relative ">
+    <Container className="relative flex flex-col">
       {children}
       <Navigation />
-    </div>
+    </Container>
   );
 };
 

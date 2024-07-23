@@ -1,19 +1,14 @@
 'use client';
 
 import WorkbookArea from '@/app/(nav)/workbook/_components/workbook-area';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import CreateWorkbookDrawer from '@/app/(nav)/workbook/_components/create-workbook-drawer';
+import Container from '@/components/container';
+import Banner from '@/app/(nav)/workbook/_components/banner';
 
 const Page = () => {
-  const pathname = usePathname();
-
   return (
-    <div className="w-full h-full bg-white">
-      <h1>문제집 관리</h1>
+    <div className="w-full p-4 pb-0 flex flex-col flex-grow">
+      <Banner />
       <WorkbookArea />
-      <CreateWorkbookDrawer />
-      <Link href={`${pathname}/intercepted/createWorkbook`}>문제집 생성</Link>
     </div>
   );
 };
