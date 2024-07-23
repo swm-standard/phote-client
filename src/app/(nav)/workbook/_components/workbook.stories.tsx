@@ -3,15 +3,18 @@ import { http, HttpResponse, delay } from 'msw';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Workbooks } from '@/app/_lib/dummy';
 import Page from '../page';
+import Navigation from '@/app/(nav)/_components/navigation';
+import Container from '@/components/container';
 
 const meta = {
   title: 'Workbook',
   component: Page,
   decorators: [
     (Story) => (
-      <div className="w-[430px] h-[932px] bg-white relative">
+      <Container className="w-[430px] h-[932px] bg-app-bg relative flex flex-col">
         <Story />
-      </div>
+        <Navigation />
+      </Container>
     ),
   ],
   parameters: {
