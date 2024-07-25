@@ -67,7 +67,7 @@ const PropertyChunk = ({
 
 const WorkbookCards = ({ workbooks }: { workbooks: Workbook[] }) => {
   return (
-    <div className="pb-4 flex flex-row flex-wrap flex-grow gap-3 justify-center overflow-y-auto h-1">
+    <div className="flex flex-row flex-wrap flex-grow gap-3 justify-center">
       {workbooks.map((workbook) => (
         <WorkbookCard workbook={workbook} key={workbook.id} />
       ))}

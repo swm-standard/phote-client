@@ -6,7 +6,7 @@ import Banner from '@/app/(nav)/workbook/_components/banner';
 
 const Page = () => {
   return (
-    <div className="w-full p-4 pb-0 flex flex-col flex-grow">
+    <div className="w-full px-4 pb-0 flex flex-col flex-grow overflow-scroll">
       <Banner />
       <WorkbookArea />
     </div>

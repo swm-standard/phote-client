@@ -3,7 +3,7 @@ import BannerIcon from '@/static/icons/banner-icon';
 
 const Banner = () => {
   return (
-    <div className="bg-banner-bg w-full px-6 py-6 rounded-[20px] flex justify-between items-center">
+    <div className="mt-4 bg-banner-bg w-full px-6 py-6 rounded-[20px] flex justify-between items-center">
       <div className="flex flex-col gap-2.5">
         <p className="font-semibold text-lg text-text-001">
           함께 포테를 만들어나가요!

@@ -27,17 +27,19 @@ const WorkbookArea = () => {
   else if (status === 'error') return <div>error</div>;
   else
     return (
-      <div className="mt-10 flex flex-col flex-grow gap-4 relative ">
-        <p className="text-text-001 text-base font-semibold">
+      <div className="flex flex-col flex-grow ">
+        <p className="text-text-001 text-base font-semibold sticky -top-1 bg-app-bg py-4">
           생성한 문제집{' '}
           <span className="text-brand-blue-heavy">{workbooks.length}</span>
         </p>
-        <WorkbookCards workbooks={workbooks} />
-        <div className="absolute w-full bottom-4 left-0">
-          <BarButton
-            text="문제집 생성"
-            href={`${pathname}/intercepted/createWorkbook`}
-          />
+        <div>
+          <WorkbookCards workbooks={workbooks} />
+          <div className="w-full my-4 sticky bottom-4">
+            <BarButton
+              text="문제집 생성"
+              href={`${pathname}/intercepted/createWorkbook`}
+            />
+          </div>
         </div>
       </div>
     );
