@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Progress from '@/app/(top)/createQuestion/_components/progress/progress';
 import ProgressChangeFooter from '@/app/(top)/createQuestion/_components/progress/progress-change-footer';
-import Step from './_components/progress/types';
+import { Step } from './_components/progress/types';
 import CreateQuestionContent from '@/app/(top)/createQuestion/_components/content/create-question-content';
+import Container from '@/components/container';
 
 const Page = () => {
   const [currentStep, setCurrentStep] = useState<Step>(1);
@@ -24,15 +25,16 @@ const Page = () => {
   };
 
   return (
-    <div className="relative w-full flex-grow">
+    <Container className="flex flex-col">
       <Progress currentStep={currentStep} />
-      <CreateQuestionContent currentStep={currentStep} />
-      <ProgressChangeFooter
-        currentStep={currentStep}
-        setToNextStep={setToNextStep}
-        setToPrevStep={setToPrevStep}
-      />
-    </div>
+      <section className="flex-grow flex flex-col">
+        <CreateQuestionContent
+          currentStep={currentStep}
+          setToNextStep={setToNextStep}
+          setToPrevStep={setToPrevStep}
+        />
+      </section>
+    </Container>
   );
 };
 
