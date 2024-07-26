@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 
 import WorkbookCards from '@/app/(nav)/workbook/_components/workbook-cards';
 import BarButton from '@/components/bar-button';
+import Container from '@/components/container';
+import NeedToCreateIcon from '@/static/icons/need-to-create-icon';
 
 const WorkbookArea = () => {
   const [status, setStatus] = useState<Status>('loading');
@@ -27,21 +29,32 @@ const WorkbookArea = () => {
   else if (status === 'error') return <div>error</div>;
   else
     return (
-      <div className="flex flex-col flex-grow ">
+      <Container className="flex flex-col relative">
         <p className="text-text-001 text-base font-semibold sticky -top-1 bg-app-bg py-4">
           생성한 문제집{' '}
           <span className="text-brand-blue-heavy">{workbooks.length}</span>
         </p>
-        <div>
-          <WorkbookCards workbooks={workbooks} />
+
+        <section className="flex flex-col flex-grow justify-between">
+          {workbooks.length !== 0 ? (
+            <WorkbookCards workbooks={workbooks} />
+          ) : (
+            <div className="text-[#e0edfb] flex justify-center items-center flex-grow flex-col gap-4">
+              <NeedToCreateIcon className="w-12 h-12" />
+              <div className="text-center">
+                <p className="font-bold text-xl">문제집을</p>
+                <p className="font-bold text-xl">생성해주세요</p>
+              </div>
+            </div>
+          )}
           <div className="w-full my-4 sticky bottom-4">
             <BarButton
               text="문제집 생성"
               href={`${pathname}/intercepted/createWorkbook`}
             />
           </div>
-        </div>
-      </div>
+        </section>
+      </Container>
     );
 };
 
