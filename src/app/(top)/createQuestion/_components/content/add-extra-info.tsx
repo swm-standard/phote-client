@@ -1,11 +1,17 @@
 import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
+import { QuestionBase } from '@/app/_lib/types';
 
-const AddExtraInfo = () => {
+const AddExtraInfo = ({
+  register,
+}: {
+  register: UseFormRegister<QuestionBase>;
+}) => {
   return (
     <form>
       <fieldset>
         <legend>정답</legend>
-        <input />
+        <input {...register('answer')} />
       </fieldset>
       <fieldset>
         <legend>태그</legend>
@@ -13,7 +19,7 @@ const AddExtraInfo = () => {
       </fieldset>
       <fieldset>
         <legend>메모</legend>
-        <textarea />
+        <textarea {...register('memo')} />
       </fieldset>
     </form>
   );

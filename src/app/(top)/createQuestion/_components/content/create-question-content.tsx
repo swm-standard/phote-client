@@ -3,12 +3,14 @@ import {
   Step,
   StepProps,
 } from '@/app/(top)/createQuestion/_components/progress/types';
-import UploadPicture from '@/app/(top)/createQuestion/_components/content/upload-picture';
-import CheckConvert from '@/app/(top)/createQuestion/_components/content/check-convert';
-import AddExtraInfo from '@/app/(top)/createQuestion/_components/content/add-extra-info';
+import UploadPicture from './upload-picture';
+import CheckConvert from './check-convert';
+import AddExtraInfo from './add-extra-info';
 import ProgressChangeFooter from '@/app/(top)/createQuestion/_components/progress/progress-change-footer';
 import Container from '@/components/container';
 import { useRouter } from 'next/navigation';
+import { QuestionBase } from '@/app/_lib/types';
+import { useForm } from 'react-hook-form';
 
 const CreateQuestionContent = (props: StepProps) => {
   const { currentStep, setToPrevStep, setToNextStep } = props;
@@ -16,9 +18,28 @@ const CreateQuestionContent = (props: StepProps) => {
   const [image, setInputImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    reset,
+    getValues,
+    // formState: { erros },
+  } = useForm<QuestionBase>();
+
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputImage(e.target.files && e.target.files[0]);
     e.target.files && setImageUrl(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const createQuestion = handleSubmit((data) => {
+    console.log(data);
+    // router.push('question');
+  });
+
+  const transformQuestion = async () => {
+    console.log('문제 변환');
+    setToNextStep();
   };
 
   const handleLeftButtonClick = () => {
@@ -27,8 +48,9 @@ const CreateQuestionContent = (props: StepProps) => {
         setToNextStep();
         break;
       case 2:
+        // 모달 경고. 진짜 뒤로 돌아갈꺼야?
         setToPrevStep();
-        // input들 초기화
+        reset({ ...getValues });
         break;
       case 3:
         setToPrevStep();
@@ -39,15 +61,13 @@ const CreateQuestionContent = (props: StepProps) => {
   const handleRightButtonClick = () => {
     switch (currentStep) {
       case 1:
-        setToNextStep();
-        // 경고창
-        // 변환 로직 및 image null
+        transformQuestion();
         break;
       case 2:
         setToNextStep();
         break;
       case 3:
-        router.push('question');
+        createQuestion();
         break;
     }
   };
@@ -62,9 +82,9 @@ const CreateQuestionContent = (props: StepProps) => {
             handleImageChange={handleImageChange}
           />
         ) : currentStep === 2 ? (
-          <CheckConvert />
+          <CheckConvert register={register} />
         ) : (
-          <AddExtraInfo />
+          <AddExtraInfo register={register} />
         )}
       </section>
 
