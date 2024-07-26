@@ -20,6 +20,10 @@ module.exports = {
         'brand-blue' : {
           'light' : "#6CD5E3",
           'heavy' : '#39C6DA',
+        },
+        'brand-gray' : {
+          'light' : "#f9f9f9",
+          'heavy' : '#ededed',
         }
       },
       backgroundImage: {
