@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Progress from '@/app/(top)/createQuestion/_components/progress/progress';
-import ProgressChangeFooter from '@/app/(top)/createQuestion/_components/progress/progress-change-footer';
 import { Step } from './_components/progress/types';
 import CreateQuestionContent from '@/app/(top)/createQuestion/_components/content/create-question-content';
 import Container from '@/components/container';

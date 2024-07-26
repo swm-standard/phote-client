@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Step,
-  StepProps,
-} from '@/app/(top)/createQuestion/_components/progress/types';
+import { StepProps } from '@/app/(top)/createQuestion/_components/progress/types';
 import UploadPicture from './upload-picture';
 import CheckConvert from './check-convert';
 import AddExtraInfo from './add-extra-info';
@@ -20,10 +17,7 @@ const CreateQuestionContent = (props: StepProps) => {
 
   const {
     register,
-    setValue,
     handleSubmit,
-    reset,
-    getValues,
     // formState: { erros },
   } = useForm<QuestionBase>();
 
@@ -48,9 +42,7 @@ const CreateQuestionContent = (props: StepProps) => {
         setToNextStep();
         break;
       case 2:
-        // 모달 경고. 진짜 뒤로 돌아갈꺼야?
-        setToPrevStep();
-        reset({ ...getValues });
+        router.replace('/createQuestion/intercepted/cancel-alert-dialog');
         break;
       case 3:
         setToPrevStep();
