@@ -43,6 +43,3 @@ EXPOSE 3000
 
 # 애플리케이션 시작 명령어
 CMD ["pnpm", "start"]
-
-# docker build -t phote-client .
-# docker run -p 3000:3000 phote-client
