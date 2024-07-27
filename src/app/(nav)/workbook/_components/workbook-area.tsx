@@ -24,7 +24,7 @@ const WorkbookArea = () => {
   }, []);
 
   if (status === 'loading') return <div>loading..</div>;
-  else if (status === 'error') return <div>error</div>;
+  else if (status === 'error') return <div>error and docker test</div>;
   else
     return (
       <div className="flex flex-col flex-grow ">

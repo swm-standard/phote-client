@@ -40,7 +40,8 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: 22
           script: |
-            sudo docker stop ${{ secrets.DOCKER_APPNAME }} || true
-            sudo docker rm ${{ secrets.DOCKER_APPNAME }} || true
+            sudo docker stop $(sudo docker ps -q)
+            sudo docker rm $(sudo docker ps -a -q)
+            sudo docker rmi $(sudo docker images -q)
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APPNAME }}:latest
             sudo docker run -d --platform linux/amd64 -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APPNAME }}:latest
