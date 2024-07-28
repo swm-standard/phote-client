@@ -6,10 +6,12 @@ import Banner from '@/app/(nav)/workbook/_components/banner';
 
 const Page = () => {
   return (
-    <div className="w-full px-4 pb-0 flex flex-col flex-grow overflow-scroll">
+    <Container className="px-4 flex flex-col overflow-scroll">
       <Banner />
-      <WorkbookArea />
-    </div>
+      <section className="flex-grow">
+        <WorkbookArea />
+      </section>
+    </Container>
   );
 };
 

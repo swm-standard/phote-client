@@ -16,10 +16,16 @@ module.exports = {
         'text' : {
           '001' : "#353542",
           '002' : "#65656e",
+          '003' : "#9b9b9b",
+          '004' : "#c3c3c3",
         },
         'brand-blue' : {
           'light' : "#6CD5E3",
           'heavy' : '#39C6DA',
+        },
+        'brand-gray' : {
+          'light' : "#f9f9f9",
+          'heavy' : '#ededed',
         }
       },
       backgroundImage: {
