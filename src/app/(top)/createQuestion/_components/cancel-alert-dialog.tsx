@@ -5,7 +5,7 @@ import AlertDialog from '@/components/alert-dialog';
 import { useRouter } from 'next/navigation';
 
 const DialogTexts = {
-  title: '문제 생성을 취소할까요?',
+  title: '문제 사진을 재촬영할까요?',
   description: '작업 상황은 저장되지 않습니다.',
 };
 
@@ -13,7 +13,10 @@ const CancelAlertDialog = () => {
   const router = useRouter();
 
   const confirmAction = () => {
-    router.replace('/redirect/createQuestion');
+    router.back();
+    setTimeout(() => {
+      router.replace('/redirect/createQuestion');
+    }, 100);
   };
 
   const cancelAction = () => {
