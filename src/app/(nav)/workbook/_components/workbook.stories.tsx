@@ -25,50 +25,36 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Success: Story = {
+export const FullWorkbooks: Story = {
   parameters: {
     msw: {
       handlers: [
         http.get(`${BASE_URL}/workbooks`, () => {
           return HttpResponse.json(Dummy_Workbooks);
         }),
-        http.post(`${BASE_URL}/workbook`, () => {
-          return HttpResponse.json({
-            result: 'SUCCESS',
-            status: 200,
-          });
-        }),
       ],
     },
   },
 };
 
-export const FailReadingWorkbooks: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(`${BASE_URL}/workbooks`, async () => {
-          await delay(1000);
-          return new HttpResponse(null, {
-            status: 403,
-          });
-        }),
-      ],
-    },
-  },
-};
-
-export const FailCreatingWorkbooks: Story = {
+export const SomeWorkbooks: Story = {
   parameters: {
     msw: {
       handlers: [
         http.get(`${BASE_URL}/workbooks`, () => {
-          return HttpResponse.json(Dummy_Workbooks);
+          return HttpResponse.json(Dummy_Workbooks.slice(0, 4));
         }),
-        http.post(`${BASE_URL}/workbook`, () => {
-          return new HttpResponse(null, {
-            status: 500,
-          });
+      ],
+    },
+  },
+};
+
+export const NoWorkbooks: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(`${BASE_URL}/workbooks`, () => {
+          return HttpResponse.json([]);
         }),
       ],
     },
