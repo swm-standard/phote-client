@@ -2,7 +2,7 @@ import React from 'react';
 import { UseFormRegister, FieldArrayWithId } from 'react-hook-form';
 import { Option, QuestionBase } from '@/app/_lib/types';
 
-const CheckConvert = ({
+export const CheckConvert = ({
   register,
   optionFields,
   appendOption,
@@ -66,5 +66,3 @@ const CheckConvert = ({
     </form>
   );
 };
-
-export default CheckConvert;

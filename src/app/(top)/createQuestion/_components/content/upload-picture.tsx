@@ -8,7 +8,7 @@ type Props = {
   handleImageChange: React.ChangeEventHandler<HTMLInputElement>;
 };
 
-const UploadPicture = (props: Props) => {
+export const UploadPicture = (props: Props) => {
   const { image, imageUrl, handleImageChange } = props;
   const hiddenInputRef = useRef<HTMLInputElement>(null);
 
@@ -41,5 +41,3 @@ const UploadPicture = (props: Props) => {
     </div>
   );
 };
-
-export default UploadPicture;
