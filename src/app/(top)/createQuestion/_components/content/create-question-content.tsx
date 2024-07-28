@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { StepProps } from '@/app/(top)/createQuestion/_components/progress/types';
-import UploadPicture from './upload-picture';
-import CheckConvert from './check-convert';
-import AddExtraInfo from './add-extra-info';
+import {
+  UploadPicture,
+  CheckConvert,
+  AddExtraInfo,
+} from '@/app/(top)/createQuestion/_components/content';
 import ProgressChangeFooter from '@/app/(top)/createQuestion/_components/progress/progress-change-footer';
 import Container from '@/components/container';
-import { useRouter } from 'next/navigation';
 import { QuestionBase } from '@/app/_lib/types';
+
+import { useRouter } from 'next/navigation';
 import { useForm, useFieldArray } from 'react-hook-form';
+import { useImmer } from 'use-immer';
 
 const CreateQuestionContent = (props: StepProps) => {
   const { currentStep, setToPrevStep, setToNextStep } = props;
@@ -15,12 +19,7 @@ const CreateQuestionContent = (props: StepProps) => {
   const [image, setInputImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    // formState: { erros }
-  } = useForm<QuestionBase>();
+  const { register, handleSubmit, control } = useForm<QuestionBase>();
   const {
     fields: optionFields,
     append: appendOption,
@@ -30,6 +29,16 @@ const CreateQuestionContent = (props: StepProps) => {
     name: 'options',
   });
 
+  const [tags, updateTags] = useImmer<string[]>([]);
+  const addTag = (tag: string) => {
+    updateTags((draft) => {
+      draft.push(tag);
+    });
+  };
+  const removeTag = (targetTag: string) => {
+    updateTags((draft) => draft.filter((tag) => tag !== targetTag));
+  };
+
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputImage(e.target.files && e.target.files[0]);
     e.target.files && setImageUrl(URL.createObjectURL(e.target.files[0]));
@@ -37,7 +46,7 @@ const CreateQuestionContent = (props: StepProps) => {
 
   const createQuestion = handleSubmit((data) => {
     console.log(data);
-    // router.push('question');
+    console.log(tags);
   });
 
   const transformQuestion = async () => {
@@ -90,7 +99,12 @@ const CreateQuestionContent = (props: StepProps) => {
             removeOption={removeOption}
           />
         ) : (
-          <AddExtraInfo register={register} />
+          <AddExtraInfo
+            register={register}
+            tags={tags}
+            addTag={addTag}
+            removeTag={removeTag}
+          />
         )}
       </section>
 

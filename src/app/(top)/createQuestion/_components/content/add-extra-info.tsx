@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { QuestionBase } from '@/app/_lib/types';
 
-const AddExtraInfo = ({
+export const AddExtraInfo = ({
   register,
+  tags,
+  addTag,
+  removeTag,
 }: {
   register: UseFormRegister<QuestionBase>;
+  tags: string[];
+  addTag: (tag: string) => void;
+  removeTag: (tag: string) => void;
 }) => {
+  const [value, setValue] = useState<string>('');
+
   return (
     <form>
       <fieldset>
@@ -15,7 +23,20 @@ const AddExtraInfo = ({
       </fieldset>
       <fieldset>
         <legend>태그</legend>
-        <input />
+        <input onChange={(e) => setValue(e.target.value)} />
+        <button type="button" onClick={() => addTag(value)}>
+          추가
+        </button>
+        <div className="flex gap-4">
+          {tags.map((tag, idx) => (
+            <div key={idx} className="border-2">
+              <span>{tag}</span>
+              <button type="button" onClick={() => removeTag(tag)}>
+                X
+              </button>
+            </div>
+          ))}
+        </div>
       </fieldset>
       <fieldset>
         <legend>메모</legend>
@@ -24,5 +45,3 @@ const AddExtraInfo = ({
     </form>
   );
 };
-
-export default AddExtraInfo;
