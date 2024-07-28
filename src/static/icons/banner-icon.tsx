@@ -1,11 +1,18 @@
-const BannerIcon = () => {
+const BannerIcon = ({ className }: { className?: string }) => {
   return (
     <svg
-      width="86"
-      height="75"
       viewBox="0 0 86 75"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={{
+        maskImage:
+          'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
+        WebkitMaskImage:
+          'linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
+        maskSize: '100% 100%',
+        maskRepeat: 'no-repeat',
+      }}
     >
       <path
         d="M0.894775 31.3836L43 3.94739L85.1053 31.3836V75H0.894775V31.3836Z"
@@ -50,8 +57,8 @@ const BannerIcon = () => {
       />
       <circle cx="48.282" cy="23" r="3" fill="white" />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M51.8779 11L37.4241 16.4942V30.8635L51.8779 35.0897V34.9614C49.3054 34.4677 47.282 29.301 47.282 23C47.282 16.699 49.3054 11.5323 51.8779 11.0386V11Z"
         fill="#39C6DA"
       />
@@ -64,8 +71,8 @@ const BannerIcon = () => {
           y2="75"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#91D6E5" />
-          <stop offset="1" stop-color="#517B85" />
+          <stop stopColor="#91D6E5" />
+          <stop offset="1" stopColor="#517B85" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_33_11501"
@@ -75,8 +82,8 @@ const BannerIcon = () => {
           y2="67.1053"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" />
-          <stop offset="1" stop-color="#E9E9E9" />
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="#E9E9E9" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_33_11501"
@@ -86,8 +93,8 @@ const BannerIcon = () => {
           y2="75"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#75D2DF" />
-          <stop offset="1" stop-color="#BCE8FF" />
+          <stop stopColor="#75D2DF" />
+          <stop offset="1" stopColor="#BCE8FF" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_33_11501"
@@ -97,8 +104,8 @@ const BannerIcon = () => {
           y2="74.3421"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" />
-          <stop offset="1" stop-color="#BCE7FF" />
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="#BCE7FF" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_33_11501"
@@ -108,8 +115,8 @@ const BannerIcon = () => {
           y2="35.0897"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#39C6DA" />
-          <stop offset="1" stop-color="white" />
+          <stop stopColor="#39C6DA" />
+          <stop offset="1" stopColor="white" />
         </linearGradient>
       </defs>
     </svg>
