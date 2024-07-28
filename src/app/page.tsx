@@ -1,14 +1,9 @@
-'use client';
-
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 const RedirectByAuth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
-  const router = useRouter();
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
 
-  if (isLoggedIn) router.replace('workbook');
-  else return router.replace('register');
+  redirect('workbook');
 };
 
 export default RedirectByAuth;
