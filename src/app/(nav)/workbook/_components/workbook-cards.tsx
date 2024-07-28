@@ -23,17 +23,17 @@ const WorkbookCard = ({ workbook }: { workbook: Workbook }) => {
   return (
     <Link href={`sub/workbookDetail/${id}`} className="w-[48%]">
       <div
-        className="flex flex-col bg-white border-[1px] border-[#ecflfa] w-full h-full p-3 rounded-2xl"
+        className="flex h-full w-full flex-col rounded-2xl border-[1px] border-[#ecflfa] bg-white p-3"
         style={{ boxShadow: '0px 11px 15px 0px #0000000A' }}
       >
-        <div className="flex flex-col flex-grow gap-2">
-          <div className="w-11 h-11 bg-[#fafafa] rounded-lg flex items-center justify-center">
+        <div className="flex flex-grow flex-col gap-2">
+          <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#fafafa]">
             <span className="text-2xl">{emoji}</span>
           </div>
-          <p className="font-semibold text-base text-text-001 line-clamp-2">
+          <p className="line-clamp-2 text-base font-semibold text-text-001">
             {title}
           </p>
-          <p className="font-normal text-[#9b9b9b] text-xs line-clamp-2">
+          <p className="line-clamp-2 text-xs font-normal text-[#9b9b9b]">
             {description}
           </p>
         </div>
@@ -57,17 +57,17 @@ const PropertyChunk = ({
 }) => {
   return (
     <div>
-      <p className="font-normal text-[0.625rem] text-[#9b9b9b] text-center">
+      <p className="text-center text-[0.625rem] font-normal text-[#9b9b9b]">
         {label}
       </p>
-      <p className="font-medium text-xs text-[#65656e] text-center">{value}</p>
+      <p className="text-center text-xs font-medium text-[#65656e]">{value}</p>
     </div>
   );
 };
 
 const WorkbookCards = ({ workbooks }: { workbooks: Workbook[] }) => {
   return (
-    <div className="flex flex-row flex-wrap gap-3 justify-center">
+    <div className="flex flex-row flex-wrap justify-center gap-3">
       {workbooks.map((workbook) => (
         <WorkbookCard workbook={workbook} key={workbook.id} />
       ))}
