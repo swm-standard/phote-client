@@ -7,7 +7,7 @@ import ProgressChangeFooter from '@/app/(top)/createQuestion/_components/progres
 import Container from '@/components/container';
 import { useRouter } from 'next/navigation';
 import { QuestionBase } from '@/app/_lib/types';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 
 const CreateQuestionContent = (props: StepProps) => {
   const { currentStep, setToPrevStep, setToNextStep } = props;
@@ -18,8 +18,17 @@ const CreateQuestionContent = (props: StepProps) => {
   const {
     register,
     handleSubmit,
-    // formState: { erros },
+    control,
+    // formState: { erros }
   } = useForm<QuestionBase>();
+  const {
+    fields: optionFields,
+    append: appendOption,
+    remove: removeOption,
+  } = useFieldArray<QuestionBase, 'options'>({
+    control,
+    name: 'options',
+  });
 
   const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputImage(e.target.files && e.target.files[0]);
@@ -42,7 +51,7 @@ const CreateQuestionContent = (props: StepProps) => {
         setToNextStep();
         break;
       case 2:
-        router.replace('/createQuestion/intercepted/cancel-alert-dialog');
+        router.push('/createQuestion/intercepted/cancel-alert-dialog');
         break;
       case 3:
         setToPrevStep();
@@ -74,7 +83,12 @@ const CreateQuestionContent = (props: StepProps) => {
             handleImageChange={handleImageChange}
           />
         ) : currentStep === 2 ? (
-          <CheckConvert register={register} />
+          <CheckConvert
+            register={register}
+            optionFields={optionFields}
+            appendOption={appendOption}
+            removeOption={removeOption}
+          />
         ) : (
           <AddExtraInfo register={register} />
         )}

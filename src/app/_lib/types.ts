@@ -7,9 +7,13 @@ export type Workbook = {
   modifiedAt: Date;
 };
 
+export type Option = {
+  value: string;
+};
+
 export type QuestionBase = {
   statement: string;
-  options: string[];
+  options: Option[];
   image: string;
   answer: string;
   category: Category;
