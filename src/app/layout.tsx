@@ -1,14 +1,14 @@
 import './global.css';
 import type { Metadata, Viewport } from 'next';
-import localFont from "next/font/local";
-import React from "react";
-import AppContainer from "@/app/_components/app-container";
+import localFont from 'next/font/local';
+import React from 'react';
+import AppContainer from '@/app/_components/app-container';
 
 const pretendard = localFont({
-  src: "../static/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
-  variable: "--font-pretendard",
+  src: '../static/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
 });
 
 export const metadata: Metadata = {
@@ -24,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable} bg-outer-bg`}>
       <body className={`${pretendard.className} w-dvw h-dvh`}>
-          <AppContainer>
-              {children}
-          </AppContainer>
+        <AppContainer>{children}</AppContainer>
       </body>
     </html>
   );
