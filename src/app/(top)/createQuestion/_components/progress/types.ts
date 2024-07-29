@@ -1,3 +1,7 @@
-type Step = 1 | 2 | 3;
+export type Step = 1 | 2 | 3;
 
-export default Step;
+export type StepProps = {
+  currentStep: Step;
+  setToNextStep: () => void;
+  setToPrevStep: () => void;
+};

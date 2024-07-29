@@ -7,22 +7,29 @@ export type Workbook = {
   modifiedAt: Date;
 };
 
-export type Question = {
-  id: string;
+export type Option = {
+  value: string;
+};
+
+export type QuestionBase = {
   statement: string;
-  // options: {
-  //   [key: string]: string;
-  // };
-  options: string[];
+  options: Option[];
   image: string;
   answer: string;
-  category: string;
+  category: Category;
   tags: string[];
-  modifiedAt: Date;
+  memo: string;
 };
+
+export type Question = {
+  id: string;
+  modifiedAt: Date;
+} & QuestionBase;
 
 export type QuestionInWorkbook = {
   sequence: number;
 } & Question;
 
 export type Status = 'loading' | 'error' | 'success';
+
+export type Category = 'MULTIPLE' | 'ESSAY';
