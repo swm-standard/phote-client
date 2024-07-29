@@ -5,7 +5,7 @@ import Container from '@/components/container';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <Container className="relative flex flex-col">
+    <Container className="flex flex-col">
       <section className="flex-grow">{children}</section>
       <Navigation />
     </Container>
