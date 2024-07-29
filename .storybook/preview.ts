@@ -12,6 +12,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    backgrounds: {
+      values: [
+        { name: 'default', value: '#f5f5f5' },
+      ],
+    },
   },
   loaders: [mswLoader],
 };

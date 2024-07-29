@@ -1,99 +1,78 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { http, HttpResponse, delay } from 'msw';
-import { BASE_URL } from '@/app/_lib/constants';
-import { Dummy_Questions_In_Workbook, Dummy_Workbook } from '@/app/_lib/dummy';
+import type {Meta, StoryObj} from '@storybook/react';
+import {http, HttpResponse} from 'msw';
+import {BASE_URL} from '@/app/_lib/constants';
+import {Dummy_Questions, Dummy_Workbook} from '@/app/_lib/dummy';
+import Container from '@/components/container';
 
 import Page from '../page';
+import Header from "@/app/(top)/_components/header";
 
 const meta = {
-  title: 'WorkbookDetail',
-  component: Page,
-  decorators: [
-    (Story) => (
-      <div className="w-[430px] h-[932px] bg-white relative">
-        <Story />
-      </div>
-    ),
-  ],
-  parameters: {
-    layout: 'centered',
-    nextjs: {
-      appDirectory: true,
-      navigation: {
-        segments: [['workbookId', '1']],
-      },
+    title: 'WorkbookDetail',
+    component: Page,
+    decorators: [
+        (Story) => (
+            <Container className="w-[430px] h-[932px] bg-app-bg relative flex flex-col">
+                <Header/>
+                <Story/>
+            </Container>
+        ),
+    ],
+    parameters: {
+        layout: 'centered',
+        nextjs: {
+            appDirectory: true,
+            navigation: {
+                segments: ['workbookDetail', ['workbookId', '1']],
+            },
+        },
     },
-  },
 } satisfies Meta<typeof Page>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Success: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(`${BASE_URL}/workbook/1`, () => {
-          return HttpResponse.json(Dummy_Workbook);
-        }),
-        http.get(`${BASE_URL}/workbook/questions/1`, () => {
-          return HttpResponse.json(Dummy_Questions_In_Workbook);
-        }),
-        http.delete(`${BASE_URL}/workbook/1`, () => {
-          return HttpResponse.json({
-            result: 'SUCCESS',
-            status: 200,
-          });
-        }),
-        http.patch(`${BASE_URL}/workbook/question-sequence/1`, () => {
-          return HttpResponse.json({
-            result: 'SUCCESS',
-            status: 200,
-          });
-        }),
-      ],
+export const FullQuestions: Story = {
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${BASE_URL}/workbook/1`, () => {
+                    return HttpResponse.json(Dummy_Workbook);
+                }),
+                http.get(`${BASE_URL}/workbook/questions/1`, () => {
+                    return HttpResponse.json(Dummy_Questions);
+                }),
+            ],
+        },
     },
-  },
 };
 
-export const FailReadingWorkbookAndQuestionAndDeletingWorkbook: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(`${BASE_URL}/workbook/1`, async () => {
-          await delay(1000);
-          return new HttpResponse(null, {
-            status: 403,
-          });
-        }),
-        http.get(`${BASE_URL}/workbook/questions/1`, async () => {
-          await delay(1000);
-          return new HttpResponse(null, {
-            status: 403,
-          });
-        }),
-      ],
+export const SomeQuestions: Story = {
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${BASE_URL}/workbook/1`, () => {
+                    return HttpResponse.json(Dummy_Workbook);
+                }),
+                http.get(`${BASE_URL}/workbook/questions/1`, () => {
+                    return HttpResponse.json(Dummy_Questions.slice(1, 5));
+                }),
+            ],
+        },
     },
-  },
 };
 
-export const FailSwappingQuestion: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get(`${BASE_URL}/workbook/1`, () => {
-          return HttpResponse.json(Dummy_Workbook);
-        }),
-        http.get(`${BASE_URL}/workbook/questions/1`, () => {
-          return HttpResponse.json(Dummy_Questions_In_Workbook);
-        }),
-        http.delete(`${BASE_URL}/workbook/1`, () => {
-          return HttpResponse.json({
-            result: 'SUCCESS',
-            status: 200,
-          });
-        }),
-      ],
+export const NoQuestions: Story = {
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${BASE_URL}/workbook/1`, () => {
+                    return HttpResponse.json(Dummy_Workbook);
+                }),
+                http.get(`${BASE_URL}/workbook/questions/1`, () => {
+                    return HttpResponse.json([]);
+                }),
+            ],
+        },
     },
-  },
 };
