@@ -1,21 +1,23 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import Header from '@/app/(top)/_components/header';
+import {useParams} from 'next/navigation';
 import WorkbookInformation from '@/app/(top)/workbookDetail/[workbookId]/_components/workbook-information';
-import WorkbookEditButtons from '@/app/(top)/workbookDetail/[workbookId]/_components/workbook-edit-buttons';
 import WorkbookQuestionArea from '@/app/(top)/workbookDetail/[workbookId]/_components/workbook-question-area';
+import Container from "@/components/container";
 
 const Page = () => {
-  const params = useParams<{ workbookId: string }>();
+    const params = useParams<{ workbookId: string }>();
 
-  return (
-    <div>
-      <WorkbookInformation />
-      <WorkbookEditButtons />
-      <WorkbookQuestionArea />
-    </div>
-  );
+    return (
+        <Container className='flex flex-col overflow-scroll'>
+            <section>
+                <WorkbookInformation/>
+            </section>
+            <section className='flex-grow'>
+                <WorkbookQuestionArea/>
+            </section>
+        </Container>
+    );
 };
 
 export default Page;

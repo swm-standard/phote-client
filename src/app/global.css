@@ -9,8 +9,24 @@
     color: inherit;
     text-decoration: none;
     list-style-type: none;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* 파이어폭스 */
+*.custom-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 button {
     cursor: pointer;
+}
+
+svg {
+    fill: currentColor;
 }
