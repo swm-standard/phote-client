@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgressBar from '@/app/(top)/createQuestion/_components/progress/progress-bar';
-import Step from '@/app/(top)/createQuestion/_components/progress/types';
+import { Step } from '@/app/(top)/createQuestion/_components/progress/types';
 
 type StepText = {
   main: string;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 type Props = {
   image: File | null;
@@ -21,12 +21,12 @@ export const UploadPicture = (props: Props) => {
   return (
     <div>
       <button
-        className="w-32 h-32 bg-brand-blue-heavy"
+        className="h-32 w-32 bg-brand-blue-heavy"
         onClick={handleDisplayedButtonClick}
       >
         파일 업로드
       </button>
-      <div className="bg-red-500 w-40 h-40">
+      <div className="h-40 w-40 bg-red-500">
         {imageUrl && <img src={imageUrl} />}
       </div>
       <form>

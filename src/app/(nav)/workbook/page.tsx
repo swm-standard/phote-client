@@ -6,15 +6,15 @@ import Banner from '@/app/(nav)/workbook/_components/banner';
 
 const Page = () => {
   return (
-      <Container className="px-4 flex flex-col overflow-scroll">
-          <section>
-              <Banner/>
-          </section>
-          <section className="flex-grow">
-              <WorkbookArea/>
-          </section>
-      </Container>
-);
+    <Container className="flex flex-col overflow-scroll px-4">
+      <section>
+        <Banner />
+      </section>
+      <section className="flex-grow">
+        <WorkbookArea />
+      </section>
+    </Container>
+  );
 };
 
 export default Page;

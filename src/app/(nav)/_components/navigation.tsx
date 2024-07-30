@@ -53,7 +53,7 @@ const Navigation = () => {
           </li>
         ) : (
           <Link href={item.path} key={idx}>
-            <li className="text-text-003 flex flex-col items-center justify-center gap-1 px-9 py-3">
+            <li className="flex flex-col items-center justify-center gap-1 px-9 py-3 text-text-003">
               <item.icon className="h-6 w-6" />
               <p className="text-xs">{item.buttonText}</p>
             </li>

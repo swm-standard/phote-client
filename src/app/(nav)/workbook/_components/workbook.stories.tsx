@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Workbooks } from '@/app/_lib/dummy';
 import Page from '../page';
@@ -11,7 +11,7 @@ const meta = {
   component: Page,
   decorators: [
     (Story) => (
-      <Container className="w-[430px] h-[932px] bg-app-bg relative flex flex-col">
+      <Container className="relative flex h-[932px] w-[430px] flex-col bg-app-bg">
         <Story />
         <Navigation />
       </Container>

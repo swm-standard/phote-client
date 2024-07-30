@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Questions } from '@/app/_lib/dummy';
 
@@ -10,7 +10,7 @@ const meta = {
   component: Page,
   decorators: [
     (Story) => (
-      <div className="w-[430px] h-[932px] bg-white relative">
+      <div className="relative h-[932px] w-[430px] bg-white">
         <Story />
       </div>
     ),

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const NumberCircle = ({number}: { number: number }) => {
-    return (
-        <div className='w-5 h-5 pt-[1px] border-[1px] flex items-center justify-center border-text-004 rounded-full'>
-            <span className='text-text-002 text-[10px] font-bold'>{number}</span>
-        </div>
-    );
+const NumberCircle = ({ number }: { number: number }) => {
+  return (
+    <div className="flex h-5 w-5 items-center justify-center rounded-full border-[1px] border-text-004 pt-[1px]">
+      <span className="text-[10px] font-bold text-text-002">{number}</span>
+    </div>
+  );
 };
 
 export default NumberCircle;

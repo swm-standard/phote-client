@@ -60,7 +60,7 @@ const AlertDialog = ({
 
   return (
     <AlertDialogContainer open={isOpen}>
-      <AlertDialogContent className="bg-white w-4/5 rounded-md">
+      <AlertDialogContent className="w-4/5 rounded-md bg-white">
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
