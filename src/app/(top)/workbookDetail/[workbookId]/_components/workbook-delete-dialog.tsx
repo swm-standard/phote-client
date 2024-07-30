@@ -50,7 +50,7 @@ function WorkbookDeleteDialog() {
 
   return (
     <AlertDialog open>
-      <AlertDialogContent className="bg-white w-4/5 rounded-md">
+      <AlertDialogContent className="w-4/5 rounded-md bg-white">
         <AlertDialogHeader>
           <AlertDialogTitle>정말 문제집을 삭제하시겠습니까?</AlertDialogTitle>
           <AlertDialogDescription>

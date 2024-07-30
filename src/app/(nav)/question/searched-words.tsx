@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useSearchParams } from '@storybook/nextjs/navigation.mock';
 
 const SearchedWord = ({
   word,

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { StepProps } from '@/app/(top)/createQuestion/_components/progress/types';
 import {
-  UploadPicture,
-  CheckConvert,
   AddExtraInfo,
+  CheckConvert,
+  UploadPicture,
 } from '@/app/(top)/createQuestion/_components/content';
 import ProgressChangeFooter from '@/app/(top)/createQuestion/_components/progress/progress-change-footer';
 import Container from '@/components/container';
 import { QuestionBase } from '@/app/_lib/types';
 
 import { useRouter } from 'next/navigation';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useImmer } from 'use-immer';
 
 const CreateQuestionContent = (props: StepProps) => {
@@ -84,7 +84,7 @@ const CreateQuestionContent = (props: StepProps) => {
 
   return (
     <Container className="flex flex-col">
-      <section className="flex-grow ">
+      <section className="flex-grow">
         {currentStep === 1 ? (
           <UploadPicture
             image={image}

@@ -1,5 +1,5 @@
 import './global.css';
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React from 'react';
 import AppContainer from '@/app/_components/app-container';
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pretendard.variable} bg-outer-bg`}>
-      <body className={`${pretendard.className} w-dvw h-dvh`}>
+      <body className={`${pretendard.className} h-dvh w-dvw`}>
         <AppContainer>{children}</AppContainer>
       </body>
     </html>
