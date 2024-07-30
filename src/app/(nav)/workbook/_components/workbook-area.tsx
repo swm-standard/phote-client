@@ -36,7 +36,7 @@ const WorkbookArea = () => {
                     <span className="text-brand-blue-heavy">{workbooks.length}</span>
                 </p>
 
-                <section className="flex flex-grow flex-col justify-between">
+                <section className="flex flex-grow flex-col">
                     {workbooks.length !== 0 ? (
                         <WorkbookCards workbooks={workbooks}/>
                     ) : (
@@ -48,14 +48,14 @@ const WorkbookArea = () => {
                             </div>
                         </div>
                     )}
-                    <div className="sticky bottom-4 my-4 w-full">
-                        <BarButton
-                            Icon={workbookIcon}
-                            text="문제집 생성"
-                            href={`${pathname}/intercepted/createWorkbook`}
-                        />
-                    </div>
                 </section>
+                <div className="sticky bottom-4 my-4 w-full">
+                    <BarButton
+                        Icon={workbookIcon}
+                        text="문제집 생성"
+                        href={`${pathname}/intercepted/createWorkbook`}
+                    />
+                </div>
             </Container>
         );
 };

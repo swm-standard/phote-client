@@ -30,15 +30,17 @@ const WorkbookQuestionArea = () => {
     else if (status === 'error') return <div>Question Data fetch Error</div>;
 
     return (
-        <Container className='bg-white flex flex-col justify-between'>
-            <Reorder.Group
-                axis="y"
-                onReorder={setQuestions}
-                values={questions}
-                layoutScroll
-            >
-                <QuestionCards questions={questions} allowSwap/>
-            </Reorder.Group>
+        <Container className='bg-white flex flex-col'>
+            <section className='flex-grow'>
+                <Reorder.Group
+                    axis="y"
+                    onReorder={setQuestions}
+                    values={questions}
+                    layoutScroll
+                >
+                    <QuestionCards questions={questions} allowSwap/>
+                </Reorder.Group>
+            </section>
             <div className="sticky bottom-4 my-4 px-4 w-full">
                 <BarButton
                     Icon={PlusIcon}
