@@ -1,42 +1,53 @@
 import { Step } from '@/app/(top)/createQuestion/_components/progress/types';
+import CircleIcon from '@/static/icons/circle-icon';
+import CheckCircleIcon from '@/static/icons/check-circle-icon';
+
+const bulletVariants = {
+  color: {
+    incomplete: 'text-text-003',
+    reached: 'text-brand-blue-heavy',
+    complete: 'text-brand-blue-heavy',
+  },
+  iconSize: {
+    incomplete: 'h-2 w-2',
+    reached: 'h-2 w-2',
+    complete: 'h-3 w-3',
+  },
+  textSize: {
+    incomplete: 'text-xs',
+    reached: 'text-xs',
+    complete: 'text-sm',
+  },
+};
+
+type BulletProps = {
+  stepText: string;
+  completed?: boolean;
+  current?: boolean;
+};
 
 const ProgressBullet = ({
   stepText,
   completed = false,
-}: {
-  stepText: string;
-  completed?: boolean;
-}) => {
-  if (completed)
-    return (
-      <div className="h-[100px] bg-gray-100">
-        <div className={`h-0 w-[80px] border-2 border-blue-500`}>
-          <div className="relative flex -translate-y-1/2 translate-x-1/2 flex-col items-center">
-            <div className={`rounded-full border-8 border-blue-500`} />
-            <div
-              className={`absolute translate-y-1/2 text-center text-blue-500`}
-            >
-              {stepText}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  else
-    return (
-      <div className="h-[100px] bg-gray-100">
-        <div className={`h-0 w-[80px] border-2 border-gray-300`}>
-          <div className="relative flex -translate-y-1/2 translate-x-1/2 flex-col items-center">
-            <div className={`rounded-full border-8 border-gray-300`} />
-            <div
-              className={`absolute translate-y-1/2 text-center text-gray-300`}
-            >
-              {stepText}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  current = false,
+}: BulletProps) => {
+  const status = completed ? 'complete' : current ? 'reached' : 'incomplete';
+
+  return (
+    <div
+      className={
+        bulletVariants.color[status] + ' flex flex-col items-center gap-2'
+      }
+    >
+      {current}
+      {completed ? (
+        <CheckCircleIcon className={bulletVariants.iconSize[status]} />
+      ) : (
+        <CircleIcon className={bulletVariants.iconSize[status]} />
+      )}
+      <p className={bulletVariants.textSize[status]}>{stepText}</p>
+    </div>
+  );
 };
 
 const ProgressTexts: string[] = [
@@ -47,10 +58,14 @@ const ProgressTexts: string[] = [
 
 const ProgressBar = ({ currentStep }: { currentStep: Step }) => {
   return (
-    <div className="flex h-fit flex-row">
+    <div className="flex h-fit flex-row items-center gap-3">
       {ProgressTexts.map((text, idx) =>
         idx + 1 <= currentStep ? (
-          <ProgressBullet key={idx} stepText={text} completed />
+          idx + 1 === currentStep ? (
+            <ProgressBullet key={idx} stepText={text} current />
+          ) : (
+            <ProgressBullet key={idx} stepText={text} completed />
+          )
         ) : (
           <ProgressBullet key={idx} stepText={text} />
         ),
