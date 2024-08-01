@@ -1,14 +1,32 @@
 import React from 'react';
-import { FieldArrayWithId, UseFormRegister } from 'react-hook-form';
+import {
+  FieldArrayWithId,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 import { Option, QuestionBase } from '@/app/_lib/types';
+import Legend from '@/components/legend';
+import Textarea from '@/components/textarea';
+import Image from 'next/image';
+import dummyImage from '@/static/images/dummy-image-square.jpg';
+import SquareButton from '@/components/square-button';
+import NumberCircle from '@/components/number-circle';
+import LinedInput from '@/components/lined-input';
+import XCircleIcon from '@/static/icons/x-circle-icon';
+import CirclePlusIcon from '@/static/icons/circle-plus-icon';
 
 export const CheckConvert = ({
   register,
+  setValue,
+  watch,
   optionFields,
   appendOption,
   removeOption,
 }: {
   register: UseFormRegister<QuestionBase>;
+  setValue: UseFormSetValue<QuestionBase>;
+  watch: UseFormWatch<QuestionBase>;
   optionFields: FieldArrayWithId[];
   appendOption: (obj: Option) => void;
   removeOption: (idx: number) => void;
@@ -16,53 +34,106 @@ export const CheckConvert = ({
   const handleOptionAppendClick: React.MouseEventHandler<HTMLButtonElement> = (
     e,
   ) => {
-    appendOption({ value: '새로운 선택지' });
+    appendOption({ value: '' });
   };
 
   const handleOptionRemoveClick = (idx: number) => {
     removeOption(idx);
   };
 
+  const values = watch();
+  const state: { statement: 'filled' | 'empty' | 'focused' } = {
+    statement: values.statement ? 'filled' : 'empty',
+  };
+
+  const length = {
+    statement: values.statement?.length || 0,
+  };
+
+  const multipleButtonClickAction = () => {
+    console.log(values);
+    setValue('category', 'MULTIPLE');
+  };
+
+  const essayButtonClickAction = () => {
+    setValue('category', 'ESSAY');
+  };
+
   return (
-    <form>
+    <div className="flex flex-col gap-6">
       <fieldset>
-        <legend>문제설명</legend>
-        <textarea {...register('statement')}></textarea>
+        <Legend required className="mb-2">
+          문제설명
+        </Legend>
+        <Textarea
+          className="h-20 w-full"
+          register={register('statement')}
+          placeholder="문제 설명을 입력해주세요."
+          state={state.statement}
+          textLength={length.statement}
+          maxLength={100}
+        />
       </fieldset>
       <fieldset>
-        <legend>문제그림</legend>
-        <input type="file" />
+        <Legend className="mb-2">문제 그림</Legend>
+        <div className="h-96 w-96 overflow-hidden rounded-lg">
+          <Image src={dummyImage} alt="문제" />
+        </div>
       </fieldset>
       <fieldset>
-        <legend>문제 유형</legend>
-        <label>
-          <input {...register('category')} type="radio" value="MULTIPLE" />
-          객관식
-        </label>
-        <label>
-          <input {...register('category')} type="radio" value="ESSAY" />
-          단답형
-        </label>
+        <Legend className="mb-2" required>
+          문제 유형
+        </Legend>
+        <div className="flex gap-2">
+          <SquareButton
+            buttonText="객관식"
+            variant={values.category === 'MULTIPLE' ? 'lightblue' : 'lightgray'}
+            className="py-2"
+            action={multipleButtonClickAction}
+          />
+          <SquareButton
+            buttonText="단답형"
+            variant={values.category === 'ESSAY' ? 'lightblue' : 'lightgray'}
+            className="py-2"
+            action={essayButtonClickAction}
+          />
+        </div>
       </fieldset>
       <fieldset>
-        <legend>선택지</legend>
+        <Legend required className="mb-2">
+          선택지
+        </Legend>
         <ul className="flex flex-col gap-4">
           {optionFields.map((field, idx) => (
-            <li key={field.id} className="flex border-2">
-              <input {...register(`options.${idx}.value`)} />
+            <li key={field.id} className="flex items-center gap-4">
+              <NumberCircle number={idx + 1} className="mb-[1px]" />
+              <section className="flex-grow">
+                <LinedInput
+                  register={register(`options.${idx}.value`)}
+                  placeholder="선택지를 입력해주세요."
+                  textLength={values.options[`${idx}`].value.length}
+                  maxLength={25}
+                />
+              </section>
               <button
                 type="button"
                 onClick={() => handleOptionRemoveClick(idx)}
               >
-                삭제
+                <XCircleIcon className="h-3.5 w-3.5 text-text-004" />
               </button>
             </li>
           ))}
+          <li>
+            <button
+              onClick={handleOptionAppendClick}
+              className="flex items-center gap-2 text-brand-blue-heavy"
+            >
+              <CirclePlusIcon className="h-3.5 w-3.5" />
+              <p className="text-sm font-medium">선지 추가</p>
+            </button>
+          </li>
         </ul>
-        <button type="button" onClick={handleOptionAppendClick}>
-          추가
-        </button>
       </fieldset>
-    </form>
+    </div>
   );
 };

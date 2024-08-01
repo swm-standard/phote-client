@@ -1,6 +1,7 @@
 import React from 'react';
-import ProgressBar from '@/app/(top)/createQuestion/_components/progress/progress-bar';
 import { Step } from '@/app/(top)/createQuestion/_components/progress/types';
+import Container from '@/components/container';
+import ProgressBar from '@/app/(top)/createQuestion/_components/progress/progress-bar';
 
 type StepText = {
   main: string;
@@ -25,12 +26,18 @@ const StepTexts: StepText[] = [
 const Progress = ({ currentStep }: { currentStep: Step }) => {
   const { main, sub } = StepTexts[currentStep - 1];
   return (
-    <div>
-      <h1>Step #{currentStep}</h1>
-      <h1>{main}</h1>
-      <h2>{sub}</h2>
+    <Container className="mt-6 flex flex-col items-center gap-8">
       <ProgressBar currentStep={currentStep} />
-    </div>
+      <section className="flex flex-col items-center gap-2">
+        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-white pt-[1px]">
+          <span className="text-base font-bold text-brand-blue-heavy text-text-002">
+            {currentStep}
+          </span>
+        </div>
+        <p className="text-lg font-medium text-text-001">{main}</p>
+        <p className="text-sm font-normal text-text-003">{sub}</p>
+      </section>
+    </Container>
   );
 };
 
