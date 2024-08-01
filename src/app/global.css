@@ -30,3 +30,11 @@ button {
 svg {
     fill: currentColor;
 }
+
+textarea {
+    outline: none;
+}
+
+input {
+    outline: none;
+}
