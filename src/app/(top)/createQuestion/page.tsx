@@ -24,8 +24,10 @@ const Page = () => {
   };
 
   return (
-    <Container className="flex flex-col">
-      <Progress currentStep={currentStep} />
+    <Container className="flex flex-col gap-6 bg-white px-6">
+      <section>
+        <Progress currentStep={currentStep} />
+      </section>
       <section className="flex flex-grow flex-col">
         <CreateQuestionContent
           currentStep={currentStep}
