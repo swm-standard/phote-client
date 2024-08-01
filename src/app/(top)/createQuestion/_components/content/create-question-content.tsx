@@ -19,7 +19,17 @@ const CreateQuestionContent = (props: StepProps) => {
   const [image, setInputImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const { register, handleSubmit, control } = useForm<QuestionBase>();
+  const { register, setValue, watch, handleSubmit, control } =
+    useForm<QuestionBase>({
+      defaultValues: {
+        statement: '',
+        category: 'MULTIPLE',
+        options: [],
+        tags: [],
+        answer: '',
+        memo: '',
+      },
+    });
   const {
     fields: optionFields,
     append: appendOption,
@@ -82,9 +92,30 @@ const CreateQuestionContent = (props: StepProps) => {
     }
   };
 
+  const judgeLeftDisable = () => {
+    switch (currentStep) {
+      case 1:
+        return false;
+      case 2:
+        return false;
+      case 3:
+        return false;
+    }
+  };
+
+  const judgeRightDisable = () => {
+    switch (currentStep) {
+      case 1:
+        return !image ? true : false;
+      case 2:
+        return false;
+      case 3:
+        return false;
+    }
+  };
   return (
     <Container className="flex flex-col">
-      <section className="flex-grow">
+      <section className="my-12 flex-grow">
         {currentStep === 1 ? (
           <UploadPicture
             image={image}
@@ -94,22 +125,21 @@ const CreateQuestionContent = (props: StepProps) => {
         ) : currentStep === 2 ? (
           <CheckConvert
             register={register}
+            setValue={setValue}
+            watch={watch}
             optionFields={optionFields}
             appendOption={appendOption}
             removeOption={removeOption}
           />
         ) : (
-          <AddExtraInfo
-            register={register}
-            tags={tags}
-            addTag={addTag}
-            removeTag={removeTag}
-          />
+          <AddExtraInfo register={register} watch={watch} setValue={setValue} />
         )}
       </section>
 
       <ProgressChangeFooter
         currentStep={currentStep}
+        leftDisabled={judgeLeftDisable()}
+        rightDisabled={judgeRightDisable()}
         handleLeftButtonClick={handleLeftButtonClick}
         handleRightButtonClick={handleRightButtonClick}
       />
