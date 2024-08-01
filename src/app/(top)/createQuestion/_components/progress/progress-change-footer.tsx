@@ -1,5 +1,6 @@
 import React from 'react';
 import { Step } from '@/app/(top)/createQuestion/_components/progress/types';
+import SquareButton from '@/components/square-button';
 
 const ButtonText = {
   1: {
@@ -20,19 +21,31 @@ const ProgressChangeFooter = ({
   handleLeftButtonClick,
   handleRightButtonClick,
   currentStep,
+  leftDisabled = false,
+  rightDisabled = false,
 }: {
   handleLeftButtonClick: () => void;
   handleRightButtonClick: () => void;
   currentStep: Step;
+  leftDisabled?: boolean;
+  rightDisabled?: boolean;
 }) => {
   return (
-    <div className="w-full">
-      <button onClick={handleLeftButtonClick}>
-        {ButtonText[currentStep].left}
-      </button>
-      <button onClick={handleRightButtonClick}>
-        {ButtonText[currentStep].right}
-      </button>
+    <div className="flex gap-4 py-4">
+      <SquareButton
+        buttonText={ButtonText[currentStep].left}
+        variant="lightgray"
+        disabled={leftDisabled}
+        action={handleLeftButtonClick}
+        className="py-2"
+      />
+      <SquareButton
+        buttonText={ButtonText[currentStep].right}
+        variant="blue"
+        disabled={rightDisabled}
+        action={handleRightButtonClick}
+        className="py-3"
+      />
     </div>
   );
 };
