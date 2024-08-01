@@ -1,6 +1,9 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Container from '@/components/container';
+import UploadIcon from '@/static/icons/upload-icon';
+import Image from 'next/image';
 
 type Props = {
   image: File | null;
@@ -19,25 +22,23 @@ export const UploadPicture = (props: Props) => {
   };
 
   return (
-    <div>
-      <button
-        className="h-32 w-32 bg-brand-blue-heavy"
-        onClick={handleDisplayedButtonClick}
-      >
-        파일 업로드
+    <Container className="flex flex-col items-center">
+      <button onClick={handleDisplayedButtonClick}>
+        <div
+          className={`relative flex h-96 w-96 flex-col items-center justify-center gap-4 overflow-hidden rounded-xl ${imageUrl ? 'border-2' : 'border-2 border-dashed'} border-[#c2e7ec] bg-brand-gray-light text-text-003`}
+        >
+          <UploadIcon className="h-8 w-8" />
+          <p className="text-sm font-medium">사진 업로드</p>
+          {imageUrl && <Image src={imageUrl} fill alt="사진 미리보기" />}
+        </div>
       </button>
-      <div className="h-40 w-40 bg-red-500">
-        {imageUrl && <img src={imageUrl} />}
-      </div>
-      <form>
-        <input
-          ref={hiddenInputRef}
-          className="hidden"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-      </form>
-    </div>
+      <input
+        ref={hiddenInputRef}
+        className="hidden"
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+      />
+    </Container>
   );
 };
