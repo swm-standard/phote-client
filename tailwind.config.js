@@ -25,8 +25,9 @@ module.exports = {
         },
         'brand-gray' : {
           'light' : "#f9f9f9",
-          'heavy' : '#ededed',
-        }
+          'heavy' : '#ededed'
+        },
+        'brand-white' : '#eef8f9'
       },
       backgroundImage: {
         'banner-bg' : 'linear-gradient(95.84deg, #BAF2EC 0%, #BCE7FF 97.09%)',
