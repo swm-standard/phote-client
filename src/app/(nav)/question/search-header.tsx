@@ -1,20 +1,23 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import CtrlTextInput from '@/components/custom/ctrl-text-input';
+import React, { useEffect } from 'react';
 import { useImmer } from 'use-immer';
+import Container from '@/components/container';
+import SearchInput from '@/app/(nav)/question/search-input';
+import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
 import SearchedWords from '@/app/(nav)/question/searched-words';
-import { useSearchParams } from '@storybook/nextjs/navigation.mock';
 
-const SearchHeader = ({
-  searchedQuestionNumber,
-}: {
-  searchedQuestionNumber: number;
-}) => {
+const SearchHeader = () => {
   const [tags, updateTags] = useImmer<string[]>([]);
   const [keywords, updateKeywords] = useImmer<string[]>([]);
-  const [searchValue, setSearchValue] = useState<string>('');
   const searchParams = useSearchParams();
+
+  const { register, getValues, reset } = useForm<{ searchValue: string }>({
+    defaultValues: {
+      searchValue: '',
+    },
+  });
 
   useEffect(() => {
     const readTags = searchParams.get('tags');
@@ -23,12 +26,6 @@ const SearchHeader = ({
     readTags && updateTags(() => [...readTags.split(',')]);
     readKeywords && updateKeywords(() => [...readKeywords.split(',')]);
   }, []);
-
-  const handleSearchChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e,
-  ) => {
-    setSearchValue(e.target.value);
-  };
 
   const deleteWord = (targetWord: string, isTag = false) => {
     isTag
@@ -40,8 +37,8 @@ const SearchHeader = ({
     e,
   ) => {
     if (e.key !== 'Enter') return;
-    // 입력 예외처리 필요
 
+    const searchValue = getValues('searchValue');
     searchValue[0] === '#'
       ? updateTags((draft) => {
           draft.push(searchValue.slice(1));
@@ -49,20 +46,24 @@ const SearchHeader = ({
       : updateKeywords((draft) => {
           draft.push(searchValue);
         });
-    setSearchValue('');
+    reset();
   };
 
   return (
-    <div>
-      <h1>검생된 문제 {searchedQuestionNumber}</h1>
-      <p>#을 통해 태그 검색도 가능해요!</p>
-      <CtrlTextInput
-        value={searchValue}
-        onChange={handleSearchChange}
+    <Container className="flex flex-col gap-4">
+      <SearchInput
+        register={register('searchValue')}
+        placeholder="문제 내용과 태그를 검색해주세요."
         onKeyDown={handleEnterPress}
       />
-      <SearchedWords tags={tags} keywords={keywords} deleteWord={deleteWord} />
-    </div>
+      {tags.length + keywords.length > 0 && (
+        <SearchedWords
+          tags={tags}
+          keywords={keywords}
+          deleteWord={deleteWord}
+        />
+      )}
+    </Container>
   );
 };
 
