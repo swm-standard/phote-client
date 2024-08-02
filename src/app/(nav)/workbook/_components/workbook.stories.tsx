@@ -11,7 +11,7 @@ const meta = {
   component: Page,
   decorators: [
     (Story) => (
-      <Container className="relative flex h-[932px] w-[430px] flex-col bg-app-bg">
+      <Container className="flex h-[932px] w-[430px] flex-col bg-app-bg">
         <Story />
         <Navigation />
       </Container>
