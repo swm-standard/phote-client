@@ -9,6 +9,7 @@ import { QuestionBase } from '@/app/_lib/types';
 import Legend from '@/components/legend';
 import Input from '@/components/input';
 import Textarea from '@/components/textarea';
+import Tag from '@/components/tag';
 
 export const AddExtraInfo = ({
   register,
@@ -88,16 +89,5 @@ export const AddExtraInfo = ({
         />
       </fieldset>
     </div>
-  );
-};
-
-const Tag = ({ tag, removeTag }: { tag: string; removeTag: () => void }) => {
-  return (
-    <button onClick={() => removeTag()}>
-      <div className="flex items-center gap-1 rounded-full bg-brand-white px-2 py-1">
-        <p className="text-sm font-normal text-brand-blue-heavy"># {tag}</p>
-        <p className="text-text-004">x</p>
-      </div>
-    </button>
   );
 };

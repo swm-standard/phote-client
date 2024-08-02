@@ -4,15 +4,18 @@ import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Questions } from '@/app/_lib/dummy';
 
 import Page from './page';
+import Navigation from '@/app/(nav)/_components/navigation';
+import Container from '@/components/container';
 
 const meta = {
   title: 'Question',
   component: Page,
   decorators: [
     (Story) => (
-      <div className="relative h-[932px] w-[430px] bg-white">
+      <Container className="flex h-[932px] w-[430px] flex-col bg-app-bg">
         <Story />
-      </div>
+        <Navigation />
+      </Container>
     ),
   ],
   parameters: {
@@ -32,7 +35,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Success: Story = {
+export const FullQuestions: Story = {
   args: {
     searchParams: {
       tags: 't1,t2',
@@ -51,23 +54,40 @@ export const Success: Story = {
   },
 };
 
-// export const FailReadingWorkbookAndQuestionAndDeletingWorkbook: Story = {
-//   parameters: {
-//     msw: {
-//       handlers: [
-//         http.get(`${BASE_URL}/workbook/1`, async () => {
-//           await delay(1000);
-//           return new HttpResponse(null, {
-//             status: 403,
-//           });
-//         }),
-//         http.get(`${BASE_URL}/workbook/questions/1`, async () => {
-//           await delay(1000);
-//           return new HttpResponse(null, {
-//             status: 403,
-//           });
-//         }),
-//       ],
-//     },
-//   },
-// };
+export const SomeQuestions: Story = {
+  args: {
+    searchParams: {
+      tags: 't1,t2',
+      keywords: 'k1,k2',
+    },
+  },
+
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(`${BASE_URL}/questions`, () => {
+          return HttpResponse.json(Dummy_Questions.slice(0, 4));
+        }),
+      ],
+    },
+  },
+};
+
+export const EmptyQuestions: Story = {
+  args: {
+    searchParams: {
+      tags: 't1,t2',
+      keywords: 'k1,k2',
+    },
+  },
+
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(`${BASE_URL}/questions`, () => {
+          return HttpResponse.json([]);
+        }),
+      ],
+    },
+  },
+};

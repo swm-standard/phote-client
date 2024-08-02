@@ -11,6 +11,7 @@ import InfoIcon from '@/static/icons/info-icon';
 import Image from 'next/image';
 import dummy from '@/static/images/dummy-image-square.jpg';
 import NumberCircle from '@/components/number-circle';
+import Container from '@/components/container';
 
 const ReorderWrapper = ({
   question,
@@ -198,7 +199,7 @@ const QuestionCards = ({
   }, [debouncedQuestions]);
 
   return (
-    <div className="flex flex-col">
+    <Container className="flex flex-col">
       {questions.map((ques, idx) => {
         if (allowSwap)
           return (
@@ -217,7 +218,7 @@ const QuestionCards = ({
             />
           );
       })}
-    </div>
+    </Container>
   );
 };
 
