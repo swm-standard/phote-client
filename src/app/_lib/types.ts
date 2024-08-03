@@ -33,3 +33,5 @@ export type QuestionInWorkbook = {
 export type Status = 'loading' | 'error' | 'success';
 
 export type Category = 'MULTIPLE' | 'ESSAY';
+
+export type QuestionCardType = 'default' | 'swap' | 'check';

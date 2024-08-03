@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Question, Status } from '@/app/_lib/types';
-import { DragControls, Reorder, useDragControls } from 'framer-motion';
-import { BASE_URL } from '@/app/_lib/constants';
-import { useParams } from 'next/navigation';
-import { useDebounce } from 'use-debounce';
+import React, { useState } from 'react';
+import { Question, QuestionCardType } from '@/app/_lib/types';
+import { DragControls } from 'framer-motion';
 import AngleRightIcon from '@/static/icons/angle-right-icon';
 import TwoBarIcon from '@/static/icons/two-bar-icon';
 import AngleDownIcon from '@/static/icons/angle-down-icon';
@@ -11,39 +8,24 @@ import InfoIcon from '@/static/icons/info-icon';
 import Image from 'next/image';
 import dummy from '@/static/images/dummy-image-square.jpg';
 import NumberCircle from '@/components/number-circle';
-import Container from '@/components/container';
-
-const ReorderWrapper = ({
-  question,
-  questionNumber,
-}: {
-  question: Question;
-  questionNumber: number;
-}) => {
-  const controls = useDragControls();
-
-  return (
-    <Reorder.Item value={question} dragListener={false} dragControls={controls}>
-      <QuestionCard
-        question={question}
-        questionNumber={questionNumber}
-        controls={controls}
-        allowSwap
-      />
-    </Reorder.Item>
-  );
-};
+import CheckCircleIcon from '@/static/icons/check-circle-icon';
 
 const QuestionCard = ({
   question,
   questionNumber,
-  allowSwap = false,
+  questionCardType = 'default',
   controls,
+  isChecked = false,
+  checkQuestion,
+  uncheckQuestion,
 }: {
   question: Question;
   questionNumber: number;
-  allowSwap?: boolean;
+  questionCardType?: QuestionCardType;
   controls?: DragControls;
+  isChecked?: boolean;
+  checkQuestion?: (id: string) => void;
+  uncheckQuestion?: (id: string) => void;
 }) => {
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const category = question.category === 'ESSAY' ? '단답형' : '객관식';
@@ -61,6 +43,11 @@ const QuestionCard = ({
   };
 
   const handleClickBlock: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (!isExpanded && questionCardType === 'check') {
+      isChecked
+        ? uncheckQuestion && uncheckQuestion(question.id)
+        : checkQuestion && checkQuestion(question.id);
+    }
     e.stopPropagation();
   };
 
@@ -100,19 +87,23 @@ const QuestionCard = ({
               </p>
             )}
           </div>
-          {allowSwap && !isExpanded && (
-            <button
-              onClick={handleClickBlock}
-              onPointerDown={handleDragPointerDown}
-            >
-              <TwoBarIcon className="h-4 w-4 text-text-003" />
-            </button>
-          )}
+          {!isExpanded &&
+            (questionCardType === 'swap' ? (
+              <button
+                onClick={handleClickBlock}
+                onPointerDown={handleDragPointerDown}
+              >
+                <TwoBarIcon className="h-4 w-4 text-text-003" />
+              </button>
+            ) : questionCardType === 'check' ? (
+              <button onClick={handleClickBlock}>
+                <CheckCircleIcon
+                  className={`h-4 w-4 ${isChecked ? 'text-brand-blue-light' : 'text-text-004'}`}
+                />
+              </button>
+            ) : null)}
           {isExpanded && (
-            <button
-              onClick={handleClickBlock}
-              onPointerDown={handleDragPointerDown}
-            >
+            <button onClick={handleClickBlock}>
               <InfoIcon className="h-4 w-4 text-text-003" />
             </button>
           )}
@@ -148,78 +139,4 @@ const QuestionCard = ({
   );
 };
 
-const QuestionCards = ({
-  questions,
-  allowSwap = false,
-}: {
-  questions: Question[];
-  allowSwap?: boolean;
-}) => {
-  const [status, setStatus] = useState<Status>('loading');
-  const [countApiCalls, setCountApiCalls] = useState<number>(0);
-  const params = useParams<{ workbookId: string }>();
-  const [debouncedQuestions] = useDebounce(questions, 2000);
-
-  const updateQuestionSequence = async () => {
-    if (!allowSwap) return;
-    if (countApiCalls === 0) {
-      setCountApiCalls((prev) => prev + 1);
-      return;
-    }
-
-    const requestData = questions.map((ques, idx) => {
-      return { id: ques.id, sequence: idx + 1 };
-    });
-
-    try {
-      const response = await fetch(
-        `${BASE_URL}/workbook/question-sequence/${params.workbookId}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestData),
-        },
-      );
-
-      const data = await response.json();
-      setStatus('success');
-    } catch (err) {
-      setStatus('error');
-    } finally {
-      setCountApiCalls((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    (async () => {
-      await updateQuestionSequence();
-    })();
-  }, [debouncedQuestions]);
-
-  return (
-    <Container className="flex flex-col">
-      {questions.map((ques, idx) => {
-        if (allowSwap)
-          return (
-            <ReorderWrapper
-              key={ques.id}
-              question={ques}
-              questionNumber={idx + 1}
-            />
-          );
-        else
-          return (
-            <QuestionCard
-              key={ques.id}
-              question={ques}
-              questionNumber={idx + 1}
-            />
-          );
-      })}
-    </Container>
-  );
-};
-
-export default QuestionCards;
+export default QuestionCard;

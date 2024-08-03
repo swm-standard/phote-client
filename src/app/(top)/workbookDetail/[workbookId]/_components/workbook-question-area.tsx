@@ -3,10 +3,10 @@ import { QuestionInWorkbook, Status } from '@/app/_lib/types';
 import { useParams } from 'next/navigation';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Reorder } from 'framer-motion';
-import QuestionCards from '@/components/question-card';
 import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
+import QuestionCards from '@/components/question-cards';
 
 const WorkbookQuestionArea = () => {
   const [status, setStatus] = useState<Status>('loading');
@@ -37,7 +37,7 @@ const WorkbookQuestionArea = () => {
           values={questions}
           layoutScroll
         >
-          <QuestionCards questions={questions} allowSwap />
+          <QuestionCards questions={questions} questionCardType="swap" />
         </Reorder.Group>
       </section>
       <div className="sticky bottom-4 my-4 w-full px-4">
