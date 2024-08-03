@@ -3,14 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '@/app/_lib/constants';
 import { useSearchParams } from 'next/navigation';
 import Container from '@/components/container';
-import BarButton from '@/components/bar-button';
-import QuestionIcon from '@/static/icons/question-icon';
 import QuestionCards from '@/components/question-cards';
+import { useImmer } from 'use-immer';
+import SquareButton from '@/components/square-button';
 
 const SearchedQuestions = () => {
   const [status, setStatus] = useState<Status>('loading');
   const [searchedQuestions, setSearchedQuestions] = useState<Question[]>([]);
   const searchParams = useSearchParams();
+
+  const [checkedQuestions, updateCheckedQuestions] = useImmer<string[]>([]);
+  const checkQuestion = (id: string) => {
+    updateCheckedQuestions((draft) => {
+      draft.push(id);
+    });
+  };
+
+  const uncheckQuestion = (targetId: string) => {
+    updateCheckedQuestions((draft) => draft.filter((id) => id !== targetId));
+  };
 
   const callSearchQuestionsAPI = async () => {
     const params = new URLSearchParams();
@@ -44,13 +55,20 @@ const SearchedQuestions = () => {
   return (
     <Container className="flex flex-col">
       <section className="flex-grow">
-        <QuestionCards questions={searchedQuestions} />
+        <QuestionCards
+          questions={searchedQuestions}
+          questionCardType="check"
+          checkedQuestions={checkedQuestions}
+          checkQuestion={checkQuestion}
+          uncheckQuestion={uncheckQuestion}
+        />
       </section>
-      <div className="sticky bottom-0 w-full px-4 py-4">
-        <BarButton
-          Icon={QuestionIcon}
-          text="문제 생성"
-          href={'/createQuestion'}
+      <div className="sticky bottom-0 flex gap-4 bg-white px-4 py-3">
+        <SquareButton buttonText="신규 문제" className="px-6" />
+        <SquareButton
+          className="flex-grow"
+          buttonText={`${checkedQuestions.length}개의 문제 등록`}
+          variant="blue"
         />
       </div>
     </Container>

@@ -37,14 +37,14 @@ const ProgressChangeFooter = ({
         variant="lightgray"
         disabled={leftDisabled}
         action={handleLeftButtonClick}
-        className="py-2"
+        className="flex-grow py-3"
       />
       <SquareButton
         buttonText={ButtonText[currentStep].right}
         variant="blue"
         disabled={rightDisabled}
         action={handleRightButtonClick}
-        className="py-3"
+        className="flex-grow py-3"
       />
     </div>
   );

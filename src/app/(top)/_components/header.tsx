@@ -10,6 +10,9 @@ const HeaderItems: Record<string, { text: string }> = {
   workbookDetail: {
     text: '문제집 상세',
   },
+  'register-question': {
+    text: '문제 등록',
+  },
   none: {
     text: '잘못된 주소',
   },
@@ -17,8 +20,7 @@ const HeaderItems: Record<string, { text: string }> = {
 
 const Header = () => {
   const router = useRouter();
-  const segment = useSelectedLayoutSegment();
-  const headerItem = HeaderItems[segment || 'none'];
+  const segment = useSelectedLayoutSegment() ?? 'none';
 
   const handleBackClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     router.back();
@@ -29,7 +31,9 @@ const Header = () => {
       <button onClick={handleBackClick}>
         <AngleLeftIcon className="h-6 w-6" />
       </button>
-      <p className="text-lg font-bold text-text-001">{headerItem.text}</p>
+      <p className="text-lg font-bold text-text-001">
+        {(HeaderItems[segment] || HeaderItems['none']).text}
+      </p>
     </div>
   );
 };
