@@ -1,79 +1,85 @@
 'use client';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerTitle,
-} from '@/components/ui/drawer';
+import { Drawer, DrawerContent } from '@/components/ui/drawer';
 
-import { Label } from '@/components/ui/label';
-import UnctrlTextInput from '@/components/custom/unctrl-text-input';
-import React, { useEffect, useRef, useState } from 'react';
-import { BASE_URL } from '@/app/_lib/constants';
-import { useRouter } from 'next/navigation';
+import React from 'react';
+import Legend from '@/components/legend';
+import Input from '@/components/input';
+import SquareButton from '@/components/square-button';
+import { useForm } from 'react-hook-form';
+import { IWorkbookBase } from '@/model/i-workbook';
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
+import { useMutation } from '@tanstack/react-query';
+import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
 
-const WorkbookCreateDrawer = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [response, setResponse] = useState<string>('');
-  const router = useRouter();
-  const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
+const WorkbookCreateDrawer = ({
+  isOpen,
+  toggleOpen,
+}: {
+  isOpen: boolean;
+  toggleOpen: () => void;
+}) => {
+  const { register, watch, getValues } = useForm<IWorkbookBase>({
+    defaultValues: {
+      title: '',
+      description: '',
+    },
+  });
+  const values = watch();
 
-  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (
-    e,
-  ) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch(`${BASE_URL}/workbook`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: titleRef.current?.value,
-          description: descriptionRef.current?.value,
-        }),
-      });
-
-      await res.json();
-      setResponse('성공');
-      router.back();
-    } catch (e) {
-      setResponse('실패!');
-      console.error('createWorkbook failed');
-    }
-  };
+  const mutation = useMutation({
+    mutationFn: createWorkbook,
+  });
 
   const handleCloseClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setIsOpen(false);
+    toggleOpen();
   };
 
-  useEffect(() => {
-    if (isOpen) return;
-    (async () =>
-      await new Promise(() =>
-        setTimeout(() => {
-          router.back();
-        }, 400),
-      ))();
-  }, [isOpen]);
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    await mutation.mutateAsync(getValues());
+    toggleOpen();
+  };
 
   return (
     <Drawer open={isOpen}>
-      <DrawerContent className="bg-white">
-        <DrawerTitle>문제집 생성</DrawerTitle>
-        <DrawerDescription />
-        <DrawerClose onClick={handleCloseClick}>취소</DrawerClose>
-        {response}
-        <form onSubmit={handleFormSubmit}>
-          <Label htmlFor="title">문제집 제목</Label>
-          <UnctrlTextInput id="title" allowClear ref={titleRef} />
-          <Label htmlFor="description">문제집 설명</Label>
-          <UnctrlTextInput id="description" allowClear ref={descriptionRef} />
-          <button>확인</button>
+      <DialogTitle className="hidden" />
+      <DialogDescription className="hidden" />
+      <DrawerContent className="bg-white p-4 pt-0">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <fieldset>
+            <Legend className="mb-2" required>
+              문제집 제목
+            </Legend>
+            <Input
+              register={register('title')}
+              maxLength={15}
+              textLength={values.title.length}
+            />
+          </fieldset>
+          <fieldset>
+            <Legend required className="mb-2">
+              문제집 설명
+            </Legend>
+            <Input
+              register={register('description')}
+              maxLength={30}
+              textLength={values.description.length}
+            />
+          </fieldset>
+          <div className="flex gap-4">
+            <SquareButton
+              type="button"
+              className="flex-grow py-2"
+              theme="lightgray"
+              onClick={handleCloseClick}
+            >
+              취소
+            </SquareButton>
+            <SquareButton type="submit" className="flex-grow py-2" theme="blue">
+              확인
+            </SquareButton>
+          </div>
         </form>
       </DrawerContent>
     </Drawer>
