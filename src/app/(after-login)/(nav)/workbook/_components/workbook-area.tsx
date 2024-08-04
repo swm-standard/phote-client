@@ -9,8 +9,13 @@ import workbookIcon from '@/static/icons/workbook-icon';
 import WorkbookCards from '@/app/(after-login)/(nav)/workbook/_components/workbook-cards';
 import { useQuery } from '@tanstack/react-query';
 import { readWorkbooks } from '@/app/(after-login)/(nav)/workbook/workbook-api';
+import { useState } from 'react';
+import WorkbookCreateDrawer from '@/app/(after-login)/(nav)/workbook/_components/workbook-create-drawer';
 
 const WorkbookArea = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleOpen = () => setIsOpen((prev) => !prev);
+
   const { data, isError, isPending } = useQuery({
     queryKey: ['workbooks'],
     queryFn: readWorkbooks,
@@ -43,12 +48,11 @@ const WorkbookArea = () => {
         )}
       </section>
       <div className="sticky bottom-4 my-4 w-full">
-        <BarButton
-          Icon={workbookIcon}
-          text="문제집 생성"
-          href={`${pathname}/intercepted/createWorkbook`}
-        />
+        <BarButton icon={workbookIcon} onClick={toggleOpen}>
+          문제집 생성
+        </BarButton>
       </div>
+      <WorkbookCreateDrawer isOpen={isOpen} toggleOpen={toggleOpen} />
     </Container>
   );
 };
