@@ -1,20 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
-import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Workbooks } from '@/app/_lib/dummy';
+
 import Page from '../page';
-import Container from '@/components/container';
 import Navigation from '@/app/(after-login)/(nav)/_components/navigation';
+import StorybookContainer from '@/components/storybook-container';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const meta = {
   title: 'Workbook',
   component: Page,
   decorators: [
     (Story) => (
-      <Container className="flex h-[932px] w-[430px] flex-col bg-app-bg">
+      <StorybookContainer>
         <Story />
         <Navigation />
-      </Container>
+      </StorybookContainer>
     ),
   ],
   parameters: {
