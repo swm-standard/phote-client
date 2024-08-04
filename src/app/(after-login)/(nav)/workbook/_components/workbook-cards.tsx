@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
-import { IWorkBook } from '@/model/i-workbook';
+import { IWorkbook } from '@/model/i-workbook';
 import dayjs from 'dayjs';
 
-const WorkbookCard = ({ workbook }: { workbook: IWorkBook }) => {
+const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
   const formattedDate = dayjs(workbook.modifiedAt).format('YY.MM.DD');
 
   return (
@@ -51,7 +51,7 @@ const PropertyChunk = ({
   );
 };
 
-const WorkbookCards = ({ workbooks }: { workbooks: IWorkBook[] }) => {
+const WorkbookCards = ({ workbooks }: { workbooks: IWorkbook[] }) => {
   return (
     <div className="flex flex-row flex-wrap justify-center gap-3">
       {workbooks.map((workbook) => (
