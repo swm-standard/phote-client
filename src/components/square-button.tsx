@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 const buttonVariants = cva('rounded-lg py-1 font-medium', {
   variants: {
-    variant: {
+    theme: {
       light: 'bg-white text-text-001 border-[1px] border-text-001',
       dark: 'bg-text-001 text-white',
       disabled: 'bg-brand-gray-heavy text-text-003',
@@ -14,37 +14,33 @@ const buttonVariants = cva('rounded-lg py-1 font-medium', {
     },
   },
   defaultVariants: {
-    variant: 'light',
+    theme: 'light',
   },
 });
 
-type SquareButtonProps = {
+type SquareButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  'className'
+> & {
   className?: string;
-  buttonText: string;
-  action?: () => void;
-  disabled?: boolean;
+  children?: React.ReactNode;
 } & VariantProps<typeof buttonVariants>;
 
 const SquareButton = ({
-  buttonText,
   className,
-  action = () => {},
-  variant,
-  disabled = false,
+  children,
+  theme,
+  ...props
 }: SquareButtonProps) => {
-  const handleClick = () => {
-    disabled || action();
-  };
-
-  if (disabled) variant = 'disabled';
-
   return (
     <button
-      className={cn(buttonVariants({ variant }), className)}
-      type="button"
-      onClick={handleClick}
+      className={cn(
+        buttonVariants(props.disabled ? { theme: 'disabled' } : { theme }),
+        className,
+      )}
+      {...props}
     >
-      {buttonText}
+      {children}
     </button>
   );
 };

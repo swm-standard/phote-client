@@ -3,10 +3,10 @@
 import React, { useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import Container from '@/components/container';
-import SearchInput from '@/app/(nav)/question/search-input';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
-import SearchedWords from '@/app/(nav)/question/searched-words';
+import SearchInput from '@/app/(after-login)/(nav)/question/search-input';
+import SearchedWords from '@/app/(after-login)/(nav)/question/searched-words';
 
 const SearchHeader = () => {
   const [tags, updateTags] = useImmer<string[]>([]);
