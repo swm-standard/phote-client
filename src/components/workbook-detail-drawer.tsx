@@ -10,25 +10,39 @@ import { useForm } from 'react-hook-form';
 import { IWorkbookBase } from '@/model/i-workbook';
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import { useMutation } from '@tanstack/react-query';
+import { updateWorkbookDetail } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
+import { useParams } from 'next/navigation';
 import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
 
-const WorkbookCreateDrawer = ({
+const WorkbookDetailDrawer = ({
   isOpen,
   toggleOpen,
+  workbookBase = {
+    title: '',
+    description: '',
+  },
+  drawerType,
 }: {
   isOpen: boolean;
   toggleOpen: () => void;
+  workbookBase?: IWorkbookBase;
+  drawerType: 'create' | 'modify';
 }) => {
+  const { workbookId } =
+    drawerType === 'modify'
+      ? useParams<{ workbookId: string }>()
+      : { workbookId: '' };
   const { register, watch, getValues } = useForm<IWorkbookBase>({
-    defaultValues: {
-      title: '',
-      description: '',
-    },
+    defaultValues: workbookBase,
   });
   const values = watch();
 
-  const mutation = useMutation({
+  const createMutation = useMutation({
     mutationFn: createWorkbook,
+  });
+
+  const modifyMutation = useMutation({
+    mutationFn: updateWorkbookDetail,
   });
 
   const handleCloseClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -37,7 +51,17 @@ const WorkbookCreateDrawer = ({
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    await mutation.mutateAsync(getValues());
+    {
+      drawerType === 'create' &&
+        (await createMutation.mutateAsync(getValues()));
+    }
+    {
+      drawerType === 'modify' &&
+        (await modifyMutation.mutateAsync({
+          workbookBase: getValues(),
+          workbookId,
+        }));
+    }
     toggleOpen();
   };
 
@@ -86,4 +110,4 @@ const WorkbookCreateDrawer = ({
   );
 };
 
-export default WorkbookCreateDrawer;
+export default WorkbookDetailDrawer;

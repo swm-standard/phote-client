@@ -10,7 +10,7 @@ import WorkbookCards from '@/app/(after-login)/(nav)/workbook/_components/workbo
 import { useQuery } from '@tanstack/react-query';
 import { readWorkbooks } from '@/app/(after-login)/(nav)/workbook/workbook-api';
 import { useState } from 'react';
-import WorkbookCreateDrawer from '@/app/(after-login)/(nav)/workbook/_components/workbook-create-drawer';
+import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
 
 const WorkbookArea = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -52,7 +52,11 @@ const WorkbookArea = () => {
           문제집 생성
         </BarButton>
       </div>
-      <WorkbookCreateDrawer isOpen={isOpen} toggleOpen={toggleOpen} />
+      <WorkbookDetailDrawer
+        drawerType="create"
+        isOpen={isOpen}
+        toggleOpen={toggleOpen}
+      />
     </Container>
   );
 };
