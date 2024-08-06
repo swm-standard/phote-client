@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Question, QuestionCardType } from '@/app/_lib/types';
 import { DragControls } from 'framer-motion';
 import AngleRightIcon from '@/static/icons/angle-right-icon';
 import TwoBarIcon from '@/static/icons/two-bar-icon';
@@ -9,6 +8,9 @@ import Image from 'next/image';
 import dummy from '@/static/images/dummy-image-square.jpg';
 import NumberCircle from '@/components/number-circle';
 import CheckCircleIcon from '@/static/icons/check-circle-icon';
+import { IQuestion } from '@/model/i-question';
+
+export type QuestionCardType = 'default' | 'swap' | 'check';
 
 const QuestionCard = ({
   question,
@@ -19,7 +21,7 @@ const QuestionCard = ({
   checkQuestion,
   uncheckQuestion,
 }: {
-  question: Question;
+  question: IQuestion;
   questionNumber: number;
   questionCardType?: QuestionCardType;
   controls?: DragControls;
@@ -30,7 +32,7 @@ const QuestionCard = ({
   const [isExpanded, setExpanded] = useState<boolean>(false);
   const category = question.category === 'ESSAY' ? '단답형' : '객관식';
 
-  const handleExpandToggleClick: React.MouseEventHandler<HTMLButtonElement> = (
+  const handleExpandToggleClick: React.MouseEventHandler<HTMLDivElement> = (
     e,
   ) => {
     setExpanded((prev) => !prev);
@@ -45,14 +47,14 @@ const QuestionCard = ({
   const handleClickBlock: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     if (!isExpanded && questionCardType === 'check') {
       isChecked
-        ? uncheckQuestion && uncheckQuestion(question.id)
-        : checkQuestion && checkQuestion(question.id);
+        ? uncheckQuestion && uncheckQuestion(question.questionId)
+        : checkQuestion && checkQuestion(question.questionId);
     }
     e.stopPropagation();
   };
 
   return (
-    <button type="button" className="w-full" onClick={handleExpandToggleClick}>
+    <div role="button" className="w-full" onClick={handleExpandToggleClick}>
       <div className="border-b-[1px] border-brand-gray-heavy">
         <div
           className={`flex w-full items-center justify-between gap-2 bg-white p-4 ${isExpanded && 'pb-0'}`}
@@ -71,7 +73,7 @@ const QuestionCard = ({
                 <span
                   key={idx}
                   className="text-brand-blue-heavy"
-                >{`#${tag}`}</span>
+                >{`#${tag.name}`}</span>
               ))}
             </div>
             {isExpanded ? (
@@ -127,7 +129,7 @@ const QuestionCard = ({
                 {question.options.map((option, idx) => (
                   <li key={idx} className="flex items-center gap-2 text-left">
                     <NumberCircle number={idx + 1} />
-                    {option.value}
+                    {option}
                   </li>
                 ))}
               </ul>
@@ -135,7 +137,7 @@ const QuestionCard = ({
           </div>
         )}
       </div>
-    </button>
+    </div>
   );
 };
 
