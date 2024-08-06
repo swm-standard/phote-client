@@ -1,39 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Status, Workbook } from '@/app/_lib/types';
-import { useParams, usePathname } from 'next/navigation';
-import { BASE_URL } from '@/app/_lib/constants';
-import WorkbookCard from '@/components/workbook-card';
-import WorkbookEditButtons
-    from "@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-edit-buttons";
+import { useParams } from 'next/navigation';
+import WorkbookEditButtons from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-edit-buttons';
+import { useQuery } from '@tanstack/react-query';
+import { readWorkbookById } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
+import WorkbookCard from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-card';
 
 const WorkbookInformation = () => {
-  const [workbook, setWorkbook] = useState<Workbook | null>(null);
-  const [status, setStatus] = useState<Status>('loading');
+  const { workbookId } = useParams<{ workbookId: string }>();
+  const { data, isError, isPending } = useQuery({
+    queryKey: ['workbookInformation'],
+    queryFn: () => readWorkbookById(workbookId),
+  });
 
-  const params = useParams<{ workbookId: string }>();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    fetch(`${BASE_URL}/workbook/${params.workbookId}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setWorkbook(res);
-        setStatus('success');
-      })
-      .catch((err) => {
-        setStatus('error');
-      });
-  }, []);
-
-  if (status === 'loading') return <div>loading..</div>;
-  else if (!workbook) return <div>workbook-information load fail</div>;
+  if (isPending) return <div>loading..</div>;
+  else if (isError) return <div>workbook-information load fail</div>;
   else
     return (
       <div className="flex flex-col gap-4 px-10 py-6">
-        <WorkbookCard workbook={workbook} />
-        <WorkbookEditButtons />
+        <WorkbookCard workbook={data} />
+        <WorkbookEditButtons
+          workbookBase={{ title: data.title, description: data.description }}
+        />
       </div>
     );
 };
