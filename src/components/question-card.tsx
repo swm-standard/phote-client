@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { DragControls } from 'framer-motion';
 import AngleRightIcon from '@/static/icons/angle-right-icon';
