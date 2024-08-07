@@ -1,4 +1,6 @@
-import { Question, Status } from '@/app/_lib/types';
+'use client';
+
+import { Status } from '@/app/_lib/types';
 import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '@/app/_lib/constants';
 import { useSearchParams } from 'next/navigation';
@@ -6,10 +8,11 @@ import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import QuestionIcon from '@/static/icons/question-icon';
 import QuestionCards from '@/components/question-cards';
+import { IQuestion } from '@/model/i-question';
 
 const SearchedQuestions = () => {
   const [status, setStatus] = useState<Status>('loading');
-  const [searchedQuestions, setSearchedQuestions] = useState<Question[]>([]);
+  const [searchedQuestions, setSearchedQuestions] = useState<IQuestion[]>([]);
   const searchParams = useSearchParams();
 
   const callSearchQuestionsAPI = async () => {
@@ -48,10 +51,12 @@ const SearchedQuestions = () => {
       </section>
       <div className="sticky bottom-0 w-full px-4 py-4">
         <BarButton
-          Icon={QuestionIcon}
-          text="문제 생성"
+          icon={QuestionIcon}
+          barButtonType="link"
           href={'/createQuestion'}
-        />
+        >
+          문제 생성
+        </BarButton>
       </div>
     </Container>
   );
