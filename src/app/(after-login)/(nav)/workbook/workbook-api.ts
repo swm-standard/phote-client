@@ -1,6 +1,9 @@
 import { IWorkbookBase } from '@/model/i-workbook';
 
-const session = localStorage.getItem('accessToken');
+let session: any;
+if (typeof window !== 'undefined') {
+  session = localStorage.getItem('accessToken');
+}
 
 export async function readWorkbooks() {
   try {

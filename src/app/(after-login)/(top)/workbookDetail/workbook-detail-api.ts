@@ -1,7 +1,10 @@
 import { IWorkbookBase } from '@/model/i-workbook';
 import { IQuestion } from '@/model/i-question';
 
-const session = localStorage.getItem('accessToken');
+let session: any;
+if (typeof window !== 'undefined') {
+  session = localStorage.getItem('accessToken');
+}
 
 export async function readWorkbookById(workbookId: string) {
   try {
