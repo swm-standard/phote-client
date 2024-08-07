@@ -28,10 +28,7 @@ const WorkbookDetailDrawer = ({
   workbookBase?: IWorkbookBase;
   drawerType: 'create' | 'modify';
 }) => {
-  const { workbookId } =
-    drawerType === 'modify'
-      ? useParams<{ workbookId: string }>()
-      : { workbookId: '' };
+  const { workbookId } = useParams<{ workbookId: string }>();
   const { register, watch, getValues } = useForm<IWorkbookBase>({
     defaultValues: workbookBase,
   });

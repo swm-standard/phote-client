@@ -1,8 +1,8 @@
 'use client';
 
 import Container from '@/components/container';
-import Banner from "@/app/(after-login)/(nav)/workbook/_components/banner";
-import WorkbookArea from "@/app/(after-login)/(nav)/workbook/_components/workbook-area";
+import Banner from '@/app/(after-login)/(nav)/workbook/_components/banner';
+import WorkbookArea from '@/app/(after-login)/(nav)/workbook/_components/workbook-area';
 
 const Page = () => {
   return (

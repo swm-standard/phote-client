@@ -50,12 +50,15 @@ export const CheckConvert = ({
     statement: values.statement?.length || 0,
   };
 
-  const multipleButtonClickAction = () => {
-    console.log(values);
+  const handleMultipleButtonClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     setValue('category', 'MULTIPLE');
   };
 
-  const essayButtonClickAction = () => {
+  const handleEssayButtonClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     setValue('category', 'ESSAY');
   };
 
@@ -86,17 +89,19 @@ export const CheckConvert = ({
         </Legend>
         <div className="flex gap-2">
           <SquareButton
-            buttonText="객관식"
-            variant={values.category === 'MULTIPLE' ? 'lightblue' : 'lightgray'}
+            theme={values.category === 'MULTIPLE' ? 'lightblue' : 'lightgray'}
             className="py-2"
-            action={multipleButtonClickAction}
-          />
+            onClick={handleMultipleButtonClick}
+          >
+            객관식
+          </SquareButton>
           <SquareButton
-            buttonText="단답형"
-            variant={values.category === 'ESSAY' ? 'lightblue' : 'lightgray'}
+            theme={values.category === 'ESSAY' ? 'lightblue' : 'lightgray'}
             className="py-2"
-            action={essayButtonClickAction}
-          />
+            onClick={handleEssayButtonClick}
+          >
+            단답형
+          </SquareButton>
         </div>
       </fieldset>
       <fieldset>

@@ -62,7 +62,9 @@ const CreateQuestionContent = (props: StepProps) => {
     setToNextStep();
   };
 
-  const handleLeftButtonClick = () => {
+  const handleLeftButtonClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     switch (currentStep) {
       case 1:
         setToNextStep();
@@ -76,7 +78,9 @@ const CreateQuestionContent = (props: StepProps) => {
     }
   };
 
-  const handleRightButtonClick = () => {
+  const handleRightButtonClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     switch (currentStep) {
       case 1:
         transformQuestion();

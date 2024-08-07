@@ -1,4 +1,6 @@
-import { Question, Status } from '@/app/_lib/types';
+'use client';
+
+import { Status } from '@/app/_lib/types';
 import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '@/app/_lib/constants';
 import { useSearchParams } from 'next/navigation';
@@ -6,10 +8,11 @@ import Container from '@/components/container';
 import QuestionCards from '@/components/question-cards';
 import { useImmer } from 'use-immer';
 import SquareButton from '@/components/square-button';
+import { IQuestion } from '@/model/i-question';
 
 const SearchedQuestions = () => {
   const [status, setStatus] = useState<Status>('loading');
-  const [searchedQuestions, setSearchedQuestions] = useState<Question[]>([]);
+  const [searchedQuestions, setSearchedQuestions] = useState<IQuestion[]>([]);
   const searchParams = useSearchParams();
 
   const [checkedQuestions, updateCheckedQuestions] = useImmer<string[]>([]);
@@ -64,12 +67,11 @@ const SearchedQuestions = () => {
         />
       </section>
       <div className="sticky bottom-0 flex gap-4 bg-white px-4 py-3">
-        <SquareButton buttonText="신규 문제" className="px-6" />
+        <SquareButton className="px-6">신규 문제</SquareButton>
         <SquareButton
           className="flex-grow"
-          buttonText={`${checkedQuestions.length}개의 문제 등록`}
-          variant="blue"
-        />
+          theme="blue"
+        >{`${checkedQuestions.length}개의 문제 등록`}</SquareButton>
       </div>
     </Container>
   );

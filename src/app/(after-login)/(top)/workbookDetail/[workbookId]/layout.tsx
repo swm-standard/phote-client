@@ -1,18 +1,7 @@
 import React, { ReactNode } from 'react';
 
-const Layout = ({
-  children,
-  dialog,
-}: {
-  children: ReactNode;
-  dialog: ReactNode;
-}) => {
-  return (
-    <>
-      {children}
-      {dialog}
-    </>
-  );
+const Layout = ({ children }: { children: ReactNode }) => {
+  return <>{children}</>;
 };
 
 export default Layout;

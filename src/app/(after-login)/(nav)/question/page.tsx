@@ -1,7 +1,7 @@
 'use client';
 
-import SearchHeader from '../../../../components/search-header';
 import React from 'react';
+import SearchHeader from '../../../../components/search-header';
 import Container from '../../../../components/container';
 import SearchedQuestions from './searched-questions';
 

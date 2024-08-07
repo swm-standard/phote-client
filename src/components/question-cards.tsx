@@ -1,3 +1,5 @@
+'use client';
+
 import { Reorder, useDragControls } from 'framer-motion';
 import React, { Fragment, useEffect } from 'react';
 import { useParams } from 'next/navigation';

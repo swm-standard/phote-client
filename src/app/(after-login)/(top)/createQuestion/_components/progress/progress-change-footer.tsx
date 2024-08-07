@@ -24,8 +24,8 @@ const ProgressChangeFooter = ({
   leftDisabled = false,
   rightDisabled = false,
 }: {
-  handleLeftButtonClick: () => void;
-  handleRightButtonClick: () => void;
+  handleLeftButtonClick: React.MouseEventHandler<HTMLButtonElement>;
+  handleRightButtonClick: React.MouseEventHandler<HTMLButtonElement>;
   currentStep: Step;
   leftDisabled?: boolean;
   rightDisabled?: boolean;
@@ -33,19 +33,21 @@ const ProgressChangeFooter = ({
   return (
     <div className="flex gap-4 py-4">
       <SquareButton
-        buttonText={ButtonText[currentStep].left}
-        variant="lightgray"
+        theme="lightgray"
         disabled={leftDisabled}
-        action={handleLeftButtonClick}
+        onClick={handleLeftButtonClick}
         className="flex-grow py-3"
-      />
+      >
+        {ButtonText[currentStep].left}
+      </SquareButton>
       <SquareButton
-        buttonText={ButtonText[currentStep].right}
-        variant="blue"
+        theme="blue"
         disabled={rightDisabled}
-        action={handleRightButtonClick}
+        onClick={handleRightButtonClick}
         className="flex-grow py-3"
-      />
+      >
+        {ButtonText[currentStep].right}
+      </SquareButton>
     </div>
   );
 };
