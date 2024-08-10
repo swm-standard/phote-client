@@ -9,10 +9,11 @@ import SquareButton from '@/components/square-button';
 import { useForm } from 'react-hook-form';
 import { IWorkbookBase } from '@/model/i-workbook';
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateWorkbookDetail } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
 import { useParams } from 'next/navigation';
 import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
+// import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
 
 const WorkbookDetailDrawer = ({
   isOpen,
@@ -28,6 +29,7 @@ const WorkbookDetailDrawer = ({
   workbookBase?: IWorkbookBase;
   drawerType: 'create' | 'modify';
 }) => {
+  const queryClient = useQueryClient();
   const { workbookId } = useParams<{ workbookId: string }>();
   const { register, watch, getValues } = useForm<IWorkbookBase>({
     defaultValues: workbookBase,
@@ -51,6 +53,7 @@ const WorkbookDetailDrawer = ({
     {
       drawerType === 'create' &&
         (await createMutation.mutateAsync(getValues()));
+      await queryClient.invalidateQueries({ queryKey: ['workbooks'] });
     }
     {
       drawerType === 'modify' &&
