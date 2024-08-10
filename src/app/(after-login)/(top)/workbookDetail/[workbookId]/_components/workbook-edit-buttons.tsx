@@ -13,13 +13,13 @@ const WorkbookEditButtons = ({
 }: {
   workbookBase: IWorkbookBase;
 }) => {
-  const { isOpen: isDeleteOpen, toggleOpen: toggleDeleteOpen } = useDialog();
+  const { isOpen: isModifyOpen, toggleOpen: toggleModifyOpen } = useDialog();
   const { isOpen: isShareOpen, toggleOpen: toggleShareOpen } = useDialog();
 
   return (
     <div className="flex flex-row gap-3">
       <SquareButton
-        onClick={toggleDeleteOpen}
+        onClick={toggleModifyOpen}
         theme="light"
         className="flex-grow"
       >
@@ -32,12 +32,14 @@ const WorkbookEditButtons = ({
       >
         문제집 공유
       </SquareButton>
-      <WorkbookDetailDrawer
-        drawerType="modify"
-        workbookBase={workbookBase}
-        isOpen={isDeleteOpen}
-        toggleOpen={toggleDeleteOpen}
-      />
+      {isModifyOpen && (
+        <WorkbookDetailDrawer
+          drawerType="modify"
+          workbookBase={workbookBase}
+          isOpen={isModifyOpen}
+          toggleOpen={toggleModifyOpen}
+        />
+      )}
       <WorkbookDialog
         dialogType="confirm"
         isOpen={isShareOpen}

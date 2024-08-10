@@ -5,9 +5,9 @@ import { IWorkbook } from '@/model/i-workbook';
 import dayjs from 'dayjs';
 import useDialog from '@/hook/useDialog';
 import WorkbookDialog from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-dialog';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { deleteWorkbook } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
+import { deleteWorkbook } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
 
 const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
   const formattedDate = dayjs(workbook.modifiedAt).format('YY.MM.DD');
@@ -19,8 +19,11 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
 
   const { workbookId } = useParams<{ workbookId: string }>();
   const mutation = useMutation({ mutationFn: deleteWorkbook });
+  const router = useRouter();
+
   const confirmAction = async () => {
     await mutation.mutateAsync(workbookId);
+    router.replace('/workbook');
   };
 
   return (
