@@ -4,10 +4,10 @@ import { Reorder } from 'framer-motion';
 import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
-import QuestionCards from '@/components/question-cards';
 import { useQuery } from '@tanstack/react-query';
 import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
 import { IQuestion } from '@/model/i-question';
+import QuestionCardsDetail from '@/components/question-cards-detail';
 
 const WorkbookQuestionArea = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -34,7 +34,8 @@ const WorkbookQuestionArea = () => {
           values={questions}
           layoutScroll
         >
-          <QuestionCards questions={questions} questionCardType="swap" />
+          <QuestionCardsDetail questions={questions} />
+          {/*<QuestionCards questions={questions} questionCardType="swap" />*/}
         </Reorder.Group>
       </section>
 
