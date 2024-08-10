@@ -1,24 +1,15 @@
-import { IWorkbookBase } from '@/model/i-workbook';
+'use server';
 
-let session: any;
-if (typeof window !== 'undefined') {
-  session = localStorage.getItem('accessToken');
-}
+import { IWorkbookBase } from '@/model/i-workbook';
+import authFetch from '@/util/auth-fetch';
 
 export async function readWorkbooks() {
   try {
-    const response = await fetch(
+    const jsonRaw = await authFetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/workbooks`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session}`,
-        },
-      },
+      { method: 'GET' },
     );
-
-    return await response.json();
+    return jsonRaw.data;
   } catch (e) {
     console.error(`readWorkbooks failed by ${e}`);
   }
@@ -26,19 +17,14 @@ export async function readWorkbooks() {
 
 export async function createWorkbook(workbookBase: IWorkbookBase) {
   try {
-    const response = await fetch(
+    const jsonRaw = await authFetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/workbook`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session}`,
-        },
         body: JSON.stringify(workbookBase),
       },
     );
-
-    return await response.json();
+    return jsonRaw;
   } catch (e) {
     console.error(`readWorkbooks failed by ${e}`);
   }
