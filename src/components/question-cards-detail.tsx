@@ -36,7 +36,7 @@ const QuestionCardsDetail = ({ questions }: { questions: IQuestion[] }) => {
 
   return (
     <Container className="flex flex-col">
-      <h1>{interaction?.type ? interaction.type : 'base'}</h1>
+      {/*<h1>{interaction?.type ? interaction.type : 'base'}</h1>*/}
       {questions.map((ques, idx) => (
         <ExpandWrapper
           key={ques.questionId}
