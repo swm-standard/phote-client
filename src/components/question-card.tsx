@@ -1,16 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { DragControls } from 'framer-motion';
-import AngleRightIcon from '@/static/icons/angle-right-icon';
 import TwoBarIcon from '@/static/icons/two-bar-icon';
-import AngleDownIcon from '@/static/icons/angle-down-icon';
-import InfoIcon from '@/static/icons/info-icon';
-import Image from 'next/image';
-import dummy from '@/static/images/dummy-image-square.jpg';
-import NumberCircle from '@/components/number-circle';
 import CheckCircleIcon from '@/static/icons/check-circle-icon';
 import { IQuestion } from '@/model/i-question';
+import AngleRightIcon from '@/static/icons/angle-right-icon';
+import { Interaction } from '@/components/question-cards-detail';
 
 export type QuestionCardType = 'default' | 'swap' | 'check';
 
@@ -22,32 +18,39 @@ const QuestionCard = ({
   isChecked = false,
   checkQuestion,
   uncheckQuestion,
+  interaction,
+  setInteraction,
 }: {
   question: IQuestion;
   questionNumber: number;
   questionCardType?: QuestionCardType;
   controls?: DragControls;
   isChecked?: boolean;
+  interaction?: Interaction;
+  setInteraction?: (interaction: Interaction) => void;
   checkQuestion?: (id: string) => void;
   uncheckQuestion?: (id: string) => void;
 }) => {
-  const [isExpanded, setExpanded] = useState<boolean>(false);
   const category = question.category === 'ESSAY' ? '단답형' : '객관식';
-
-  const handleExpandToggleClick: React.MouseEventHandler<HTMLDivElement> = (
-    e,
-  ) => {
-    setExpanded((prev) => !prev);
-  };
 
   const handleDragPointerDown: React.PointerEventHandler<HTMLButtonElement> = (
     e,
   ) => {
+    if (interaction?.type === 'pushed') return;
+    setInteraction &&
+      setInteraction({ questionId: question.questionId, type: 'swapping' });
     controls?.start(e);
   };
 
+  const handleDragPointerUp: React.PointerEventHandler<
+    HTMLButtonElement
+  > = () => {
+    if (interaction?.type === 'pushed') return;
+    setInteraction && setInteraction(null);
+  };
+
   const handleClickBlock: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (!isExpanded && questionCardType === 'check') {
+    if (questionCardType === 'check') {
       isChecked
         ? uncheckQuestion && uncheckQuestion(question.questionId)
         : checkQuestion && checkQuestion(question.questionId);
@@ -56,17 +59,11 @@ const QuestionCard = ({
   };
 
   return (
-    <div role="button" className="w-full" onClick={handleExpandToggleClick}>
+    <div role="button" className="w-full bg-white">
       <div className="border-b-[1px] border-brand-gray-heavy">
-        <div
-          className={`flex w-full items-center justify-between gap-2 bg-white p-4 ${isExpanded && 'pb-0'}`}
-        >
+        <div className="flex w-full items-center justify-between gap-2 bg-white p-4">
           <div>
-            {isExpanded ? (
-              <AngleDownIcon className="h-4 w-4 text-text-001" />
-            ) : (
-              <AngleRightIcon className="h-4 w-4 text-text-001" />
-            )}
+            <AngleRightIcon className="h-4 w-4 text-text-001" />
           </div>
           <div className="flex-grow">
             <div className="flex gap-1 text-xs font-bold">
@@ -78,66 +75,29 @@ const QuestionCard = ({
                 >{`#${tag.name}`}</span>
               ))}
             </div>
-            {isExpanded ? (
-              <p className="text-left text-base font-normal text-text-001">
-                <span className="font-bold">{`Q${questionNumber} `}</span>
-              </p>
-            ) : (
-              <p
-                className={`line-clamp-1 text-left text-base font-normal text-text-001`}
-              >
-                <span className="font-bold">{`Q${questionNumber} `}</span>
-                {question.statement}
-              </p>
-            )}
+            <p
+              className={`line-clamp-1 text-left text-base font-normal text-text-001`}
+            >
+              <span className="font-bold">{`Q${questionNumber} `}</span>
+              {question.statement}
+            </p>
           </div>
-          {!isExpanded &&
-            (questionCardType === 'swap' ? (
-              <button
-                onClick={handleClickBlock}
-                onPointerDown={handleDragPointerDown}
-              >
-                <TwoBarIcon className="h-4 w-4 text-text-003" />
-              </button>
-            ) : questionCardType === 'check' ? (
-              <button onClick={handleClickBlock}>
-                <CheckCircleIcon
-                  className={`h-4 w-4 ${isChecked ? 'text-brand-blue-light' : 'text-text-004'}`}
-                />
-              </button>
-            ) : null)}
-          {isExpanded && (
-            <button onClick={handleClickBlock}>
-              <InfoIcon className="h-4 w-4 text-text-003" />
+          {questionCardType === 'swap' ? (
+            <button
+              onClick={handleClickBlock}
+              onPointerDown={handleDragPointerDown}
+              onPointerUp={handleDragPointerUp}
+            >
+              <TwoBarIcon className="h-4 w-4 text-text-003" />
             </button>
-          )}
+          ) : questionCardType === 'check' ? (
+            <button onClick={handleClickBlock}>
+              <CheckCircleIcon
+                className={`h-4 w-4 ${isChecked ? 'text-brand-blue-light' : 'text-text-004'}`}
+              />
+            </button>
+          ) : null}
         </div>
-        {isExpanded && (
-          <div className="flex flex-col gap-4 px-10 py-4">
-            <div className="flex flex-col">
-              <span className="text-left text-sm font-bold text-text-001">
-                [ 문제 설명 ]
-              </span>
-              <p className="text-left text-base font-normal text-text-001">
-                {question.statement}
-              </p>
-            </div>
-            <Image src={dummy} alt="test" />
-            <div className="flex flex-col gap-1">
-              <span className="text-left text-sm font-bold text-text-001">
-                [ 선택지 ]
-              </span>
-              <ul className="flex flex-col gap-1">
-                {question.options.map((option, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-left">
-                    <NumberCircle number={idx + 1} />
-                    {option}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
