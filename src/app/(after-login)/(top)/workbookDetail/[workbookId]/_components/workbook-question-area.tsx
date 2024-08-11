@@ -5,7 +5,7 @@ import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
 import { useQuery } from '@tanstack/react-query';
-import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
+import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
 import { IQuestion } from '@/model/i-question';
 import QuestionCardsDetail from '@/components/question-cards-detail';
 
@@ -35,7 +35,6 @@ const WorkbookQuestionArea = () => {
           layoutScroll
         >
           <QuestionCardsDetail questions={questions} />
-          {/*<QuestionCards questions={questions} questionCardType="swap" />*/}
         </Reorder.Group>
       </section>
 

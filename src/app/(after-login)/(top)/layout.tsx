@@ -4,7 +4,7 @@ import Header from './_components/header';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <Container className="flex flex-col">
+    <Container className="flex flex-col overflow-scroll">
       <section>
         <Header />
       </section>

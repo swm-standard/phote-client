@@ -9,7 +9,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
   const formattedDate = dayjs(workbook.modifiedAt).format('YY.MM.DD');
 
   return (
-    <Link href={`sub/workbookDetail/${workbook.id}`} className="w-[48%]">
+    <Link href={`workbookDetail/${workbook.id}`} className="w-[48%]">
       <div
         className="flex h-full w-full flex-col rounded-2xl border-[1px] border-[#ecflfa] bg-white p-3"
         style={{ boxShadow: '0px 11px 15px 0px #0000000A' }}

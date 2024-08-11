@@ -8,7 +8,6 @@ import NeedToCreateIcon from '@/static/icons/need-to-create-icon';
 import workbookIcon from '@/static/icons/workbook-icon';
 import WorkbookCards from '@/app/(after-login)/(nav)/workbook/_components/workbook-cards';
 import { useQuery } from '@tanstack/react-query';
-// import { readWorkbooks } from '@/app/(after-login)/(nav)/workbook/workbook-api';
 import { useState } from 'react';
 import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
 import { readWorkbooks } from '@/app/(after-login)/(nav)/workbook/workbook-api';
@@ -17,13 +16,9 @@ const WorkbookArea = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
-  const fetchWorkbooks = async () => {
-    return readWorkbooks();
-  };
-
   const { data, isError, isPending } = useQuery({
     queryKey: ['workbooks'],
-    queryFn: fetchWorkbooks,
+    queryFn: () => readWorkbooks(),
   });
   const pathname = usePathname();
 
@@ -57,11 +52,13 @@ const WorkbookArea = () => {
           문제집 생성
         </BarButton>
       </div>
-      <WorkbookDetailDrawer
-        drawerType="create"
-        isOpen={isOpen}
-        toggleOpen={toggleOpen}
-      />
+      {isOpen && (
+        <WorkbookDetailDrawer
+          drawerType="create"
+          isOpen={isOpen}
+          toggleOpen={toggleOpen}
+        />
+      )}
     </Container>
   );
 };

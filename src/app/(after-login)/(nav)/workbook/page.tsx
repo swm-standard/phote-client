@@ -6,7 +6,7 @@ import WorkbookArea from '@/app/(after-login)/(nav)/workbook/_components/workboo
 
 const Page = () => {
   return (
-    <Container className="flex flex-col overflow-scroll px-4">
+    <Container className="flex flex-col px-4">
       <section>
         <Banner />
       </section>

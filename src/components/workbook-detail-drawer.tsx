@@ -10,10 +10,9 @@ import { useForm } from 'react-hook-form';
 import { IWorkbookBase } from '@/model/i-workbook';
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateWorkbookDetail } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
 import { useParams } from 'next/navigation';
 import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
-// import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
+import { updateWorkbookDetail } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
 
 const WorkbookDetailDrawer = ({
   isOpen,
@@ -31,7 +30,7 @@ const WorkbookDetailDrawer = ({
 }) => {
   const queryClient = useQueryClient();
   const { workbookId } = useParams<{ workbookId: string }>();
-  const { register, watch, getValues } = useForm<IWorkbookBase>({
+  const { register, watch, getValues, reset } = useForm<IWorkbookBase>({
     defaultValues: workbookBase,
   });
   const values = watch();
@@ -46,6 +45,7 @@ const WorkbookDetailDrawer = ({
 
   const handleCloseClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     toggleOpen();
+    reset();
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
@@ -61,8 +61,12 @@ const WorkbookDetailDrawer = ({
           workbookBase: getValues(),
           workbookId,
         }));
+      await queryClient.invalidateQueries({
+        queryKey: ['workbookInformation'],
+      });
     }
     toggleOpen();
+    reset();
   };
 
   return (
