@@ -1,6 +1,11 @@
 import React from 'react';
 import SquareButton from '@/components/square-button';
-import { Step } from '@/app/(after-login)/(top)/createQuestion/_components/progress/types';
+import { StepProps } from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
+import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import { transformToQuestion } from '@/app/(after-login)/(top)/createQuestion/create-question-api';
+import { useFormContext } from 'react-hook-form';
+import { ICreateQuestion } from '@/model/i-question';
 
 const ButtonText = {
   1: {
@@ -18,35 +23,61 @@ const ButtonText = {
 };
 
 const ProgressChangeFooter = ({
-  handleLeftButtonClick,
-  handleRightButtonClick,
-  currentStep,
-  leftDisabled = false,
-  rightDisabled = false,
-}: {
-  handleLeftButtonClick: React.MouseEventHandler<HTMLButtonElement>;
-  handleRightButtonClick: React.MouseEventHandler<HTMLButtonElement>;
-  currentStep: Step;
-  leftDisabled?: boolean;
-  rightDisabled?: boolean;
-}) => {
+  rawImage,
+  step,
+  prevStep,
+  nextStep,
+}: StepProps & { rawImage: File | null }) => {
+  const router = useRouter();
+  const { reset } = useFormContext<ICreateQuestion>();
+
+  const isPrevDisabled = () => {
+    if (step === 1) return false;
+    if (step === 2) return false; // 경고 모달
+    if (step === 3) return false;
+  };
+
+  const isNextDisabled = () => {
+    if (step === 1) return !rawImage;
+    if (step === 2) return false;
+    if (step === 3) return true; // 필수인애들 다넣기
+  };
+
+  const handlePrevButtonClick = () => {
+    if (step === 1) nextStep();
+    if (step === 2) prevStep();
+    if (step === 3) prevStep();
+  };
+
+  const transformMutation = useMutation({
+    mutationFn: transformToQuestion,
+  });
+
+  const handleNextButtonClick = async () => {
+    if (step === 1 && rawImage) {
+      nextStep();
+    }
+    if (step === 2) nextStep();
+    if (step === 3) router.push('/question');
+  };
+
   return (
-    <div className="flex gap-4 py-4">
+    <div className="sticky bottom-0 flex gap-4 bg-white py-4">
       <SquareButton
         theme="lightgray"
-        disabled={leftDisabled}
-        onClick={handleLeftButtonClick}
+        disabled={isPrevDisabled()}
+        onClick={handlePrevButtonClick}
         className="flex-grow py-3"
       >
-        {ButtonText[currentStep].left}
+        {ButtonText[step].left}
       </SquareButton>
       <SquareButton
         theme="blue"
-        disabled={rightDisabled}
-        onClick={handleRightButtonClick}
+        disabled={isNextDisabled()}
+        onClick={handleNextButtonClick}
         className="flex-grow py-3"
       >
-        {ButtonText[currentStep].right}
+        {ButtonText[step].right}
       </SquareButton>
     </div>
   );
