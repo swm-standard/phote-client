@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  FieldArrayWithId,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
-import { Option, QuestionBase } from '@/app/_lib/types';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { Option } from '@/app/_lib/types';
 import Legend from '@/components/legend';
 import Textarea from '@/components/textarea';
 import Image from 'next/image';
@@ -17,23 +12,19 @@ import XCircleIcon from '@/static/icons/x-circle-icon';
 import CirclePlusIcon from '@/static/icons/circle-plus-icon';
 
 export const CheckConvert = ({
-  register,
-  setValue,
-  watch,
   optionFields,
   appendOption,
   removeOption,
 }: {
-  register: UseFormRegister<QuestionBase>;
-  setValue: UseFormSetValue<QuestionBase>;
-  watch: UseFormWatch<QuestionBase>;
   optionFields: FieldArrayWithId[];
   appendOption: (obj: Option) => void;
   removeOption: (idx: number) => void;
 }) => {
-  const handleOptionAppendClick: React.MouseEventHandler<HTMLButtonElement> = (
-    e,
-  ) => {
+  const { register, setValue, watch } = useFormContext();
+
+  const handleOptionAppendClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     appendOption({ value: '' });
   };
 

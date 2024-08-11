@@ -1,150 +1,79 @@
 import React, { useState } from 'react';
 import Container from '@/components/container';
-import { QuestionBase } from '@/app/_lib/types';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import {
+  AddExtraInfo,
+  CheckConvert,
+  UploadPicture,
+} from '@/app/(after-login)/(top)/createQuestion/_components/content';
 
-import { useRouter } from 'next/navigation';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { useImmer } from 'use-immer';
-import { UploadPicture } from '@/app/(after-login)/(top)/createQuestion/_components/content/upload-picture';
-import { CheckConvert } from '@/app/(after-login)/(top)/createQuestion/_components/content/check-convert';
-import { AddExtraInfo } from '@/app/(after-login)/(top)/createQuestion/_components/content/add-extra-info';
 import ProgressChangeFooter from '@/app/(after-login)/(top)/createQuestion/_components/progress/progress-change-footer';
-import { StepProps } from '@/app/(after-login)/(top)/createQuestion/_components/progress/types';
+import { IStep } from '@/model/i-step';
+import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 
-const CreateQuestionContent = (props: StepProps) => {
-  const { currentStep, setToPrevStep, setToNextStep } = props;
-  const router = useRouter();
-  const [image, setInputImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+export type StepProps = {
+  step: IStep;
+  prevStep: () => void;
+  nextStep: () => void;
+};
 
-  const { register, setValue, watch, handleSubmit, control } =
-    useForm<QuestionBase>({
-      defaultValues: {
-        statement: '',
-        category: 'MULTIPLE',
-        options: [],
-        tags: [],
-        answer: '',
-        memo: '',
-      },
+const CreateQuestionContent = ({ step, prevStep, nextStep }: StepProps) => {
+  const [rawImage, setRawImage] = useState<{
+    image: File | null;
+    imageUrl: string | null;
+  }>({
+    image: null,
+    imageUrl: null,
+  });
+
+  const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const file = e.target.files?.[0] || null;
+    setRawImage({
+      image: file,
+      imageUrl: file ? URL.createObjectURL(file) : null,
     });
+  };
+
+  const methods = useForm<ICreateQuestion>({
+    defaultValues: EmptyCreateQuestion,
+  });
+
   const {
     fields: optionFields,
     append: appendOption,
     remove: removeOption,
-  } = useFieldArray<QuestionBase, 'options'>({
-    control,
+  } = useFieldArray<ICreateQuestion, 'options'>({
+    control: methods.control,
     name: 'options',
   });
 
-  const [tags, updateTags] = useImmer<string[]>([]);
-  const addTag = (tag: string) => {
-    updateTags((draft) => {
-      draft.push(tag);
-    });
-  };
-  const removeTag = (targetTag: string) => {
-    updateTags((draft) => draft.filter((tag) => tag !== targetTag));
-  };
-
-  const handleImageChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputImage(e.target.files && e.target.files[0]);
-    e.target.files && setImageUrl(URL.createObjectURL(e.target.files[0]));
-  };
-
-  const createQuestion = handleSubmit((data) => {
-    console.log(data);
-    console.log(tags);
-  });
-
-  const transformQuestion = async () => {
-    console.log('문제 변환');
-    setToNextStep();
-  };
-
-  const handleLeftButtonClick: React.MouseEventHandler<
-    HTMLButtonElement
-  > = () => {
-    switch (currentStep) {
-      case 1:
-        setToNextStep();
-        break;
-      case 2:
-        router.push('/createQuestion/intercepted/cancel-alert-dialog');
-        break;
-      case 3:
-        setToPrevStep();
-        break;
-    }
-  };
-
-  const handleRightButtonClick: React.MouseEventHandler<
-    HTMLButtonElement
-  > = () => {
-    switch (currentStep) {
-      case 1:
-        transformQuestion();
-        break;
-      case 2:
-        setToNextStep();
-        break;
-      case 3:
-        createQuestion();
-        break;
-    }
-  };
-
-  const judgeLeftDisable = () => {
-    switch (currentStep) {
-      case 1:
-        return false;
-      case 2:
-        return false;
-      case 3:
-        return false;
-    }
-  };
-
-  const judgeRightDisable = () => {
-    switch (currentStep) {
-      case 1:
-        return !image ? true : false;
-      case 2:
-        return false;
-      case 3:
-        return false;
-    }
-  };
   return (
     <Container className="flex flex-col">
-      <section className="my-12 flex-grow">
-        {currentStep === 1 ? (
-          <UploadPicture
-            image={image}
-            imageUrl={imageUrl}
-            handleImageChange={handleImageChange}
-          />
-        ) : currentStep === 2 ? (
-          <CheckConvert
-            register={register}
-            setValue={setValue}
-            watch={watch}
-            optionFields={optionFields}
-            appendOption={appendOption}
-            removeOption={removeOption}
-          />
-        ) : (
-          <AddExtraInfo register={register} watch={watch} setValue={setValue} />
-        )}
-      </section>
+      <FormProvider {...methods}>
+        <section className="my-12 flex-grow">
+          {step === 1 ? (
+            <UploadPicture
+              imageUrl={rawImage.imageUrl}
+              handleImageChange={handleImageChange}
+            />
+          ) : step === 2 ? (
+            <CheckConvert
+              optionFields={optionFields}
+              appendOption={appendOption}
+              removeOption={removeOption}
+            />
+          ) : (
+            <AddExtraInfo />
+          )}
+        </section>
 
-      <ProgressChangeFooter
-        currentStep={currentStep}
-        leftDisabled={judgeLeftDisable()}
-        rightDisabled={judgeRightDisable()}
-        handleLeftButtonClick={handleLeftButtonClick}
-        handleRightButtonClick={handleRightButtonClick}
-      />
+        <ProgressChangeFooter
+          rawImage={rawImage.image}
+          step={step}
+          prevStep={prevStep}
+          nextStep={nextStep}
+        />
+      </FormProvider>
     </Container>
   );
 };
