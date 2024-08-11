@@ -1,6 +1,6 @@
 import CircleIcon from '@/static/icons/circle-icon';
 import CheckCircleIcon from '@/static/icons/check-circle-icon';
-import { Step } from '@/app/(after-login)/(top)/createQuestion/_components/progress/types';
+import { IStep } from '@/model/i-step';
 
 const bulletVariants = {
   color: {
@@ -56,12 +56,12 @@ const ProgressTexts: string[] = [
   '추가 정보 기입',
 ];
 
-const ProgressBar = ({ currentStep }: { currentStep: Step }) => {
+const ProgressBar = ({ step }: { step: IStep }) => {
   return (
     <div className="flex h-fit flex-row items-center gap-3">
       {ProgressTexts.map((text, idx) =>
-        idx + 1 <= currentStep ? (
-          idx + 1 === currentStep ? (
+        idx + 1 <= step ? (
+          idx + 1 === step ? (
             <ProgressBullet key={idx} stepText={text} current />
           ) : (
             <ProgressBullet key={idx} stepText={text} completed />
