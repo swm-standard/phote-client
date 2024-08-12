@@ -18,7 +18,7 @@ const WorkbookArea = () => {
 
   const { data, isError, isPending } = useQuery({
     queryKey: ['workbooks'],
-    queryFn: () => readWorkbooks(),
+    queryFn: readWorkbooks,
   });
   const pathname = usePathname();
 

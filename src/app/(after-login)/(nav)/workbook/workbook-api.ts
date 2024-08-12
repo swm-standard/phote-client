@@ -1,15 +1,12 @@
-'use server';
-
 import { IWorkbookBase } from '@/model/i-workbook';
-import authFetch from '@/util/auth-fetch';
 
 export async function readWorkbooks() {
   try {
-    const jsonRaw = await authFetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/workbooks`,
-      { method: 'GET' },
-    );
-    return jsonRaw.data;
+    const response = await fetch('/api/workbooks', {
+      method: 'GET',
+    });
+    const json = await response.json();
+    return json.data;
   } catch (e) {
     console.error(`readWorkbooks failed by ${e}`);
   }
@@ -17,15 +14,13 @@ export async function readWorkbooks() {
 
 export async function createWorkbook(workbookBase: IWorkbookBase) {
   try {
-    const jsonRaw = await authFetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/workbook`,
-      {
-        method: 'POST',
-        body: JSON.stringify(workbookBase),
-      },
-    );
-    return jsonRaw;
+    const response = await fetch('/api/workbook', {
+      method: 'POST',
+      body: JSON.stringify(workbookBase),
+    });
+    const json = await response.json();
+    return json.data;
   } catch (e) {
-    console.error(`readWorkbooks failed by ${e}`);
+    console.error(`createWorkbook failed by ${e}`);
   }
 }
