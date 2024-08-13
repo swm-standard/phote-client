@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useImmer } from 'use-immer';
+import React, { useEffect, useState } from 'react';
 import Container from '@/components/container';
 import { useForm } from 'react-hook-form';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import SearchInput from '@/app/(after-login)/(nav)/question/search-input';
 import SearchedWords from '@/app/(after-login)/(nav)/question/searched-words';
+import { useQueryClient } from '@tanstack/react-query';
 
 const SearchHeader = () => {
-  const [tags, updateTags] = useImmer<string[]>([]);
-  const [keywords, updateKeywords] = useImmer<string[]>([]);
-  const searchParams = useSearchParams();
+  const [tags, setTags] = useState<string[]>([]);
+  const [keywords, setKeywords] = useState<string[]>([]);
 
   const { register, getValues, reset } = useForm<{ searchValue: string }>({
     defaultValues: {
@@ -19,18 +18,19 @@ const SearchHeader = () => {
     },
   });
 
-  useEffect(() => {
-    const readTags = searchParams.get('tags');
-    const readKeywords = searchParams.get('keywords');
-
-    readTags && updateTags(() => [...readTags.split(',')]);
-    readKeywords && updateKeywords(() => [...readKeywords.split(',')]);
-  }, []);
+  // const searchParams = useSearchParams();
+  // useEffect(() => {
+  //   const readTags = searchParams.get('tags');
+  //   const readKeywords = searchParams.get('keywords');
+  //
+  //   readTags && updateTags(() => [...readTags.split(',')]);
+  //   readKeywords && updateKeywords(() => [...readKeywords.split(',')]);
+  // }, []);
 
   const deleteWord = (targetWord: string, isTag = false) => {
     isTag
-      ? updateTags((draft) => draft.filter((word) => word !== targetWord))
-      : updateKeywords((draft) => draft.filter((word) => word !== targetWord));
+      ? setTags((prev) => prev.filter((word) => word !== targetWord))
+      : setKeywords((prev) => prev.filter((word) => word !== targetWord));
   };
 
   const handleEnterPress: React.KeyboardEventHandler<HTMLInputElement> = (
@@ -40,14 +40,25 @@ const SearchHeader = () => {
 
     const searchValue = getValues('searchValue');
     searchValue[0] === '#'
-      ? updateTags((draft) => {
-          draft.push(searchValue.slice(1));
-        })
-      : updateKeywords((draft) => {
-          draft.push(searchValue);
-        });
+      ? setTags([...tags, searchValue.slice(1)])
+      : setKeywords([...keywords, searchValue]);
     reset();
   };
+
+  const { replace } = useRouter();
+  const pathname = usePathname();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (tags.length >= 1) params.set('tags', tags.join(','));
+    else params.delete('tags');
+
+    if (keywords.length >= 1) params.set('keywords', keywords.join(','));
+    else params.delete('keywords');
+
+    replace(`${pathname}?${params.toString()}`);
+  }, [tags, keywords]);
 
   return (
     <Container className="flex flex-col gap-4">

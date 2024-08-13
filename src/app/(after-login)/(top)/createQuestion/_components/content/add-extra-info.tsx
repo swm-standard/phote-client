@@ -1,30 +1,19 @@
 import React from 'react';
-import {
-  useForm,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
-import { QuestionBase } from '@/app/_lib/types';
+import { useForm, useFormContext } from 'react-hook-form';
 import Legend from '@/components/legend';
 import Input from '@/components/input';
 import Textarea from '@/components/textarea';
 import Tag from '@/components/tag';
+import { ICreateQuestion } from '@/model/i-question';
 
-export const AddExtraInfo = ({
-  register,
-  watch,
-  setValue,
-}: {
-  register: UseFormRegister<QuestionBase>;
-  watch: UseFormWatch<QuestionBase>;
-  setValue: UseFormSetValue<QuestionBase>;
-}) => {
+export const AddExtraInfo = () => {
+  const { register, setValue, watch } = useFormContext<ICreateQuestion>();
   const values = watch();
+
   const {
     register: tagRegister,
     watch: tagWatch,
-    reset,
+    reset: tagReset,
   } = useForm<{
     tagInput: string;
   }>({
@@ -37,7 +26,7 @@ export const AddExtraInfo = ({
   const handleEnterDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key !== 'Enter') return;
     setValue('tags', [...values.tags, tagValue.tagInput]);
-    reset();
+    tagReset();
   };
 
   return (

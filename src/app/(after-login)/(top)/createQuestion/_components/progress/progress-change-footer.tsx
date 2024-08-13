@@ -1,6 +1,16 @@
 import React from 'react';
 import SquareButton from '@/components/square-button';
-import { Step } from '@/app/(after-login)/(top)/createQuestion/_components/progress/types';
+import { StepProps } from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
+import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import {
+  createQuestion,
+  transformToQuestion,
+} from '@/app/(after-login)/(top)/createQuestion/create-question-api';
+import { useFormContext } from 'react-hook-form';
+import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
+import useDialog from '@/hook/useDialog';
+import Dialog from '@/components/dialog';
 
 const ButtonText = {
   1: {
@@ -18,37 +28,96 @@ const ButtonText = {
 };
 
 const ProgressChangeFooter = ({
-  handleLeftButtonClick,
-  handleRightButtonClick,
-  currentStep,
-  leftDisabled = false,
-  rightDisabled = false,
-}: {
-  handleLeftButtonClick: React.MouseEventHandler<HTMLButtonElement>;
-  handleRightButtonClick: React.MouseEventHandler<HTMLButtonElement>;
-  currentStep: Step;
-  leftDisabled?: boolean;
-  rightDisabled?: boolean;
-}) => {
+  rawImage,
+  step,
+  prevStep,
+  nextStep,
+}: StepProps & { rawImage: File | null }) => {
+  const router = useRouter();
+  const { reset, getValues } = useFormContext<ICreateQuestion>();
+
+  const { isOpen, toggleOpen } = useDialog();
+
+  const isPrevDisabled = () => {
+    if (step === 1) return false;
+    if (step === 2) return false; // 경고 모달
+    if (step === 3) return false;
+  };
+
+  const isNextDisabled = () => {
+    if (step === 1) return !rawImage;
+    if (step === 2) return false;
+    if (step === 3)
+      return !(
+        getValues('statement') &&
+        getValues('category') &&
+        getValues('answer')
+      ); // 필수인애들 다넣기
+  };
+
+  const handlePrevButtonClick = () => {
+    if (step === 1) nextStep();
+    if (step === 2) toggleOpen();
+    if (step === 3) prevStep();
+  };
+
+  const confirmAction = async () => {
+    prevStep();
+    reset(EmptyCreateQuestion);
+  };
+
+  const transformMutation = useMutation({
+    mutationFn: transformToQuestion,
+  });
+
+  const createMutation = useMutation({
+    mutationFn: createQuestion,
+  });
+
+  const handleNextButtonClick = async () => {
+    if (step === 1 && rawImage) {
+      // const question = await transformMutation.mutateAsync(rawImage);
+      // reset(question);
+      nextStep();
+    }
+    if (step === 2) nextStep();
+    if (step === 3) {
+      const result = await createMutation.mutateAsync(getValues());
+      if (result) router.replace('/question');
+    }
+  };
+
   return (
-    <div className="flex gap-4 py-4">
-      <SquareButton
-        theme="lightgray"
-        disabled={leftDisabled}
-        onClick={handleLeftButtonClick}
-        className="flex-grow py-3"
+    <>
+      <div className="sticky bottom-0 flex gap-4 bg-white py-4">
+        <SquareButton
+          theme="lightgray"
+          disabled={isPrevDisabled()}
+          onClick={handlePrevButtonClick}
+          className="flex-grow py-3"
+        >
+          {ButtonText[step].left}
+        </SquareButton>
+        <SquareButton
+          theme="blue"
+          disabled={isNextDisabled()}
+          onClick={handleNextButtonClick}
+          className="flex-grow py-3"
+        >
+          {ButtonText[step].right}
+        </SquareButton>
+      </div>
+      <Dialog
+        isOpen={isOpen}
+        confirmAction={confirmAction}
+        toggleOpen={toggleOpen}
       >
-        {ButtonText[currentStep].left}
-      </SquareButton>
-      <SquareButton
-        theme="blue"
-        disabled={rightDisabled}
-        onClick={handleRightButtonClick}
-        className="flex-grow py-3"
-      >
-        {ButtonText[currentStep].right}
-      </SquareButton>
-    </div>
+        <p className="text-001 text-center text-lg font-bold">사진 다시 찍기</p>
+        <p className="text-001 text-sm font-medium">
+          사진을 다시 등록하시겠습니까? 변경 사항은 저장되지 않습니다.
+        </p>
+      </Dialog>
+    </>
   );
 };
 

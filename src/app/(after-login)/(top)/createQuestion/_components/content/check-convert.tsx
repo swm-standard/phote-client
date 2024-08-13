@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  FieldArrayWithId,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-} from 'react-hook-form';
-import { Option, QuestionBase } from '@/app/_lib/types';
+import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { Option } from '@/app/_lib/types';
 import Legend from '@/components/legend';
 import Textarea from '@/components/textarea';
 import Image from 'next/image';
@@ -17,23 +12,19 @@ import XCircleIcon from '@/static/icons/x-circle-icon';
 import CirclePlusIcon from '@/static/icons/circle-plus-icon';
 
 export const CheckConvert = ({
-  register,
-  setValue,
-  watch,
   optionFields,
   appendOption,
   removeOption,
 }: {
-  register: UseFormRegister<QuestionBase>;
-  setValue: UseFormSetValue<QuestionBase>;
-  watch: UseFormWatch<QuestionBase>;
   optionFields: FieldArrayWithId[];
   appendOption: (obj: Option) => void;
   removeOption: (idx: number) => void;
 }) => {
-  const handleOptionAppendClick: React.MouseEventHandler<HTMLButtonElement> = (
-    e,
-  ) => {
+  const { register, setValue, watch } = useFormContext();
+
+  const handleOptionAppendClick: React.MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
     appendOption({ value: '' });
   };
 
@@ -79,7 +70,7 @@ export const CheckConvert = ({
       </fieldset>
       <fieldset>
         <Legend className="mb-2">문제 그림</Legend>
-        <div className="h-96 w-96 overflow-hidden rounded-lg">
+        <div className="mx-auto h-96 w-96 overflow-hidden rounded-lg">
           <Image src={dummyImage} alt="문제" />
         </div>
       </fieldset>
@@ -90,14 +81,14 @@ export const CheckConvert = ({
         <div className="flex gap-2">
           <SquareButton
             theme={values.category === 'MULTIPLE' ? 'lightblue' : 'lightgray'}
-            className="py-2"
+            className="flex-grow py-2"
             onClick={handleMultipleButtonClick}
           >
             객관식
           </SquareButton>
           <SquareButton
             theme={values.category === 'ESSAY' ? 'lightblue' : 'lightgray'}
-            className="py-2"
+            className="flex-grow py-2"
             onClick={handleEssayButtonClick}
           >
             단답형

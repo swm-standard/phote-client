@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import SquareButton from '@/components/square-button';
 
-function WorkbookDialog({
+function Dialog({
   isOpen,
   toggleOpen,
   dialogType = 'alert',
@@ -63,4 +63,4 @@ function WorkbookDialog({
   );
 }
 
-export default WorkbookDialog;
+export default Dialog;

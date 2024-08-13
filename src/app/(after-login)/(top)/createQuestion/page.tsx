@@ -1,38 +1,32 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Step } from './_components/progress/types';
 import Container from '@/components/container';
 import Progress from '@/app/(after-login)/(top)/createQuestion/_components/progress/progress';
 import CreateQuestionContent from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
+import { IStep } from '@/model/i-step';
 
 const Page = () => {
-  const [currentStep, setCurrentStep] = useState<Step>(1);
+  const [step, setStep] = useState<IStep>(1);
 
-  const setToNextStep = () => {
-    setCurrentStep((prev) => {
-      if (prev === 3) return prev;
-      return (prev + 1) as Step;
-    });
+  const prevStep = () => {
+    setStep((prev) => Math.max(prev - 1, 1) as IStep);
   };
 
-  const setToPrevStep = () => {
-    setCurrentStep((prev) => {
-      if (prev === 1) return prev;
-      return (prev - 1) as Step;
-    });
+  const nextStep = () => {
+    setStep((prev) => Math.min(prev + 1, 3) as IStep);
   };
 
   return (
     <Container className="flex flex-col gap-6 bg-white px-6">
       <section>
-        <Progress currentStep={currentStep} />
+        <Progress step={step} />
       </section>
       <section className="flex flex-grow flex-col">
         <CreateQuestionContent
-          currentStep={currentStep}
-          setToNextStep={setToNextStep}
-          setToPrevStep={setToPrevStep}
+          step={step}
+          prevStep={prevStep}
+          nextStep={nextStep}
         />
       </section>
     </Container>

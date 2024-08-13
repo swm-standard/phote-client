@@ -4,7 +4,7 @@ import React from 'react';
 import { IWorkbook } from '@/model/i-workbook';
 import dayjs from 'dayjs';
 import useDialog from '@/hook/useDialog';
-import WorkbookDialog from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-dialog';
+import Dialog from '@/components/dialog';
 import { useParams, useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { deleteWorkbook } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
@@ -50,7 +50,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
         <div role="button" onClick={handleTrashClick}>
           <TrashCanIcon className="h-5 w-5 text-text-002" />
         </div>
-        <WorkbookDialog
+        <Dialog
           isOpen={isOpen}
           toggleOpen={toggleOpen}
           confirmAction={confirmAction}
@@ -60,7 +60,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
             정말 <span className="text-brand-blue-heavy">{workbook.title}</span>
             을 삭제하시겠습니까? 삭제된 문제집은 복구할 수 없습니다.
           </p>
-        </WorkbookDialog>
+        </Dialog>
       </div>
     </div>
   );

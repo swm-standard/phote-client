@@ -5,16 +5,14 @@ import Container from '@/components/container';
 import UploadIcon from '@/static/icons/upload-icon';
 import Image from 'next/image';
 
-type Props = {
-  image: File | null;
+export const UploadPicture = ({
+  imageUrl,
+  handleImageChange,
+}: {
   imageUrl: string | null;
   handleImageChange: React.ChangeEventHandler<HTMLInputElement>;
-};
-
-export const UploadPicture = (props: Props) => {
-  const { image, imageUrl, handleImageChange } = props;
+}) => {
   const hiddenInputRef = useRef<HTMLInputElement>(null);
-
   const handleDisplayedButtonClick: React.MouseEventHandler<
     HTMLButtonElement
   > = () => {
