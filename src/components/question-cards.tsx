@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
 import Container from '@/components/container';
 import QuestionCard, { QuestionCardType } from '@/components/question-card';
 import { IQuestion } from '@/model/i-question';
@@ -20,8 +19,6 @@ const QuestionCards = ({
   checkQuestion?: (id: string) => void;
   uncheckQuestion?: (id: string) => void;
 }) => {
-  const { workbookId } = useParams<{ workbookId: string }>();
-
   return (
     <Container className="flex flex-col">
       {questions.map((ques, idx) => (

@@ -1,7 +1,5 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-
 import BarButton from '@/components/bar-button';
 import Container from '@/components/container';
 import NeedToCreateIcon from '@/static/icons/need-to-create-icon';
@@ -20,7 +18,6 @@ const WorkbookArea = () => {
     queryKey: ['workbooks'],
     queryFn: readWorkbooks,
   });
-  const pathname = usePathname();
 
   if (isPending) {
     return <div>Loading</div>;
