@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
@@ -17,10 +17,14 @@ const SearchedQuestions = () => {
   searchParams.get('keywords') &&
     params.append('keywords', searchParams.get('keywords') ?? '');
 
-  const { data, isError, isPending } = useQuery({
+  const { data, isError, isPending, refetch } = useQuery({
     queryKey: ['searchQuestions'],
     queryFn: () => searchQuestions(params.toString()),
   });
+
+  useEffect(() => {
+    (async () => refetch())();
+  }, [searchParams, refetch]);
 
   if (isPending) return <div>loading</div>;
   else if (isError) return <div>error</div>;

@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import React from 'react';
 import Tag from '@/components/tag';
 
 const SearchedWords = ({
@@ -13,20 +12,6 @@ const SearchedWords = ({
   keywords: string[];
   deleteWord: (targetWord: string, isTag?: boolean) => void;
 }) => {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (tags.length >= 1) params.set('tags', tags.join(','));
-    else params.delete('tags');
-
-    if (keywords.length >= 1) params.set('keywords', keywords.join(','));
-    else params.delete('keywords');
-
-    replace(`${pathname}?${params.toString()}`);
-  }, [tags, keywords]);
-
   return (
     <div className="flex flex-wrap gap-4">
       {tags.map((tag, idx) => (
