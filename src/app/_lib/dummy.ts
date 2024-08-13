@@ -3,7 +3,7 @@ import { IWorkbook } from '@/model/i-workbook';
 
 export const Dummy_Workbooks: IWorkbook[] = [
   {
-    id: '1',
+    workbookId: '1',
     title: '23년도 3월 모의고사 오답 모음',
     description: '화이팅 화이팅',
     emoji: '🤓',
@@ -11,7 +11,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '2',
+    workbookId: '2',
     title: '과학 문제 모음',
     description: '쎈, 마더텅',
     emoji: '👿',
@@ -19,7 +19,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '3',
+    workbookId: '3',
     title: '23년도 9월차 포엠 수학 재시험',
     description:
       '80점 미만 재시험으로 인해서 집에 가지 못하는 불상사가 발생한 하루이다.',
@@ -28,7 +28,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '4',
+    workbookId: '4',
     title:
       '문제집의 이름을 길게하고 싶은 경우 이런식으로 문제집의 이름을 만들 수 있지않을까?',
     description: '한줄 소개는 이정도로 하자',
@@ -37,7 +37,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '5',
+    workbookId: '5',
     title: '23년도 3월 모의고사 오답 모음',
     description: '화이팅 화이팅',
     emoji: '🤓',
@@ -45,7 +45,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '6',
+    workbookId: '6',
     title: '과학 문제 모음',
     description: '쎈, 마더텅',
     emoji: '👿',
@@ -53,7 +53,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '7',
+    workbookId: '7',
     title: '23년도 9월차 포엠 수학 재시험',
     description:
       '80점 미만 재시험으로 인해서 집에 가지 못하는 불상사가 발생한 하루이다.',
@@ -62,7 +62,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '8',
+    workbookId: '8',
     title:
       '문제집의 이름을 길게하고 싶은 경우 이런식으로 문제집의 이름을 만들 수 있지않을까?',
     description: '한줄 소개는 이정도로 하자',
@@ -71,7 +71,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '1',
+    workbookId: '1',
     title: '23년도 3월 모의고사 오답 모음',
     description: '화이팅 화이팅',
     emoji: '🤓',
@@ -79,7 +79,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '2',
+    workbookId: '2',
     title: '과학 문제 모음',
     description: '쎈, 마더텅',
     emoji: '👿',
@@ -87,7 +87,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '3',
+    workbookId: '3',
     title: '23년도 9월차 포엠 수학 재시험',
     description:
       '80점 미만 재시험으로 인해서 집에 가지 못하는 불상사가 발생한 하루이다.',
@@ -96,7 +96,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '4',
+    workbookId: '4',
     title:
       '문제집의 이름을 길게하고 싶은 경우 이런식으로 문제집의 이름을 만들 수 있지않을까?',
     description: '한줄 소개는 이정도로 하자',
@@ -105,7 +105,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '5',
+    workbookId: '5',
     title: '23년도 3월 모의고사 오답 모음',
     description: '화이팅 화이팅',
     emoji: '🤓',
@@ -113,7 +113,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '6',
+    workbookId: '6',
     title: '과학 문제 모음',
     description: '쎈, 마더텅',
     emoji: '👿',
@@ -121,7 +121,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '7',
+    workbookId: '7',
     title: '23년도 9월차 포엠 수학 재시험',
     description:
       '80점 미만 재시험으로 인해서 집에 가지 못하는 불상사가 발생한 하루이다.',
@@ -130,7 +130,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
     modifiedAt: '2024-08-05T14:27:35.125Z',
   },
   {
-    id: '8',
+    workbookId: '8',
     title:
       '문제집의 이름을 길게하고 싶은 경우 이런식으로 문제집의 이름을 만들 수 있지않을까?',
     description: '한줄 소개는 이정도로 하자',
@@ -141,7 +141,7 @@ export const Dummy_Workbooks: IWorkbook[] = [
 ];
 
 export const Dummy_Workbook: IWorkbook = {
-  id: '1',
+  workbookId: '1',
   title:
     '2023 기말고사 대비인데 엄청 길고 길고 긴 제목이라 한 줄에 절대 못담고 적어도 세줄은 되어야할 그런 제목',
   description:

@@ -5,7 +5,7 @@ export type IWorkbookBase = {
 };
 
 export type IWorkbook = IWorkbookBase & {
-  id: string;
+  workbookId: string;
   emoji: string;
   quantity: number;
   modifiedAt: string;
