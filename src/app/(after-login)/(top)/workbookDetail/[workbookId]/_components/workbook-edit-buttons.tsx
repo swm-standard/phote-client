@@ -5,7 +5,7 @@ import SquareButton from '@/components/square-button';
 import { IWorkbookBase } from '@/model/i-workbook';
 import useDialog from '@/hook/useDialog';
 import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
-import WorkbookDialog from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-dialog';
+import Dialog from '@/components/dialog';
 import CopyIcon from '@/static/icons/copy-icon';
 
 const WorkbookEditButtons = ({
@@ -40,7 +40,7 @@ const WorkbookEditButtons = ({
           toggleOpen={toggleModifyOpen}
         />
       )}
-      <WorkbookDialog
+      <Dialog
         dialogType="confirm"
         isOpen={isShareOpen}
         toggleOpen={toggleShareOpen}
@@ -51,7 +51,7 @@ const WorkbookEditButtons = ({
           </div>
           <p className="text-sm font-bold text-text-001">링크 복사</p>
         </div>
-      </WorkbookDialog>
+      </Dialog>
     </div>
   );
 };
