@@ -5,13 +5,16 @@ import Image from 'next/image';
 import dummy from '@/static/images/dummy-image-square.jpg';
 import NumberCircle from '@/components/number-circle';
 import { IQuestion } from '@/model/i-question';
+import { QuestionCardType } from '@/components/question-card';
 
 const ExpandedQuestionCard = ({
   question,
   questionNumber,
+  questionCardType = 'default',
 }: {
   question: IQuestion;
   questionNumber: number;
+  questionCardType?: QuestionCardType;
 }) => {
   const category = question.category === 'ESSAY' ? '단답형' : '객관식';
 
@@ -33,7 +36,9 @@ const ExpandedQuestionCard = ({
               ))}
             </div>
             <p className="text-left text-base font-normal text-text-001">
-              <span className="font-bold">{`Q${questionNumber} `}</span>
+              {questionCardType === 'swap' && (
+                <span className="font-bold">{`Q${questionNumber} `}</span>
+              )}
             </p>
           </div>
           <button>

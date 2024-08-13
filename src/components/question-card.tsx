@@ -78,7 +78,9 @@ const QuestionCard = ({
             <p
               className={`line-clamp-1 text-left text-base font-normal text-text-001`}
             >
-              <span className="font-bold">{`Q${questionNumber} `}</span>
+              {questionCardType === 'swap' && (
+                <span className="font-bold">{`Q${questionNumber} `}</span>
+              )}
               {question.statement}
             </p>
           </div>
