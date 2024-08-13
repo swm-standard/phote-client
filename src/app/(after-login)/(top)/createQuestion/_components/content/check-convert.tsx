@@ -70,7 +70,7 @@ export const CheckConvert = ({
       </fieldset>
       <fieldset>
         <Legend className="mb-2">문제 그림</Legend>
-        <div className="h-96 w-96 overflow-hidden rounded-lg">
+        <div className="mx-auto h-96 w-96 overflow-hidden rounded-lg">
           <Image src={dummyImage} alt="문제" />
         </div>
       </fieldset>
@@ -81,14 +81,14 @@ export const CheckConvert = ({
         <div className="flex gap-2">
           <SquareButton
             theme={values.category === 'MULTIPLE' ? 'lightblue' : 'lightgray'}
-            className="py-2"
+            className="flex-grow py-2"
             onClick={handleMultipleButtonClick}
           >
             객관식
           </SquareButton>
           <SquareButton
             theme={values.category === 'ESSAY' ? 'lightblue' : 'lightgray'}
-            className="py-2"
+            className="flex-grow py-2"
             onClick={handleEssayButtonClick}
           >
             단답형
