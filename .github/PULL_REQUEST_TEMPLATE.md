@@ -2,7 +2,7 @@
 * A simple description about the pull request
 
 ### 👋 Related issues
-* Related issues and close it if needed
+* **Close** #issueNum
 
 ### 🔍 Details
 * Detail of the changes. No fixed format (text, images, tables, etc...)

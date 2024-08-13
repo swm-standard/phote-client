@@ -14,9 +14,7 @@ assignees: Goonco
 
 ### 📌 ToDo
 
-> **Topic**
->
-> - [ ] Todo
+- [ ] Todo
 
 
 ### 💬 Others
