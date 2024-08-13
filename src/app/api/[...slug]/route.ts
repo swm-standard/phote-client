@@ -14,8 +14,9 @@ export async function GET(request: NextRequest) {
 
   if (!response.ok) {
     console.error(`[GET] failed by status ${response.status}`);
-    const json = await response.json();
-    console.error(`- ${json.message}`);
+    const msg = await response.text();
+    console.error(`[GET] failed by message ${msg}`);
+    throw new Error();
   }
 
   return response;
@@ -28,17 +29,16 @@ export async function DELETE(request: NextRequest) {
 
   if (!response.ok) {
     console.error(`[DELETE] failed by status ${response.status}`);
-    const json = await response.json();
-    console.error(`- ${json.message}`);
+    const msg = await response.text();
+    console.error(`[DELETE] failed by message ${msg}`);
+    throw new Error();
   }
 
   return response;
 }
 
 export async function POST(request: NextRequest) {
-  console.log('-------------------');
   const body = await request.json();
-  console.log('-------------------');
   const response = await authFetch(generateUrl(request), {
     method: 'POST',
     body: JSON.stringify(body),
@@ -46,10 +46,10 @@ export async function POST(request: NextRequest) {
 
   if (!response.ok) {
     console.error(`[POST] failed by status ${response.status}`);
-    const json = await response.json();
-    console.error(`[POST] failed by message ${json.message}`);
+    const msg = await response.text();
+    console.error(`[POST] failed by message ${msg}`);
+    throw new Error();
   }
-
   return response;
 }
 
@@ -62,8 +62,9 @@ export async function PUT(request: NextRequest) {
 
   if (!response.ok) {
     console.error(`[PUT] failed by status ${response.status}`);
-    const json = await response.json();
-    console.error(`- ${json.message}`);
+    const msg = await response.text();
+    console.error(`[PUT] failed by message ${msg}`);
+    throw new Error();
   }
 
   return response;
@@ -98,7 +99,7 @@ async function tryAuthFetch(apiUrl: string, options: RequestInit) {
   const accessToken = getAccessToken();
   const response = await fetch(apiUrl, {
     headers: {
-      // 'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
       accessToken: accessToken!,
     },
     ...options,
@@ -113,16 +114,24 @@ async function tryAuthFetch(apiUrl: string, options: RequestInit) {
 
 async function refresh() {
   const refreshToken = getRefreshToken();
-  const response = await fetch(`${process.env['NEXT_PUBLIC_BASE_URL']}/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      refreshToken: refreshToken!,
+  const response = await fetch(
+    `${process.env['NEXT_PUBLIC_BASE_URL']}/api/token`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        refreshToken: refreshToken!,
+      },
     },
-  });
+  );
 
-  if (!response.ok && response.status === 403) {
-    throw new AuthError('[refresh] failed');
+  if (response.status === 403) throw new AuthError('[refresh] failed');
+
+  if (!response.ok) {
+    console.error(`[refresh] failed by status ${response.status}`);
+    const msg = await response.text();
+    console.error(`[refresh] failed by message ${msg}`);
+    throw new Error();
   }
 
   const json = await response.json();
