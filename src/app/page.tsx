@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <div className="flex flex-col">
       <Link
-        href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env['NEXT_PUBLIC_KAKAO_API_KEY']}&redirect_uri=http://localhost:3000/redirect/kakao&response_type=code`}
+        href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env['NEXT_PUBLIC_KAKAO_API_KEY']}&redirect_uri=https://pho-te.com/redirect/kakao&response_type=code`}
         className="border-1 border-black bg-green-400 p-4"
       >
         카카오 로그인
