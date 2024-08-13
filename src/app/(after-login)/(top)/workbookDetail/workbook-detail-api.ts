@@ -1,10 +1,5 @@
 import { IQuestion } from '@/model/i-question';
 
-let session: any;
-if (typeof window !== 'undefined') {
-  session = localStorage.getItem('accessToken');
-}
-
 export async function updateQuestionSequence({
   workbookId,
   questions,
@@ -26,7 +21,6 @@ export async function updateQuestionSequence({
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session}`,
         },
         body: JSON.stringify(request),
       },
