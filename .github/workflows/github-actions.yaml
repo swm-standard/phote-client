@@ -18,7 +18,9 @@ jobs:
       - name: Create .env
         run: | 
           echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> .env
+          echo "NEXT_PUBLIC_LOGIN_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_LOGIN_REDIRECT_URL }}" >> .env
           echo "NEXT_PUBLIC_KAKAO_API_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_API_KEY }}" >> .env
+          echo "NEXT_PUBLIC_GOOGLE_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_API_KEY }}" >> .env
           echo "NEXT_PUBLIC_ACCESS_TOKEN_TTL=${{ secrets.NEXT_PUBLIC_ACCESS_TOKEN_TTL }}" >> .env
           echo "NEXT_PUBLIC_REFRESH_TOKEN_TTL=${{ secrets.NEXT_PUBLIC_REFRESH_TOKEN_TTL }}" >> .env
 
