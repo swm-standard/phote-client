@@ -3,10 +3,7 @@ import SquareButton from '@/components/square-button';
 import { StepProps } from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import {
-  createQuestion,
-  transformToQuestion,
-} from '@/app/(after-login)/(top)/createQuestion/create-question-api';
+import { createQuestion } from '@/app/(after-login)/(top)/createQuestion/create-question-api';
 import { useFormContext } from 'react-hook-form';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 import useDialog from '@/hook/useDialog';
@@ -66,9 +63,9 @@ const ProgressChangeFooter = ({
     reset(EmptyCreateQuestion);
   };
 
-  const transformMutation = useMutation({
-    mutationFn: transformToQuestion,
-  });
+  // const transformMutation = useMutation({
+  //   mutationFn: transformToQuestion,
+  // });
 
   const createMutation = useMutation({
     mutationFn: createQuestion,

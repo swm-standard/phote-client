@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { usePathname, useRouter } from 'next/navigation';
 import SearchInput from '@/app/(after-login)/(nav)/question/search-input';
 import SearchedWords from '@/app/(after-login)/(nav)/question/searched-words';
-import { useQueryClient } from '@tanstack/react-query';
 
 const SearchHeader = () => {
   const [tags, setTags] = useState<string[]>([]);
@@ -47,7 +46,6 @@ const SearchHeader = () => {
 
   const { replace } = useRouter();
   const pathname = usePathname();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     const params = new URLSearchParams();
