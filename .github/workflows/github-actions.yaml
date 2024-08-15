@@ -48,9 +48,20 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: 22
           script: |
+            echo "Running: docker login"
             echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+            
+            echo "Running: container stop"
             sudo docker stop $(sudo docker ps -q)
+            
+            echo "Running: image remove"
             sudo docker rm $(sudo docker ps -a -q)
+            
+            echo "Running: image prune"
             sudo docker image prune -a -f
+            
+            echo "Running: pull new image"
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APPNAME }}:latest
+            
+            echo "Running: run container by daemon"
             sudo docker run -d --platform linux/amd64 -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_APPNAME }}:latest
