@@ -24,7 +24,7 @@ export async function kakaoLogin(authCode: string) {
     setAccessToken(accessToken);
     setRefreshToken(refreshToken);
   } catch (e) {
-    console.log(e);
+    console.log(`@@@@@@@@[kakaoLogin] ${e}`);
     throw e;
   }
   redirect('/workbook');
