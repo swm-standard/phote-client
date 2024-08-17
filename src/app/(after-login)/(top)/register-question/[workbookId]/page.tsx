@@ -7,7 +7,7 @@ import SearchedQuestions from '@/app/(after-login)/(top)/register-question/[work
 
 const Page = () => {
   return (
-    <Container className="flex flex-col overflow-scroll">
+    <Container className="flex flex-col">
       <section className="sticky top-[-1px] bg-app-bg px-4 py-5">
         <SearchHeader />
       </section>
