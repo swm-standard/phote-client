@@ -1,19 +1,30 @@
 'use client';
 
-import { Status } from '@/app/_lib/types';
-import React, { useEffect, useState } from 'react';
-import { BASE_URL } from '@/app/_lib/constants';
-import { useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import Container from '@/components/container';
 import QuestionCards from '@/components/question-cards';
 import { useImmer } from 'use-immer';
 import SquareButton from '@/components/square-button';
-import { IQuestion } from '@/model/i-question';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  registerQuestion,
+  searchQuestionsToRegister,
+} from '@/app/(after-login)/(top)/register-question/[workbookId]/register-question-api';
 
 const SearchedQuestions = () => {
-  const [status, setStatus] = useState<Status>('loading');
-  const [searchedQuestions, setSearchedQuestions] = useState<IQuestion[]>([]);
   const searchParams = useSearchParams();
+  const { workbookId } = useParams<{ workbookId: string }>();
+  const params = new URLSearchParams();
+  searchParams.get('tags') &&
+    params.append('tags', searchParams.get('tags') ?? '');
+  searchParams.get('keywords') &&
+    params.append('keywords', searchParams.get('keywords') ?? '');
+
+  const { data, isError, isPending, refetch } = useQuery({
+    queryKey: ['searchRegisterQuestion'],
+    queryFn: () => searchQuestionsToRegister(workbookId, params.toString()),
+  });
 
   const [checkedQuestions, updateCheckedQuestions] = useImmer<string[]>([]);
   const checkQuestion = (id: string) => {
@@ -26,40 +37,30 @@ const SearchedQuestions = () => {
     updateCheckedQuestions((draft) => draft.filter((id) => id !== targetId));
   };
 
-  const callSearchQuestionsAPI = async () => {
-    const params = new URLSearchParams();
-    searchParams.get('tags') &&
-      params.append('tags', searchParams.get('tags') ?? '');
-    searchParams.get('keywords') &&
-      params.append('keywords', searchParams.get('keywords') ?? '');
+  useEffect(() => {
+    (async () => refetch())();
+  }, [searchParams, refetch]);
 
-    try {
-      const response = await fetch(
-        `${BASE_URL}/questions?${params.toString()}`,
-      );
+  const router = useRouter();
+  const createMutation = useMutation({
+    mutationFn: registerQuestion,
+  });
 
-      const data = await response.json();
-
-      setSearchedQuestions(data);
-      setStatus('success');
-    } catch (error) {
-      setStatus('error');
-    }
+  const queryClient = useQueryClient();
+  const handleRegisterClick = async () => {
+    await registerQuestion({ workbookId, checkedQuestions });
+    await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
+    await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
+    router.replace(`/workbookDetail/${workbookId}`);
   };
 
-  useEffect(() => {
-    (async () => {
-      await callSearchQuestionsAPI();
-    })();
-  }, [searchParams]);
-
-  if (status === 'loading') return <div>loading</div>;
-  else if (status === 'error') return <div>error</div>;
+  if (isPending) return <div>loading</div>;
+  else if (isError) return <div>error</div>;
   return (
     <Container className="flex flex-col">
       <section className="flex-grow">
         <QuestionCards
-          questions={searchedQuestions}
+          questions={data}
           questionCardType="check"
           checkedQuestions={checkedQuestions}
           checkQuestion={checkQuestion}
@@ -67,10 +68,11 @@ const SearchedQuestions = () => {
         />
       </section>
       <div className="sticky bottom-0 flex gap-4 bg-white px-4 py-3">
-        <SquareButton className="px-6">신규 문제</SquareButton>
+        <SquareButton className="px-6 py-2">신규 문제</SquareButton>
         <SquareButton
-          className="flex-grow"
+          className="flex-grow py-2"
           theme="blue"
+          onClick={handleRegisterClick}
         >{`${checkedQuestions.length}개의 문제 등록`}</SquareButton>
       </div>
     </Container>
