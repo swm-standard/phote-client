@@ -115,7 +115,7 @@ async function tryAuthFetch(apiUrl: string, options: RequestInit) {
 async function refresh() {
   const refreshToken = getRefreshToken();
   const response = await fetch(
-    `${process.env['NEXT_PUBLIC_BASE_URL']}/api/token`,
+    `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/refreshtoken`,
     {
       method: 'POST',
       headers: {
