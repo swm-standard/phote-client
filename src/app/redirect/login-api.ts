@@ -6,10 +6,14 @@ import { redirect } from 'next/navigation';
 export async function kakaoLogin(authCode: string) {
   try {
     const response = await fetch(
-      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/kakao-login?code=${authCode}`,
+      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/kakao-login`,
       {
-        method: 'GET',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: authCode,
+          redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/kakao`,
+        }),
       },
     );
 

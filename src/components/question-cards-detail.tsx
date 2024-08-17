@@ -13,22 +13,41 @@ import { useParams } from 'next/navigation';
 import { useDebounce } from 'use-debounce';
 import Container from '@/components/container';
 import QuestionCard from '@/components/question-card';
-import { IQuestion } from '@/model/i-question';
-import { updateQuestionSequence } from '@/app/(after-login)/(top)/workbookDetail/workbook-detail-api';
+import { IQuestion, IQuestionInWorkbook } from '@/model/i-question';
 import ExpandedQuestionCard from '@/components/expanded-question-card';
+import {
+  deleteQuestionInWorkbook,
+  updateQuestionSequence,
+} from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export type Interaction = {
   questionId: string;
   type: 'expanded' | 'pushed' | 'pushing' | 'swapping';
 } | null;
 
-const QuestionCardsDetail = ({ questions }: { questions: IQuestion[] }) => {
+const QuestionCardsDetail = ({
+  questions,
+  optimisticDeleteQuestionById,
+}: {
+  questions: IQuestionInWorkbook[];
+  optimisticDeleteQuestionById: (id: string) => void;
+}) => {
   const { workbookId } = useParams<{ workbookId: string }>();
   const [debouncedQuestions] = useDebounce(questions, 2000);
 
   const [interaction, setInteraction] = useState<Interaction>(null);
 
+  const sequenceMutation = useMutation({
+    mutationFn: updateQuestionSequence,
+  });
+
+  const [firstRender, setFirstRender] = useState(true);
   useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
     (async () => {
       await updateQuestionSequence({ workbookId, questions });
     })();
@@ -36,7 +55,6 @@ const QuestionCardsDetail = ({ questions }: { questions: IQuestion[] }) => {
 
   return (
     <Container className="flex flex-col">
-      {/*<h1>{interaction?.type ? interaction.type : 'base'}</h1>*/}
       {questions.map((ques, idx) => (
         <ExpandWrapper
           key={ques.questionId}
@@ -52,6 +70,7 @@ const QuestionCardsDetail = ({ questions }: { questions: IQuestion[] }) => {
               questionId={ques.questionId}
               interaction={interaction}
               setInteraction={setInteraction}
+              optimisticDeleteQuestionById={optimisticDeleteQuestionById}
             >
               <ReorderWrapper
                 key={ques.questionId}
@@ -124,11 +143,13 @@ const PushWrapper = ({
   questionId,
   interaction,
   setInteraction,
+  optimisticDeleteQuestionById,
   children,
 }: {
   questionId: string;
   interaction: Interaction;
   setInteraction: (interaction: Interaction) => void;
+  optimisticDeleteQuestionById: (id: string) => void;
   children: React.ReactNode;
 }) => {
   const x = useMotionValue(0);
@@ -183,11 +204,27 @@ const PushWrapper = ({
     }
   };
 
+  const { workbookId } = useParams<{ workbookId: string }>();
+  const createMutation = useMutation({
+    mutationFn: deleteQuestionInWorkbook,
+  });
+
+  const queryClient = useQueryClient();
+  const handleDeleteButtonClick = async () => {
+    await deleteQuestionInWorkbook({ workbookId, questionId });
+    await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
+    await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
+    optimisticDeleteQuestionById(questionId);
+  };
+
   return (
     <div className="relative">
       {questionId === interaction?.questionId &&
         (interaction?.type === 'pushed' || interaction?.type === 'pushing') && (
-          <button className="absolute right-0 top-0 h-full w-[100px] bg-red-500">
+          <button
+            onClick={handleDeleteButtonClick}
+            className="absolute right-0 top-0 h-full w-[100px] bg-red-500"
+          >
             삭제
           </button>
         )}

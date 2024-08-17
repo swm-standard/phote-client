@@ -70,6 +70,23 @@ export async function PUT(request: NextRequest) {
   return response;
 }
 
+export async function PATCH(request: NextRequest) {
+  const body = await request.json();
+  const response = await authFetch(generateUrl(request), {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    console.error(`[PATCH] failed by status ${response.status}`);
+    const msg = await response.text();
+    console.error(`[PATCH] failed by message ${msg}`);
+    throw new Error();
+  }
+
+  return response;
+}
+
 function generateUrl(request: NextRequest) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
   const path = request.nextUrl.pathname;
@@ -115,7 +132,7 @@ async function tryAuthFetch(apiUrl: string, options: RequestInit) {
 async function refresh() {
   const refreshToken = getRefreshToken();
   const response = await fetch(
-    `${process.env['NEXT_PUBLIC_BASE_URL']}/api/token`,
+    `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/refreshtoken`,
     {
       method: 'POST',
       headers: {

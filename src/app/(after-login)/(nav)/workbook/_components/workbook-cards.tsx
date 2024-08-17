@@ -9,7 +9,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
   const formattedDate = dayjs(workbook.modifiedAt).format('YY.MM.DD');
 
   return (
-    <Link href={`workbookDetail/${workbook.id}`} className="w-[48%]">
+    <Link href={`workbookDetail/${workbook.workbookId}`} className="w-[48%]">
       <div
         className="flex h-full w-full flex-col rounded-2xl border-[1px] border-[#ecflfa] bg-white p-3"
         style={{ boxShadow: '0px 11px 15px 0px #0000000A' }}
@@ -55,7 +55,7 @@ const WorkbookCards = ({ workbooks }: { workbooks: IWorkbook[] }) => {
   return (
     <div className="flex flex-row flex-wrap justify-center gap-3">
       {workbooks.map((workbook) => (
-        <WorkbookCard workbook={workbook} key={workbook.id} />
+        <WorkbookCard workbook={workbook} key={workbook.workbookId} />
       ))}
     </div>
   );
