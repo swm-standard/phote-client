@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Container from '@/components/container';
 import QuestionCard, { QuestionCardType } from '@/components/question-card';
-import { IQuestion } from '@/model/i-question';
 import ExpandedQuestionCard from '@/components/expanded-question-card';
+import { IQuestion } from '@/model/i-question';
 
 const QuestionCards = ({
   questions,
@@ -37,7 +37,7 @@ const QuestionCards = ({
                 question={ques}
                 questionNumber={idx + 1}
               />
-            ) : questionCardType === 'check' ? (
+            ) : questionCardType === 'check' && !ques.isContain ? (
               <QuestionCard
                 key={ques.questionId}
                 question={ques}

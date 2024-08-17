@@ -5,13 +5,18 @@ export type IQuestion = {
   image?: string;
   category: IQuestionCategory;
   tags: IQuestionTag[];
+  isContain?: boolean;
+};
+
+export type IQuestionInWorkbook = IQuestion & {
+  questionSetId: string;
 };
 
 export type IQuestionCategory = 'MULTIPLE' | 'ESSAY';
 export type IQuestionTag = {
   name: string;
-  createdAt: string;
-  modifiedAt: string;
+  // createdAt: string;
+  // modifiedAt: string;
 };
 
 export type ICreateQuestion = {
