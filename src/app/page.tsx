@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
-import kakao from '@/static/images/kakao login.png';
-import google from '@/static/images/google login.png';
+import kakao from '@/static/images/kakao-login.png';
+import google from '@/static/images/google-login.png';
 import Container from '@/components/container';
 
 const Page = () => {
