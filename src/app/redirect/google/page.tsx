@@ -1,34 +1,30 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
+import { googleLogin } from '@/app/redirect/login-api';
+import { useSearchParams } from 'next/navigation';
 
-const Page = ({ searchParams }: { searchParams: { code: string } }) => {
-  const getToken = async () => {
-    try {
-      const response = await fetch(
-        `${process.env['NEXT_PUBLIC_BASE_URL']}/auth/google-login?code=${searchParams.code}`,
-        {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        },
-      );
-
-      const data = await response.json();
-      console.log(data);
-
-      return;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+const Content = () => {
+  const searchParams = useSearchParams();
 
   useEffect(() => {
+    if (!searchParams.get('code')) return;
     (async () => {
-      await getToken();
+      try {
+        await googleLogin(searchParams.get('code')!);
+      } catch (e) {
+        console.error(`googleLogin failed by ${e}`);
+      }
     })();
   }, []);
 
-  return <div>Hello World</div>;
+  return <div>Processing Google Login...</div>;
 };
 
-export default Page;
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <Content />
+    </Suspense>
+  );
+}

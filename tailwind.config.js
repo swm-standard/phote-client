@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'outer-bg': '#444',
+        'outer-bg': '#fff',
         'app-bg': '#F7FBFF',
         'text' : {
           '001' : "#353542",

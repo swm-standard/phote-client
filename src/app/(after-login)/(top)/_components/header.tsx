@@ -15,6 +15,9 @@ const HeaderItems: Record<string, { text: string }> = {
   'register-question': {
     text: '문제 등록',
   },
+  'question-detail': {
+    text: '문제 상세',
+  },
   none: {
     text: '잘못된 주소',
   },

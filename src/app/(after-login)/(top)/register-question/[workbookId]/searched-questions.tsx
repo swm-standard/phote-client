@@ -48,7 +48,7 @@ const SearchedQuestions = () => {
 
   const queryClient = useQueryClient();
   const handleRegisterClick = async () => {
-    await registerQuestion({ workbookId, checkedQuestions });
+    await createMutation.mutateAsync({ workbookId, checkedQuestions });
     await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
     await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
     router.replace(`/workbookDetail/${workbookId}`);

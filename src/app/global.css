@@ -33,6 +33,7 @@ svg {
 
 textarea {
     outline: none;
+    resize: none;
 }
 
 input {
