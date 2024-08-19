@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
 import { Dummy_Questions, Dummy_Workbook } from '@/app/_lib/dummy';
 
-import Page from '../page';
+import Page from '../../page';
 import Header from '@/app/(after-login)/(top)/_components/header';
 import StorybookContainer from '@/components/storybook-container';
 

@@ -1,10 +1,10 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import WorkbookEditButtons from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-edit-buttons';
+import WorkbookEditButtons from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/question-list/workbook-edit-buttons';
 import { useQuery } from '@tanstack/react-query';
 import { readWorkbookById } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
-import WorkbookCard from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/workbook-card';
+import WorkbookCard from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/question-list/workbook-card';
 
 const WorkbookInformation = () => {
   const { workbookId } = useParams<{ workbookId: string }>();
