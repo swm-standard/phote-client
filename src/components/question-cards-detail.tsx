@@ -49,7 +49,7 @@ const QuestionCardsDetail = ({
       return;
     }
     (async () => {
-      await updateQuestionSequence({ workbookId, questions });
+      await sequenceMutation.mutateAsync({ workbookId, questions });
     })();
   }, [debouncedQuestions]);
 
@@ -211,7 +211,7 @@ const PushWrapper = ({
 
   const queryClient = useQueryClient();
   const handleDeleteButtonClick = async () => {
-    await deleteQuestionInWorkbook({ workbookId, questionId });
+    await createMutation.mutateAsync({ workbookId, questionId });
     await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
     await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
     optimisticDeleteQuestionById(questionId);
