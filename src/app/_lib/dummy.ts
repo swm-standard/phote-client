@@ -161,13 +161,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -181,13 +177,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -200,13 +192,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -219,13 +207,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -238,13 +222,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -257,13 +237,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -276,13 +252,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -295,13 +267,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -314,13 +282,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -333,13 +297,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -352,13 +312,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -371,13 +327,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -391,13 +343,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -411,13 +359,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -431,13 +375,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -451,13 +391,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '미적분II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '3번틀림',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },
@@ -471,13 +407,9 @@ export const Dummy_Questions: IQuestion[] = [
     tags: [
       {
         name: '수학II',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
       {
         name: '수능특강',
-        createdAt: '2024-08-05T14:27:35.125Z',
-        modifiedAt: '2024-08-05T14:27:35.125Z',
       },
     ],
   },

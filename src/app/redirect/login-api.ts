@@ -28,6 +28,7 @@ export async function kakaoLogin(authCode: string) {
     setAccessToken(accessToken);
     setRefreshToken(refreshToken);
   } catch (e) {
+    console.log(e);
     throw e;
   }
   redirect('/workbook');
@@ -58,6 +59,7 @@ export async function googleLogin(authCode: string) {
     setAccessToken(accessToken);
     setRefreshToken(refreshToken);
   } catch (e) {
+    console.log(e);
     throw e;
   }
   redirect('/workbook');

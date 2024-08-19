@@ -18,7 +18,7 @@ const WorkbookQuestionArea = () => {
 
   const { workbookId } = useParams<{ workbookId: string }>();
 
-  const { data, isPending, isError, isSuccess, refetch } = useQuery({
+  const { data, isPending, isError, isSuccess } = useQuery({
     queryKey: ['questionInWorkbook'],
     queryFn: () => readQuestionsByWorkbookId(workbookId),
     refetchOnMount: 'always',
