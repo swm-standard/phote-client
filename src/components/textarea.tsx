@@ -4,7 +4,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const variants = cva(
-  'resize-none rounded-lg border-[1px] p-2 text-sm font-normal text-text-001 placeholder-text-003 border-brand-gray-light',
+  'rounded-lg border-[1px] p-2 text-sm font-normal text-text-001 placeholder-text-003 border-brand-gray-light',
   {
     variants: {
       state: {

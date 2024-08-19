@@ -6,7 +6,7 @@ import WorkbookQuestionArea from '@/app/(after-login)/(top)/workbookDetail/[work
 
 const Page = () => {
   return (
-    <Container className="flex flex-col overflow-scroll">
+    <Container className="flex flex-col">
       <section>
         <WorkbookInformation />
       </section>
