@@ -6,6 +6,7 @@ import dummy from '@/static/images/dummy-image-square.jpg';
 import NumberCircle from '@/components/number-circle';
 import { IQuestion } from '@/model/i-question';
 import { QuestionCardType } from '@/components/question-card';
+import Link from 'next/link';
 
 const ExpandedQuestionCard = ({
   question,
@@ -41,9 +42,9 @@ const ExpandedQuestionCard = ({
               )}
             </p>
           </div>
-          <button>
+          <Link href={`/question-detail/${question.questionId}`}>
             <InfoIcon className="h-4 w-4 text-text-003" />
-          </button>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-4 px-10 py-4">
