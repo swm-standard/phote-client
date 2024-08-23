@@ -5,6 +5,8 @@ import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
 import { IExam } from '@/model/i-exam';
 import ExamCards from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/exam-list/exam-cards';
+import { useQuery } from '@tanstack/react-query';
+import { readExamHistories } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
 
 const WorkbookQuestionArea = () => {
   const [exams, setExams] = useState<IExam[]>([
@@ -12,12 +14,17 @@ const WorkbookQuestionArea = () => {
   ]);
   const { workbookId } = useParams<{ workbookId: string }>();
 
-  // if (isPending) return <div>loading..</div>;
-  // else if (isError) return <div>Question Data fetch Error</div>;
+  const { data, isPending, isError } = useQuery({
+    queryKey: ['examHistory'],
+    queryFn: () => readExamHistories(workbookId),
+  });
+
+  if (isPending) return <div>loading..</div>;
+  else if (isError) return <div>Question Data fetch Error</div>;
   return (
     <Container className="flex flex-col bg-white">
       <section className="flex-grow">
-        <ExamCards exams={exams} />
+        <ExamCards exams={data} />
       </section>
 
       <div className="sticky bottom-4 my-4 w-full px-4">
