@@ -18,6 +18,12 @@ const HeaderItems: Record<string, { text: string }> = {
   'question-detail': {
     text: '문제 상세',
   },
+  'exam-detail': {
+    text: '시험 결과',
+  },
+  'take-exam': {
+    text: '문제집 풀이',
+  },
   none: {
     text: '잘못된 주소',
   },
