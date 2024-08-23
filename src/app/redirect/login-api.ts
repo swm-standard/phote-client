@@ -1,66 +1,52 @@
-'use server';
-
-import { setAccessToken, setRefreshToken } from '@/util/cookies';
-import { redirect } from 'next/navigation';
-
 export async function kakaoLogin(authCode: string) {
   try {
-    const response = await fetch(
-      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/kakao-login`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code: authCode,
-          redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/kakao`,
-        }),
-      },
-    );
+    const response = await fetch('/api/auth/kakao-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: authCode,
+        redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/kakao`,
+      }),
+    });
 
     if (!response.ok) {
-      console.error(`[kakaoLogin] failed by status ${response.status}`);
       const json = await response.json();
+      console.error(`[kakaoLogin] failed with status ${response.status}`);
       console.error(`- ${json.message}`);
+      throw new Error(json.message || 'An error occurred during Kakao login.');
     }
 
     const json = await response.json();
     const { accessToken, refreshToken } = json.data;
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
+
+    localStorage.setItem('accessToken', accessToken);
   } catch (e) {
-    console.log(e);
+    console.error('An error occurred in kakaoLogin:', e);
     throw e;
   }
-  redirect('/workbook');
 }
 
 export async function googleLogin(authCode: string) {
   try {
-    const response = await fetch(
-      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/google-login`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code: authCode,
-          redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/google`,
-        }),
-      },
-    );
+    const response = await fetch(`/api/auth/google-login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code: authCode,
+        redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/google`,
+      }),
+    });
 
     if (!response.ok) {
-      console.error(`[googleLogin] failed by status ${response.status}`);
       const json = await response.json();
+      console.error(`[googleLogin] failed with status ${response.status}`);
       console.error(`- ${json.message}`);
+      throw new Error(json.message || 'An error occurred during Google login.');
     }
 
-    const json = await response.json();
-    const { accessToken, refreshToken } = json.data;
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
+    return await response.json();
   } catch (e) {
-    console.log(e);
+    console.error('An error occurred in googleLogin:', e);
     throw e;
   }
-  redirect('/workbook');
 }
