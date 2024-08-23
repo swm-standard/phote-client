@@ -47,6 +47,12 @@ const CreateQuestionContent = ({ step, prevStep, nextStep }: StepProps) => {
     name: 'options',
   });
 
+  const readOptions = (options: string[]) => {
+    options.forEach((option) => {
+      appendOption({ value: option });
+    });
+  };
+
   return (
     <Container className="flex flex-col">
       <FormProvider {...methods}>
@@ -69,6 +75,7 @@ const CreateQuestionContent = ({ step, prevStep, nextStep }: StepProps) => {
 
         <ProgressChangeFooter
           rawImage={rawImage.image}
+          readOptions={readOptions}
           step={step}
           prevStep={prevStep}
           nextStep={nextStep}

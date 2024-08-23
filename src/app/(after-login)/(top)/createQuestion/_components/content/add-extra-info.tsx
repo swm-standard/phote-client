@@ -5,6 +5,7 @@ import Input from '@/components/input';
 import Textarea from '@/components/textarea';
 import Tag from '@/components/tag';
 import { ICreateQuestion } from '@/model/i-question';
+import NumberCircle from '@/components/number-circle';
 
 export const AddExtraInfo = () => {
   const { register, setValue, watch } = useFormContext<ICreateQuestion>();
@@ -29,19 +30,51 @@ export const AddExtraInfo = () => {
     tagReset();
   };
 
+  const handleAnswerClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    setValue('answer', e.currentTarget.value);
+  };
+
+  const isBlue = (num: string) => {
+    return values.answer === num;
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <fieldset>
         <Legend required className="mb-2">
           정답
         </Legend>
-        <Input
-          placeholder="정답을 입력해주세요."
-          register={register('answer')}
-          state={values.answer?.length > 0 ? 'filled' : 'empty'}
-          textLength={values.answer?.length}
-          maxLength={25}
-        />
+        {values.category === 'ESSAY' && (
+          <Input
+            placeholder="정답을 입력해주세요."
+            register={register('answer')}
+            state={values.answer?.length > 0 ? 'filled' : 'empty'}
+            textLength={values.answer?.length}
+            maxLength={25}
+          />
+        )}
+        {values.category === 'MULTIPLE' && (
+          <ul className="flex flex-col gap-4">
+            {values.options.map((field, idx) => (
+              <li key={idx}>
+                <button
+                  onClick={handleAnswerClick}
+                  value={`${idx + 1}`}
+                  className="flex items-center gap-4"
+                >
+                  <NumberCircle
+                    isBlue={isBlue(`${idx + 1}`)}
+                    number={idx + 1}
+                    className="mb-[1px]"
+                  />
+                  <section className="flex-grow">
+                    <p>{field.value}</p>
+                  </section>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </fieldset>
       <fieldset>
         <Legend className="mb-2">태그</Legend>

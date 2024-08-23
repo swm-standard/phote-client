@@ -3,7 +3,10 @@ import SquareButton from '@/components/square-button';
 import { StepProps } from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { createQuestion } from '@/app/(after-login)/(top)/createQuestion/create-question-api';
+import {
+  createQuestion,
+  transformToQuestion,
+} from '@/app/(after-login)/(top)/createQuestion/create-question-api';
 import { useFormContext } from 'react-hook-form';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 import useDialog from '@/hook/useDialog';
@@ -29,7 +32,11 @@ const ProgressChangeFooter = ({
   step,
   prevStep,
   nextStep,
-}: StepProps & { rawImage: File | null }) => {
+  readOptions,
+}: StepProps & {
+  rawImage: File | null;
+  readOptions: (options: string[]) => void;
+}) => {
   const router = useRouter();
   const { reset, getValues } = useFormContext<ICreateQuestion>();
 
@@ -63,9 +70,9 @@ const ProgressChangeFooter = ({
     reset(EmptyCreateQuestion);
   };
 
-  // const transformMutation = useMutation({
-  //   mutationFn: transformToQuestion,
-  // });
+  const transformMutation = useMutation({
+    mutationFn: transformToQuestion,
+  });
 
   const createMutation = useMutation({
     mutationFn: createQuestion,
@@ -73,8 +80,9 @@ const ProgressChangeFooter = ({
 
   const handleNextButtonClick = async () => {
     if (step === 1 && rawImage) {
-      // const question = await transformMutation.mutateAsync(rawImage);
-      // reset(question);
+      const question = await transformMutation.mutateAsync(rawImage);
+      reset({ ...question, options: [] });
+      readOptions(question ? question.options : []);
       nextStep();
     }
     if (step === 2) nextStep();

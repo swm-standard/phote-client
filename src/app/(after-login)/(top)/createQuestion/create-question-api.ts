@@ -1,27 +1,51 @@
-import { ICreateQuestion } from '@/model/i-question';
+import { ICreateQuestion, ITmpQuestion } from '@/model/i-question';
 
 export async function transformToQuestion(image: File) {
   const formData = new FormData();
   formData.append('image', image);
 
-  try {
-    const response = await fetch(`/api/question-transform`, {
-      method: 'POST',
-      body: formData,
-    });
+  const imageCoordinates = [
+    [160, 282],
+    [462, 278],
+    [460, 518],
+    [151, 513],
+  ];
+  const blobImageCoordinates = new Blob([JSON.stringify(imageCoordinates)], {
+    type: 'application/json',
+  });
 
-    const json = await response.json();
-    const { content, options, transformedImageUrl } = json.data;
-    const question: ICreateQuestion = {
-      statement: content,
-      image: transformedImageUrl || '',
-      options: options,
-      category: options ? 'MULTIPLE' : 'ESSAY',
-      memo: '',
-      tags: [],
-      answer: '',
-    };
-    console.log(question);
+  formData.append('imageCoordinates', blobImageCoordinates);
+
+  try {
+    const response = await fetch(
+      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/question-transform`,
+      {
+        method: 'POST',
+        headers: {
+          accessToken: localStorage.getItem('accessToken')!,
+        },
+        body: formData,
+      },
+    );
+
+    if (!response.ok) {
+      console.error(`${response.status}`, `${response.statusText}`);
+      const json = await response.json();
+      console.log(json);
+    } else {
+      const json = await response.json();
+      const { statement, options, image } = json.data;
+      const question: ITmpQuestion = {
+        statement,
+        image: image || '',
+        options,
+        category: options.length ? 'MULTIPLE' : 'ESSAY',
+        memo: '',
+        tags: [],
+        answer: '',
+      };
+      return question;
+    }
   } catch (e) {
     console.error(`[transformToQuestion] failed by ${e}`);
   }

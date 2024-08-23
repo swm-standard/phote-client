@@ -4,7 +4,6 @@ import { Option } from '@/app/_lib/types';
 import Legend from '@/components/legend';
 import Textarea from '@/components/textarea';
 import Image from 'next/image';
-import dummyImage from '@/static/images/dummy-image-square.jpg';
 import SquareButton from '@/components/square-button';
 import NumberCircle from '@/components/number-circle';
 import LinedInput from '@/components/lined-input';
@@ -65,15 +64,17 @@ export const CheckConvert = ({
           placeholder="문제 설명을 입력해주세요."
           state={state.statement}
           textLength={length.statement}
-          maxLength={100}
+          maxLength={300}
         />
       </fieldset>
-      <fieldset>
-        <Legend className="mb-2">문제 그림</Legend>
-        <div className="mx-auto h-96 w-96 overflow-hidden rounded-lg">
-          <Image src={dummyImage} alt="문제" />
-        </div>
-      </fieldset>
+      {values.image && (
+        <fieldset>
+          <Legend className="mb-2">문제 그림</Legend>
+          <div className="relative mx-auto h-96 w-96 overflow-hidden rounded-lg">
+            <Image src={values.image} alt="문제" fill />
+          </div>
+        </fieldset>
+      )}
       <fieldset>
         <Legend className="mb-2" required>
           문제 유형
@@ -95,41 +96,43 @@ export const CheckConvert = ({
           </SquareButton>
         </div>
       </fieldset>
-      <fieldset>
-        <Legend required className="mb-2">
-          선택지
-        </Legend>
-        <ul className="flex flex-col gap-4">
-          {optionFields.map((field, idx) => (
-            <li key={field.id} className="flex items-center gap-4">
-              <NumberCircle number={idx + 1} className="mb-[1px]" />
-              <section className="flex-grow">
-                <LinedInput
-                  register={register(`options.${idx}.value`)}
-                  placeholder="선택지를 입력해주세요."
-                  textLength={values.options[`${idx}`].value.length}
-                  maxLength={25}
-                />
-              </section>
+      {values.category === 'MULTIPLE' && (
+        <fieldset>
+          <Legend required className="mb-2">
+            선택지
+          </Legend>
+          <ul className="flex flex-col gap-4">
+            {optionFields.map((field, idx) => (
+              <li key={field.id} className="flex items-center gap-4">
+                <NumberCircle number={idx + 1} className="mb-[1px]" />
+                <section className="flex-grow">
+                  <LinedInput
+                    register={register(`options.${idx}.value`)}
+                    placeholder="선택지를 입력해주세요."
+                    textLength={values.options[`${idx}`].value.length}
+                    maxLength={25}
+                  />
+                </section>
+                <button
+                  type="button"
+                  onClick={() => handleOptionRemoveClick(idx)}
+                >
+                  <XCircleIcon className="h-3.5 w-3.5 text-text-004" />
+                </button>
+              </li>
+            ))}
+            <li>
               <button
-                type="button"
-                onClick={() => handleOptionRemoveClick(idx)}
+                onClick={handleOptionAppendClick}
+                className="flex items-center gap-2 text-brand-blue-heavy"
               >
-                <XCircleIcon className="h-3.5 w-3.5 text-text-004" />
+                <CirclePlusIcon className="h-3.5 w-3.5" />
+                <p className="text-sm font-medium">선지 추가</p>
               </button>
             </li>
-          ))}
-          <li>
-            <button
-              onClick={handleOptionAppendClick}
-              className="flex items-center gap-2 text-brand-blue-heavy"
-            >
-              <CirclePlusIcon className="h-3.5 w-3.5" />
-              <p className="text-sm font-medium">선지 추가</p>
-            </button>
-          </li>
-        </ul>
-      </fieldset>
+          </ul>
+        </fieldset>
+      )}
     </div>
   );
 };
