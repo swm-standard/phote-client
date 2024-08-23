@@ -31,7 +31,7 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
     },
   });
 
-  const { fields, append } = useFieldArray({
+  const { append } = useFieldArray({
     control: methods.control,
     name: 'answers',
   });
@@ -107,7 +107,6 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
             </div>
           </div>
           <ExamCard
-            fields={fields}
             question={data[currentQuestion - 1]}
             idx={currentQuestion - 1}
           />

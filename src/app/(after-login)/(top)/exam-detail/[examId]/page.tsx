@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { readExamDetail } from '@/app/(after-login)/(top)/exam-detail/[examId]/exam-detail-api';
 
 const Page = ({ params }: { params: { examId: string } }) => {
-  const { data, isPending, isError } = useQuery({
+  const { isPending, isError } = useQuery({
     queryKey: ['exam-detail'],
     queryFn: () => readExamDetail(params.examId),
   });

@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'next/navigation';
 import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
-import { IExam } from '@/model/i-exam';
 import ExamCards from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/exam-list/exam-cards';
 import { useQuery } from '@tanstack/react-query';
 import { readExamHistories } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
 
 const WorkbookQuestionArea = () => {
-  const [exams, setExams] = useState<IExam[]>([
-    { examId: '1', totalQuantity: 5, totalCorrect: 4, time: 40, sequence: 1 },
-  ]);
   const { workbookId } = useParams<{ workbookId: string }>();
 
   const { data, isPending, isError } = useQuery({

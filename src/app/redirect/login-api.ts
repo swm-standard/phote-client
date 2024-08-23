@@ -17,7 +17,7 @@ export async function kakaoLogin(authCode: string) {
     }
 
     const json = await response.json();
-    const { accessToken, refreshToken } = json.data;
+    const { accessToken } = json.data;
 
     localStorage.setItem('accessToken', accessToken);
   } catch (e) {

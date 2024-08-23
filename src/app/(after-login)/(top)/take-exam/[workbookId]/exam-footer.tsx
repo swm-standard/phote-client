@@ -1,6 +1,5 @@
 import React from 'react';
 import SquareButton from '@/components/square-button';
-import { useFormContext } from 'react-hook-form';
 
 const ExamFooter = ({
   currentQuestion,
@@ -15,8 +14,6 @@ const ExamFooter = ({
   nextQuestion: () => void;
   handleSubmitClick: () => Promise<void>;
 }) => {
-  const { getValues } = useFormContext();
-
   return (
     <div className="flex justify-end gap-2 p-2">
       <SquareButton className="px-3" onClick={prevQuestion} theme="blue">

@@ -2,19 +2,11 @@ import React from 'react';
 import { IQuestion } from '@/model/i-question';
 import Image from 'next/image';
 import NumberCircle from '@/components/number-circle';
-import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Answers } from '@/app/(after-login)/(top)/take-exam/[workbookId]/page';
 import Legend from '@/components/legend';
 
-const ExamCard = ({
-  question,
-  fields,
-  idx,
-}: {
-  question: IQuestion;
-  fields: FieldArrayWithId<Answers, 'answers', 'id'>[];
-  idx: number;
-}) => {
+const ExamCard = ({ question, idx }: { question: IQuestion; idx: number }) => {
   const { register, setValue, watch } = useFormContext<Answers>();
   const values = watch();
 
