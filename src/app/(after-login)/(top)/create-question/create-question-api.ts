@@ -1,14 +1,30 @@
 import { ICreateQuestion, ITmpQuestion } from '@/model/i-question';
 
-export async function transformToQuestion(image: File) {
+export async function transformToQuestion({
+  image,
+  crop,
+}: {
+  image: File;
+  crop: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null;
+}) {
   const formData = new FormData();
   formData.append('image', image);
 
+  const { x, y, width, height } = crop!;
+  const xLeft = Math.min(x, x + width);
+  const xRight = Math.max(x, x + width);
+  const yTop = Math.min(y, y + height);
+  const yBottom = Math.max(y, y + height);
   const imageCoordinates = [
-    [160, 282],
-    [462, 278],
-    [460, 518],
-    [151, 513],
+    [xLeft, yTop],
+    [xRight, yTop],
+    [xRight, yBottom],
+    [xLeft, yBottom],
   ];
   const blobImageCoordinates = new Blob([JSON.stringify(imageCoordinates)], {
     type: 'application/json',

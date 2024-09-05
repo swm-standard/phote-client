@@ -1,13 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
 import Container from '@/components/container';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import {
   AddExtraInfo,
   CheckConvert,
-  UploadPicture,
-} from '@/app/(after-login)/(top)/createQuestion/_components/content';
+} from '@/app/(after-login)/(top)/create-question/_components/content';
+import UploadPicture from '@/app/(after-login)/(top)/create-question/_components/content/upload-picture';
 
-import ProgressChangeFooter from '@/app/(after-login)/(top)/createQuestion/_components/progress/progress-change-footer';
+import ProgressChangeFooter from '@/app/(after-login)/(top)/create-question/_components/progress/progress-change-footer';
 import { IStep } from '@/model/i-step';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 
@@ -53,6 +55,21 @@ const CreateQuestionContent = ({ step, prevStep, nextStep }: StepProps) => {
     });
   };
 
+  const [crop, setCrop] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  const handleSelectionComplete = (selection: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }) => {
+    setCrop(selection);
+  };
+
   return (
     <Container className="flex flex-col">
       <FormProvider {...methods}>
@@ -61,6 +78,7 @@ const CreateQuestionContent = ({ step, prevStep, nextStep }: StepProps) => {
             <UploadPicture
               imageUrl={rawImage.imageUrl}
               handleImageChange={handleImageChange}
+              onSelectionComplete={handleSelectionComplete}
             />
           ) : step === 2 ? (
             <CheckConvert
@@ -79,6 +97,7 @@ const CreateQuestionContent = ({ step, prevStep, nextStep }: StepProps) => {
           step={step}
           prevStep={prevStep}
           nextStep={nextStep}
+          crop={crop}
         />
       </FormProvider>
     </Container>

@@ -1,12 +1,12 @@
 import React from 'react';
 import SquareButton from '@/components/square-button';
-import { StepProps } from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
+import { StepProps } from '@/app/(after-login)/(top)/create-question/_components/content/create-question-content';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import {
   createQuestion,
   transformToQuestion,
-} from '@/app/(after-login)/(top)/createQuestion/create-question-api';
+} from '@/app/(after-login)/(top)/create-question/create-question-api';
 import { useFormContext } from 'react-hook-form';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 import useDialog from '@/hook/useDialog';
@@ -33,14 +33,21 @@ const ProgressChangeFooter = ({
   prevStep,
   nextStep,
   readOptions,
+  crop,
 }: StepProps & {
   rawImage: File | null;
   readOptions: (options: string[]) => void;
+  crop: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null;
 }) => {
   const router = useRouter();
   const { reset, getValues } = useFormContext<ICreateQuestion>();
 
-  const { isOpen, toggleOpen } = useDialog();
+  const alertDialog = useDialog();
 
   const isPrevDisabled = () => {
     if (step === 1) return false;
@@ -61,7 +68,7 @@ const ProgressChangeFooter = ({
 
   const handlePrevButtonClick = () => {
     if (step === 1) nextStep();
-    if (step === 2) toggleOpen();
+    if (step === 2) alertDialog.toggleOpen();
     if (step === 3) prevStep();
   };
 
@@ -80,7 +87,10 @@ const ProgressChangeFooter = ({
 
   const handleNextButtonClick = async () => {
     if (step === 1 && rawImage) {
-      const question = await transformMutation.mutateAsync(rawImage);
+      const question = await transformMutation.mutateAsync({
+        image: rawImage,
+        crop,
+      });
       reset({ ...question, options: [] });
       readOptions(question ? question.options : []);
       nextStep();
@@ -112,11 +122,7 @@ const ProgressChangeFooter = ({
           {ButtonText[step].right}
         </SquareButton>
       </div>
-      <Dialog
-        isOpen={isOpen}
-        confirmAction={confirmAction}
-        toggleOpen={toggleOpen}
-      >
+      <Dialog {...alertDialog} confirmAction={confirmAction}>
         <p className="text-001 text-center text-lg font-bold">사진 다시 찍기</p>
         <p className="text-001 text-sm font-medium">
           사진을 다시 등록하시겠습니까? 변경 사항은 저장되지 않습니다.
