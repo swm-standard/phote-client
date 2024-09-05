@@ -11,6 +11,7 @@ import { useFormContext } from 'react-hook-form';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 import useDialog from '@/hook/useDialog';
 import Dialog from '@/components/dialog';
+import Loading from '@/components/ui/loading';
 
 const ButtonText = {
   1: {
@@ -104,6 +105,9 @@ const ProgressChangeFooter = ({
 
   return (
     <>
+      {transformMutation.isPending || createMutation.isPending ? (
+        <Loading />
+      ) : null}
       <div className="sticky bottom-0 flex gap-4 bg-white py-4">
         <SquareButton
           theme="lightgray"

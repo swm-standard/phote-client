@@ -3,6 +3,7 @@
 import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { googleLogin } from '@/app/redirect/login-api';
+import Loading from '@/components/ui/loading';
 
 const Content = () => {
   const searchParams = useSearchParams();
@@ -20,7 +21,7 @@ const Content = () => {
     })();
   }, []);
 
-  return <div>Processing login...</div>;
+  return <Loading />;
 };
 
 export default function Page() {
