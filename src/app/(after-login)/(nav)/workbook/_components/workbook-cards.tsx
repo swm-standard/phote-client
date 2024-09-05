@@ -9,7 +9,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
   const formattedDate = dayjs(workbook.modifiedAt).format('YY.MM.DD');
 
   return (
-    <Link href={`workbookDetail/${workbook.workbookId}`} className="w-[48%]">
+    <Link href={`workbookDetail/${workbook.workbookId}`} className="w-full">
       <div
         className="flex h-full w-full flex-col rounded-2xl border-[1px] border-[#ecflfa] bg-white p-3"
         style={{ boxShadow: '0px 11px 15px 0px #0000000A' }}
@@ -18,12 +18,15 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
           <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#fafafa]">
             <span className="text-2xl">{workbook.emoji}</span>
           </div>
-          <p className="line-clamp-2 text-base font-semibold text-text-001">
+          <p className="line-clamp-1 text-base font-semibold text-text-001">
             {workbook.title}
           </p>
-          <p className="line-clamp-2 text-xs font-normal text-[#9b9b9b]">
-            {workbook.description}
-          </p>
+          <textarea
+            disabled
+            rows={2}
+            className="line-clamp-2 text-xs font-normal text-[#9b9b9b]"
+            value={workbook.description}
+          />
         </div>
         <Separator className="my-2" />
         <div className="flex flex-row gap-2">
@@ -53,7 +56,7 @@ const PropertyChunk = ({
 
 const WorkbookCards = ({ workbooks }: { workbooks: IWorkbook[] }) => {
   return (
-    <div className="flex flex-row flex-wrap justify-center gap-3">
+    <div className="grid grid-cols-2 gap-3">
       {workbooks.map((workbook) => (
         <WorkbookCard workbook={workbook} key={workbook.workbookId} />
       ))}

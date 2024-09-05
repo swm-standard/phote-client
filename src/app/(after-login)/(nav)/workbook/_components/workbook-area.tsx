@@ -44,7 +44,7 @@ const WorkbookArea = () => {
           </div>
         )}
       </section>
-      <div className="sticky bottom-4 my-4 w-full">
+      <div className="sticky bottom-4 my-4 w-full bg-transparent">
         <BarButton icon={workbookIcon} onClick={toggleOpen}>
           문제집 생성
         </BarButton>
