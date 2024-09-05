@@ -5,7 +5,7 @@ import Container from '@/components/container';
 import dayjs from 'dayjs';
 import StopwatchIcon from '@/static/icons/stopwatch-icon';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
+import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import ExamFooter from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-footer';
 import ExamCard from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-card';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';

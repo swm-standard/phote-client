@@ -9,7 +9,7 @@ const HeaderItems: Record<string, { text: string }> = {
   'create-question': {
     text: '문제 생성',
   },
-  workbookDetail: {
+  'workbook-detail': {
     text: '문제집 상세',
   },
   'register-question': {

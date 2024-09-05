@@ -18,7 +18,7 @@ import ExpandedQuestionCard from '@/components/expanded-question-card';
 import {
   deleteQuestionInWorkbook,
   updateQuestionSequence,
-} from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
+} from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export type Interaction = {

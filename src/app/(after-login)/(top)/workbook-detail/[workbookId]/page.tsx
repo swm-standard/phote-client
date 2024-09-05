@@ -1,12 +1,12 @@
 'use client';
 
 import Container from '@/components/container';
-import WorkbookInformation from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/question-list/workbook-information';
-import WorkbookQuestionArea from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/question-list/workbook-question-area';
+import WorkbookInformation from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/question-list/workbook-information';
+import WorkbookQuestionArea from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/question-list/workbook-question-area';
 import { useState } from 'react';
 import ListIcon from '@/static/icons/list-icon';
 import SquareCheckIcon from '@/static/icons/square-check-icon';
-import ExamArea from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/exam-list/exam-area';
+import ExamArea from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/exam-list/exam-area';
 
 type Section = 'QuestionList' | 'ExamList';
 
@@ -35,7 +35,7 @@ const Page = () => {
           채점 결과
         </button>
       </div>
-      <section className="flex-grow bg-white">
+      <section className="flex-grow">
         {selectedSection === 'QuestionList' && <WorkbookQuestionArea />}
         {selectedSection === 'ExamList' && <ExamArea />}
       </section>

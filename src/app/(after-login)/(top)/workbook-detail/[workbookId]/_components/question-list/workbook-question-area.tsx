@@ -5,9 +5,10 @@ import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
 import { useQuery } from '@tanstack/react-query';
-import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
+import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import { IQuestionInWorkbook } from '@/model/i-question';
 import QuestionCardsDetail from '@/components/question-cards-detail';
+import Loading from '@/components/ui/loading';
 
 const WorkbookQuestionArea = () => {
   const [questions, setQuestions] = useState<IQuestionInWorkbook[]>([]);
@@ -18,7 +19,7 @@ const WorkbookQuestionArea = () => {
 
   const { workbookId } = useParams<{ workbookId: string }>();
 
-  const { data, isPending, isError, isSuccess } = useQuery({
+  const { data, isFetching, isError, isSuccess } = useQuery({
     queryKey: ['questionInWorkbook'],
     queryFn: () => readQuestionsByWorkbookId(workbookId),
     refetchOnMount: 'always',
@@ -29,10 +30,10 @@ const WorkbookQuestionArea = () => {
     setQuestions(data);
   }, [data]);
 
-  if (isPending) return <div>loading..</div>;
+  if (isFetching) return <Loading />;
   else if (isError) return <div>Question Data fetch Error</div>;
   return (
-    <Container className="flex flex-col bg-white">
+    <Container className="flex flex-col">
       <section className="flex-grow">
         <Reorder.Group
           axis="y"
@@ -47,7 +48,7 @@ const WorkbookQuestionArea = () => {
         </Reorder.Group>
       </section>
 
-      <div className="sticky bottom-4 my-4 w-full px-4">
+      <div className="sticky bottom-4 my-4 w-full bg-transparent px-4">
         <BarButton
           icon={PlusIcon}
           barButtonType="link"
