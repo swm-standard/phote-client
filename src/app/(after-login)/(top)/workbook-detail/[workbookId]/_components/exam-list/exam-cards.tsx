@@ -19,7 +19,13 @@ export const ExamCard = ({ exam }: { exam: IExam }) => {
   );
 };
 
-const WordChunk = ({ label, value }: { label: string; value: string }) => {
+export const WordChunk = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) => {
   return (
     <div className="flex flex-col items-start justify-center">
       <p className="text-xs font-normal text-text-003">{label}</p>

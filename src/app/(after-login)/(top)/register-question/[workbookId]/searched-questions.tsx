@@ -11,6 +11,7 @@ import {
   registerQuestion,
   searchQuestionsToRegister,
 } from '@/app/(after-login)/(top)/register-question/[workbookId]/register-question-api';
+import Loading from '@/components/ui/loading';
 
 const SearchedQuestions = () => {
   const searchParams = useSearchParams();
@@ -21,7 +22,7 @@ const SearchedQuestions = () => {
   searchParams.get('keywords') &&
     params.append('keywords', searchParams.get('keywords') ?? '');
 
-  const { data, isError, isPending, refetch } = useQuery({
+  const { data, isError, isFetching, refetch } = useQuery({
     queryKey: ['searchRegisterQuestion'],
     queryFn: () => searchQuestionsToRegister(workbookId, params.toString()),
   });
@@ -51,10 +52,10 @@ const SearchedQuestions = () => {
     await createMutation.mutateAsync({ workbookId, checkedQuestions });
     await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
     await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
-    router.replace(`/workbookDetail/${workbookId}`);
+    router.replace(`/workbook-detail/${workbookId}`);
   };
 
-  if (isPending) return <div>loading</div>;
+  if (isFetching) return <Loading />;
   else if (isError) return <div>error</div>;
   return (
     <Container className="flex flex-col">
