@@ -15,7 +15,7 @@ const Page = () => {
             # 을 통해 태그 검색도 가능해요 😃
           </p>
         </section>
-        <section className="sticky top-[-1px] bg-app-bg px-4 py-5">
+        <section className="sticky top-[-1px] z-10 bg-app-bg px-4 py-5">
           <SearchHeader />
         </section>
         <section className="flex-grow">
