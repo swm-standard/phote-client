@@ -41,19 +41,19 @@ const Navigation = () => {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <ul className="flex w-full flex-row justify-between bg-white">
+    <ul className="flex w-full flex-row items-center justify-around bg-white pb-2 pt-3">
       {navigationList.map((item, idx) =>
         segment === item.path ? (
           <li
             key={idx}
-            className="flex flex-col items-center justify-center gap-1 px-9 py-3 text-text-001"
+            className="flex flex-col items-center justify-center gap-1"
           >
             <item.icon className="h-6 w-6" />
             <p className="text-xs">{item.buttonText}</p>
           </li>
         ) : (
           <Link href={item.path} key={idx}>
-            <li className="flex flex-col items-center justify-center gap-1 px-9 py-3 text-text-003">
+            <li className="flex flex-col items-center justify-center gap-1 text-text-003">
               <item.icon className="h-6 w-6" />
               <p className="text-xs">{item.buttonText}</p>
             </li>
