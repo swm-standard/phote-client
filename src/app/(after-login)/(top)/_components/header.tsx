@@ -45,11 +45,11 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex gap-2.5 bg-white px-5 py-4">
+      <div className="flex gap-2 bg-white px-3 py-4">
         <button onClick={handleBackClick}>
-          <AngleLeftIcon className="h-6 w-6" />
+          <AngleLeftIcon className="h-4 w-4" />
         </button>
-        <p className="text-lg font-bold text-text-001">
+        <p className="text-base font-bold text-text-001">
           {(HeaderItems[segment] || HeaderItems['none']).text}
         </p>
       </div>

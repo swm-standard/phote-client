@@ -9,15 +9,15 @@ import {
 } from '@/app/(after-login)/(top)/question-detail/[questionId]/question-detail-api';
 import Legend from '@/components/legend';
 import Image from 'next/image';
-import dummyImage from '@/static/images/dummy-image-square.jpg';
 import SquareButton from '@/components/square-button';
 import NumberCircle from '@/components/number-circle';
 import BarButton from '@/components/bar-button';
 import TrashCanIcon from '@/static/icons/trash-can-icon';
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/ui/loading';
 
 const Page = ({ params }: { params: { questionId: string } }) => {
-  const { data, isPending, isError } = useQuery({
+  const { data, isFetching, isError } = useQuery({
     queryKey: ['questionDetail'],
     queryFn: () => readQuestionDetailById(params.questionId),
   });
@@ -32,30 +32,36 @@ const Page = ({ params }: { params: { questionId: string } }) => {
     router.back();
   };
 
-  if (isPending) return <div>loading</div>;
+  console.log(data);
+  if (isFetching) return <Loading />;
   else if (isError) return <div>error</div>;
   else
     return (
-      <Container className="bg-white px-6">
-        <div className="flex flex-col gap-5">
+      <Container className="bg-white px-6 pt-4">
+        <section className="flex flex-col gap-6">
           <fieldset>
-            <Legend required className="mb-2">
+            <Legend required className="mb-2 text-sm">
               문제설명
             </Legend>
             <textarea
+              rows={3}
               className="w-full rounded-lg border-[1px] border-brand-gray-heavy p-2 text-sm font-normal text-text-001"
               value={data.statement}
               readOnly
             />
           </fieldset>
+
+          {data.image && (
+            <fieldset>
+              <Legend className="mb-2 text-sm">문제 그림</Legend>
+              <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-lg">
+                <Image src={data.image} fill alt="문제" />
+              </div>
+            </fieldset>
+          )}
+
           <fieldset>
-            <Legend className="mb-2">문제 그림</Legend>
-            <div className="mx-auto h-96 w-96 overflow-hidden rounded-lg">
-              <Image src={dummyImage} alt="문제" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <Legend className="mb-2" required>
+            <Legend className="mb-2 text-sm" required>
               문제 유형
             </Legend>
             <div className="flex gap-2">
@@ -74,44 +80,47 @@ const Page = ({ params }: { params: { questionId: string } }) => {
             </div>
           </fieldset>
 
-          <fieldset>
-            <Legend required className="mb-2">
-              선택지
-            </Legend>
-            <ul className="flex flex-col gap-4">
-              {data.options.map((field: string, idx: number) => (
-                <li key={idx} className="flex items-center gap-4">
-                  <NumberCircle number={idx + 1} className="mb-[1px]" />
-                  <section className="flex-grow">{field}</section>
-                </li>
-              ))}
-            </ul>
-          </fieldset>
+          {data.category === 'MULTIPLE' && (
+            <fieldset>
+              <Legend required className="mb-2 text-sm">
+                선택지
+              </Legend>
+              <ul className="flex flex-col gap-4">
+                {data.options.map((field: string, idx: number) => (
+                  <li key={idx} className="flex items-center gap-4">
+                    <NumberCircle number={idx + 1} className="mb-[1px]" />
+                    <section className="flex-grow">{field}</section>
+                  </li>
+                ))}
+              </ul>
+            </fieldset>
+          )}
 
           <fieldset>
-            <Legend required className="mb-2">
+            <Legend required className="mb-2 text-sm">
               정답
             </Legend>
             {data.answer}
           </fieldset>
           <fieldset>
-            <Legend className="mb-2">태그</Legend>
-            <div className="mt-2 flex gap-4">
+            <Legend className="mb-2 text-sm">태그</Legend>
+            <div className="flex gap-4">
               {data.tags.map((tag: { name: string }, idx: number) => (
                 <span key={idx}>{tag.name}</span>
               ))}
             </div>
           </fieldset>
           <fieldset>
-            <Legend className="mb-2">메모</Legend>
+            <Legend className="mb-2 text-sm">메모</Legend>
             <textarea
               className="w-full rounded-lg border-[1px] border-brand-gray-heavy p-2 text-sm font-normal text-text-001"
               value={data.memo}
               readOnly
             />
           </fieldset>
-        </div>
-        <div className="sticky bottom-0 w-full py-4">
+        </section>
+
+        <div className="sticky bottom-0 w-full bg-transparent py-4">
           <BarButton
             icon={TrashCanIcon}
             barButtonType="button"

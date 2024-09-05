@@ -55,7 +55,7 @@ export const CheckConvert = ({
   return (
     <div className="flex flex-col gap-6">
       <fieldset>
-        <Legend required className="mb-2">
+        <Legend required className="mb-2 text-sm">
           문제설명
         </Legend>
         <Textarea
@@ -69,14 +69,14 @@ export const CheckConvert = ({
       </fieldset>
       {values.image && (
         <fieldset>
-          <Legend className="mb-2">문제 그림</Legend>
+          <Legend className="mb-2 text-sm">문제 그림</Legend>
           <div className="relative mx-auto h-96 w-96 overflow-hidden rounded-lg">
             <Image src={values.image} alt="문제" fill />
           </div>
         </fieldset>
       )}
       <fieldset>
-        <Legend className="mb-2" required>
+        <Legend className="mb-2 text-sm" required>
           문제 유형
         </Legend>
         <div className="flex gap-2">
@@ -98,7 +98,7 @@ export const CheckConvert = ({
       </fieldset>
       {values.category === 'MULTIPLE' && (
         <fieldset>
-          <Legend required className="mb-2">
+          <Legend required className="mb-2 text-sm">
             선택지
           </Legend>
           <ul className="flex flex-col gap-4">
