@@ -32,7 +32,7 @@ const SearchInput = ({ className, register, ...props }: InputProps) => {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
-      <SearchGlassIcon className="h-5 w-5 text-brand-blue-light" />
+      <SearchGlassIcon className="h-5 w-5 text-text-001" />
     </div>
   );
 };

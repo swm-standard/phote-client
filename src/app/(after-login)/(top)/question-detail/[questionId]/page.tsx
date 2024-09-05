@@ -98,7 +98,7 @@ const Page = ({ params }: { params: { questionId: string } }) => {
             <Legend className="mb-2">태그</Legend>
             <div className="mt-2 flex gap-4">
               {data.tags.map((tag: { name: string }, idx: number) => (
-                <span>{tag.name}</span>
+                <span key={idx}>{tag.name}</span>
               ))}
             </div>
           </fieldset>

@@ -52,6 +52,7 @@ const Input = ({
         className="flex-grow bg-inherit"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
+        autoComplete="off"
       />
       <p className="text-xs font-medium text-text-003">{`${textLength} / ${props.maxLength}`}</p>
     </div>

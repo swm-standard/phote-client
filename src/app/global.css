@@ -11,6 +11,7 @@
     list-style-type: none;
     font-size: inherit;
     font-weight: inherit;
+    background: inherit;
 }
 
 *::-webkit-scrollbar {

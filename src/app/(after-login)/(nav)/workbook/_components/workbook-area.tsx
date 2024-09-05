@@ -9,18 +9,19 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
 import { readWorkbooks } from '@/app/(after-login)/(nav)/workbook/workbook-api';
+import Loading from '@/components/ui/loading';
 
 const WorkbookArea = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
-  const { data, isError, isPending } = useQuery({
+  const { data, isError, isFetching } = useQuery({
     queryKey: ['workbooks'],
     queryFn: readWorkbooks,
   });
 
-  if (isPending) {
-    return <div>Loading</div>;
+  if (isFetching) {
+    return <Loading />;
   } else if (isError) {
     return <div>Error</div>;
   }
@@ -44,7 +45,7 @@ const WorkbookArea = () => {
           </div>
         )}
       </section>
-      <div className="sticky bottom-4 my-4 w-full">
+      <div className="sticky bottom-4 my-4 w-full bg-transparent">
         <BarButton icon={workbookIcon} onClick={toggleOpen}>
           문제집 생성
         </BarButton>

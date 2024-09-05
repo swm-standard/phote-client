@@ -2,7 +2,6 @@ import React from 'react';
 import AngleDownIcon from '@/static/icons/angle-down-icon';
 import InfoIcon from '@/static/icons/info-icon';
 import Image from 'next/image';
-import dummy from '@/static/images/dummy-image-square.jpg';
 import NumberCircle from '@/components/number-circle';
 import { IQuestion } from '@/model/i-question';
 import { QuestionCardType } from '@/components/question-card';
@@ -56,20 +55,26 @@ const ExpandedQuestionCard = ({
               {question.statement}
             </p>
           </div>
-          <Image src={dummy} alt="test" />
-          <div className="flex flex-col gap-1">
-            <span className="text-left text-sm font-bold text-text-001">
-              [ 선택지 ]
-            </span>
-            <ul className="flex flex-col gap-1">
-              {question.options.map((option, idx) => (
-                <li key={idx} className="flex items-center gap-2 text-left">
-                  <NumberCircle number={idx + 1} />
-                  {option}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {question.image && (
+            <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-lg">
+              <Image src={question.image} alt="문제" fill />
+            </div>
+          )}
+          {question.options.length ? (
+            <div className="flex flex-col gap-1">
+              <span className="text-left text-sm font-bold text-text-001">
+                [ 선택지 ]
+              </span>
+              <ul className="flex flex-col gap-1">
+                {question.options.map((option, idx) => (
+                  <li key={idx} className="flex items-center gap-2 text-left">
+                    <NumberCircle number={idx + 1} />
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

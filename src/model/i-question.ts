@@ -29,7 +29,17 @@ export type ICreateQuestion = {
   memo: string;
 };
 
-type Option = {
+export type ITmpQuestion = {
+  statement: string;
+  image: string;
+  category: IQuestionCategory;
+  options: string[];
+  answer: string;
+  tags: string[];
+  memo: string;
+};
+
+export type Option = {
   value: string;
 };
 

@@ -81,7 +81,7 @@ const WorkbookDetailDrawer = ({
             </Legend>
             <Input
               register={register('title')}
-              maxLength={15}
+              maxLength={30}
               textLength={values.title.length}
             />
           </fieldset>
@@ -91,7 +91,7 @@ const WorkbookDetailDrawer = ({
             </Legend>
             <Input
               register={register('description')}
-              maxLength={30}
+              maxLength={50}
               textLength={values.description.length}
             />
           </fieldset>

@@ -8,6 +8,7 @@ import QuestionIcon from '@/static/icons/question-icon';
 import QuestionCards from '@/components/question-cards';
 import { useQuery } from '@tanstack/react-query';
 import { searchQuestions } from '@/app/(after-login)/(nav)/question/question-api';
+import Loading from '@/components/ui/loading';
 
 const SearchedQuestions = () => {
   const searchParams = useSearchParams();
@@ -17,7 +18,7 @@ const SearchedQuestions = () => {
   searchParams.get('keywords') &&
     params.append('keywords', searchParams.get('keywords') ?? '');
 
-  const { data, isError, isPending, refetch } = useQuery({
+  const { data, isError, isFetching, refetch } = useQuery({
     queryKey: ['searchQuestions'],
     queryFn: () => searchQuestions(params.toString()),
   });
@@ -26,18 +27,18 @@ const SearchedQuestions = () => {
     (async () => refetch())();
   }, [searchParams, refetch]);
 
-  if (isPending) return <div>loading</div>;
+  if (isFetching) return <Loading />;
   else if (isError) return <div>error</div>;
   return (
     <Container className="flex flex-col">
       <section className="flex-grow">
         <QuestionCards questions={data} />
       </section>
-      <div className="sticky bottom-0 w-full px-4 py-4">
+      <div className="sticky bottom-0 w-full bg-transparent px-4 py-4">
         <BarButton
           icon={QuestionIcon}
           barButtonType="link"
-          href={'/createQuestion'}
+          href={'/create-question'}
         >
           문제 생성
         </BarButton>

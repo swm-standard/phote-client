@@ -49,7 +49,7 @@ const QuestionCardsDetail = ({
       return;
     }
     (async () => {
-      await updateQuestionSequence({ workbookId, questions });
+      await sequenceMutation.mutateAsync({ workbookId, questions });
     })();
   }, [debouncedQuestions]);
 
@@ -108,6 +108,7 @@ const ReorderWrapper = ({
       value={question}
       dragListener={false}
       dragControls={swapControls}
+      style={{ touchAction: 'none' }}
     >
       {renderChildren(swapControls)}
     </Reorder.Item>
@@ -211,7 +212,7 @@ const PushWrapper = ({
 
   const queryClient = useQueryClient();
   const handleDeleteButtonClick = async () => {
-    await deleteQuestionInWorkbook({ workbookId, questionId });
+    await createMutation.mutateAsync({ workbookId, questionId });
     await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
     await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
     optimisticDeleteQuestionById(questionId);

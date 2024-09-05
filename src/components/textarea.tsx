@@ -47,6 +47,7 @@ const Textarea = ({
           className,
           focused ? 'border-2 border-brand-blue-heavy bg-white p-[7px]' : '',
         )}
+        autoComplete="off"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />

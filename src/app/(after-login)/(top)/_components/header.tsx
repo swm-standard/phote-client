@@ -6,7 +6,7 @@ import Dialog from '@/components/dialog';
 import useDialog from '@/hook/useDialog';
 
 const HeaderItems: Record<string, { text: string }> = {
-  createQuestion: {
+  'create-question': {
     text: '문제 생성',
   },
   workbookDetail: {
@@ -17,6 +17,12 @@ const HeaderItems: Record<string, { text: string }> = {
   },
   'question-detail': {
     text: '문제 상세',
+  },
+  'exam-detail': {
+    text: '시험 결과',
+  },
+  'take-exam': {
+    text: '문제집 풀이',
   },
   none: {
     text: '잘못된 주소',
