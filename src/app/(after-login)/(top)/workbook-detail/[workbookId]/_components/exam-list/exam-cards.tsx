@@ -1,12 +1,13 @@
 import React from 'react';
 import { IExam } from '@/model/i-exam';
 import Link from 'next/link';
+import Container from '@/components/container';
 
-const ExamCard = ({ exam }: { exam: IExam }) => {
+export const ExamCard = ({ exam }: { exam: IExam }) => {
   return (
     <Link
       href={`/exam-detail/${exam.examId}`}
-      className="flex items-center justify-center gap-20 border-b-[1px] border-brand-gray-heavy bg-inherit px-4 py-4"
+      className="flex items-center justify-center gap-20 border-b-[1px] border-brand-gray-heavy bg-inherit bg-white px-4 py-4"
     >
       <WordChunk
         label="총 점수"
@@ -27,4 +28,14 @@ const WordChunk = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-export default ExamCard;
+const ExamCards = ({ exams }: { exams: IExam[] }) => {
+  return (
+    <Container>
+      {exams.map((exam) => (
+        <ExamCard key={exam.examId} exam={exam} />
+      ))}
+    </Container>
+  );
+};
+
+export default ExamCards;

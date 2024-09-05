@@ -5,7 +5,7 @@ import Container from '@/components/container';
 
 import Check3D from '@/static/images/3d-check.png';
 import Image from 'next/image';
-import ExamCard from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/_components/exam-list/exam-card';
+import { ExamCard } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/exam-list/exam-cards';
 import { useQuery } from '@tanstack/react-query';
 import { readExamDetail } from '@/app/(after-login)/(top)/exam-detail/[examId]/exam-detail-api';
 
