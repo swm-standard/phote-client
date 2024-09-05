@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@/components/container';
-import ProgressBar from '@/app/(after-login)/(top)/createQuestion/_components/progress/progress-bar';
+import ProgressBar from '@/app/(after-login)/(top)/create-question/_components/progress/progress-bar';
 import { IStep } from '@/model/i-step';
 
 type StepText = {

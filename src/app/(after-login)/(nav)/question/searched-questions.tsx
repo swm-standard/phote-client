@@ -38,7 +38,7 @@ const SearchedQuestions = () => {
         <BarButton
           icon={QuestionIcon}
           barButtonType="link"
-          href={'/createQuestion'}
+          href={'/create-question'}
         >
           문제 생성
         </BarButton>

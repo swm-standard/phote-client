@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Container from '@/components/container';
-import Progress from '@/app/(after-login)/(top)/createQuestion/_components/progress/progress';
-import CreateQuestionContent from '@/app/(after-login)/(top)/createQuestion/_components/content/create-question-content';
+import Progress from '@/app/(after-login)/(top)/create-question/_components/progress/progress';
+import CreateQuestionContent from '@/app/(after-login)/(top)/create-question/_components/content/create-question-content';
 import { IStep } from '@/model/i-step';
 
 const Page = () => {
