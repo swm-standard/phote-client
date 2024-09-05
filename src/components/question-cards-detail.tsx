@@ -108,6 +108,7 @@ const ReorderWrapper = ({
       value={question}
       dragListener={false}
       dragControls={swapControls}
+      style={{ touchAction: 'none' }}
     >
       {renderChildren(swapControls)}
     </Reorder.Item>
