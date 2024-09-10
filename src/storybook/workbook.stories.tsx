@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
 import { Dummy_Workbooks } from '@/app/_lib/dummy';
 
-import Page from '../page';
-import Navigation from '@/app/(after-login)/(nav)/_components/navigation';
+import Page from '../app/(after-login)/(nav)/workbook/page';
+import Navigation from '@/app/(after-login)/(nav)/navigation';
 import StorybookContainer from '@/components/storybook-container';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;

@@ -3,9 +3,9 @@ import { http, HttpResponse } from 'msw';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Questions } from '@/app/_lib/dummy';
 
-import Page from './page';
+import Page from '../app/(after-login)/(nav)/question/page';
 import Container from '@/components/container';
-import Navigation from '@/app/(after-login)/(nav)/_components/navigation';
+import Navigation from '@/app/(after-login)/(nav)/navigation';
 
 const meta = {
   title: 'Question',
