@@ -7,8 +7,8 @@ import BarButton from '@/components/bar-button';
 import QuestionIcon from '@/static/icons/question-icon';
 import QuestionCards from '@/components/question-cards';
 import { useQuery } from '@tanstack/react-query';
-import { searchQuestions } from '@/app/(after-login)/(nav)/question/question-api';
 import Loading from '@/components/ui/loading';
+import { searchQuestions } from '@/api/question-api';
 
 const SearchedQuestions = () => {
   const searchParams = useSearchParams();
