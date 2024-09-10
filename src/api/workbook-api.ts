@@ -1,6 +1,6 @@
 import { IWorkbookBase } from '@/model/i-workbook';
 
-export async function readWorkbooks() {
+export async function readWorkbookList() {
   try {
     const response = await fetch('/api/workbooks', {
       method: 'GET',

@@ -8,8 +8,8 @@ import WorkbookCards from '@/app/(after-login)/(nav)/workbook/_components/workbo
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
-import { readWorkbooks } from '@/app/(after-login)/(nav)/workbook/workbook-api';
 import Loading from '@/components/ui/loading';
+import { readWorkbookList } from '@/api/workbook-api';
 
 const WorkbookArea = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const WorkbookArea = () => {
 
   const { data, isError, isFetching } = useQuery({
     queryKey: ['workbooks'],
-    queryFn: readWorkbooks,
+    queryFn: readWorkbookList,
   });
 
   if (isFetching) {
