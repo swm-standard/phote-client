@@ -5,7 +5,7 @@ import { Dummy_Questions } from '@/app/_lib/dummy';
 
 import Page from './page';
 import Container from '@/components/container';
-import Header from '@/app/(after-login)/(top)/_components/header';
+import Header from '@/app/(after-login)/(top)/header';
 
 const meta = {
   title: 'Register Question',

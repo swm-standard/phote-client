@@ -5,10 +5,11 @@ import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
 import { useQuery } from '@tanstack/react-query';
-import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import { IQuestionInWorkbook } from '@/model/i-question';
 import QuestionCardsDetail from '@/components/question-cards-detail';
 import Loading from '@/components/ui/loading';
+
+import { readRegisteredQuestion } from '@/api/registered-question-api';
 
 const WorkbookQuestionArea = () => {
   const [questions, setQuestions] = useState<IQuestionInWorkbook[]>([]);
@@ -21,7 +22,7 @@ const WorkbookQuestionArea = () => {
 
   const { data, isFetching, isError, isSuccess } = useQuery({
     queryKey: ['questionInWorkbook'],
-    queryFn: () => readQuestionsByWorkbookId(workbookId),
+    queryFn: () => readRegisteredQuestion(workbookId),
     refetchOnMount: 'always',
   });
 

@@ -7,7 +7,8 @@ import useDialog from '@/hook/useDialog';
 import Dialog from '@/components/dialog';
 import { useParams, useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { deleteWorkbook } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
+
+import { deleteWorkbook } from '@/api/workbook-api';
 
 const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
   const formattedDate = dayjs(workbook.modifiedAt).format('YY.MM.DD');

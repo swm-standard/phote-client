@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { Dummy_Questions, Dummy_Workbook } from '@/app/_lib/dummy';
 
 import Page from '../../page';
-import Header from '@/app/(after-login)/(top)/_components/header';
+import Header from '@/app/(after-login)/(top)/header';
 import StorybookContainer from '@/components/storybook-container';
 
 const meta = {

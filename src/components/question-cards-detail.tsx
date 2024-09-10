@@ -15,11 +15,11 @@ import Container from '@/components/container';
 import QuestionCard from '@/components/question-card';
 import { IQuestion, IQuestionInWorkbook } from '@/model/i-question';
 import ExpandedQuestionCard from '@/components/expanded-question-card';
-import {
-  deleteQuestionInWorkbook,
-  updateQuestionSequence,
-} from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  removeRegisteredQuestion,
+  updateRegisteredQuestionSequence,
+} from '@/api/registered-question-api';
 
 export type Interaction = {
   questionId: string;
@@ -39,7 +39,7 @@ const QuestionCardsDetail = ({
   const [interaction, setInteraction] = useState<Interaction>(null);
 
   const sequenceMutation = useMutation({
-    mutationFn: updateQuestionSequence,
+    mutationFn: updateRegisteredQuestionSequence,
   });
 
   const [firstRender, setFirstRender] = useState(true);
@@ -207,7 +207,7 @@ const PushWrapper = ({
 
   const { workbookId } = useParams<{ workbookId: string }>();
   const createMutation = useMutation({
-    mutationFn: deleteQuestionInWorkbook,
+    mutationFn: removeRegisteredQuestion,
   });
 
   const queryClient = useQueryClient();

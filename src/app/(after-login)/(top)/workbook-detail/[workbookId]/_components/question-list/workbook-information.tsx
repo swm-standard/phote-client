@@ -3,15 +3,15 @@
 import { useParams } from 'next/navigation';
 import WorkbookEditButtons from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/question-list/workbook-edit-buttons';
 import { useQuery } from '@tanstack/react-query';
-import { readWorkbookById } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import WorkbookCard from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/question-list/workbook-card';
 import Loading from '@/components/ui/loading';
+import { readWorkbookDetail } from '@/api/workbook-api';
 
 const WorkbookInformation = () => {
   const { workbookId } = useParams<{ workbookId: string }>();
   const { data, isError, isFetching } = useQuery({
     queryKey: ['workbookInformation'],
-    queryFn: () => readWorkbookById(workbookId),
+    queryFn: () => readWorkbookDetail(workbookId),
   });
 
   if (isFetching) return <Loading />;

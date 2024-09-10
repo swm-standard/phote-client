@@ -4,9 +4,9 @@ import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import PlusIcon from '@/static/icons/plus-icon';
 import { useQuery } from '@tanstack/react-query';
-import { readExamHistories } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import Loading from '@/components/ui/loading';
 import ExamCards from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/exam-list/exam-cards';
+import { readExamHistories } from '@/api/exam-api';
 
 const WorkbookQuestionArea = () => {
   const { workbookId } = useParams<{ workbookId: string }>();

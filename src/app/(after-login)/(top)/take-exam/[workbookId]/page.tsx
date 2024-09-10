@@ -5,13 +5,14 @@ import Container from '@/components/container';
 import dayjs from 'dayjs';
 import StopwatchIcon from '@/static/icons/stopwatch-icon';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { readQuestionsByWorkbookId } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/workbook-detail-api';
 import ExamFooter from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-footer';
 import ExamCard from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-card';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { submitExam } from '@/app/(after-login)/(top)/take-exam/[workbookId]/take-exam-api';
 import { IQuestion } from '@/model/i-question';
 import { useRouter } from 'next/navigation';
+
+import { readRegisteredQuestion } from '@/api/registered-question-api';
 
 export type Answers = {
   answers: Answer[];
@@ -38,7 +39,7 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
 
   const { data, isPending, isError, isSuccess } = useQuery({
     queryKey: ['questionInWorkbook'],
-    queryFn: () => readQuestionsByWorkbookId(params.workbookId),
+    queryFn: () => readRegisteredQuestion(params.workbookId),
     refetchOnMount: 'always',
   });
 
