@@ -3,9 +3,9 @@
 import Container from '@/components/container';
 import BarButton from '@/components/bar-button';
 import { useMutation } from '@tanstack/react-query';
-import { logout } from '@/app/(after-login)/(nav)/my/my-api';
 import Loading from '@/components/ui/loading';
 import { useRouter } from 'next/navigation';
+import { logout } from '@/api/auth-api';
 
 const Page = () => {
   const logoutMutation = useMutation({ mutationFn: logout });

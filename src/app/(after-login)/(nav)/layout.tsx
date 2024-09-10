@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Container from '@/components/container';
-import Navigation from './_components/navigation';
+import Navigation from './navigation';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
