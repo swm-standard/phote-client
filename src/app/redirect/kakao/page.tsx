@@ -4,24 +4,29 @@ import { Suspense, useEffect } from 'react';
 import { kakaoLogin } from '@/app/redirect/login-api';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Loading from '@/components/ui/loading';
+import { useQuery } from '@tanstack/react-query';
 
 const Content = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!searchParams.get('code')) return;
-    (async () => {
-      try {
-        await kakaoLogin(searchParams.get('code')!);
-        router.push('/workbook');
-      } catch (e) {
-        console.error(`kakaoLogin failed by ${e}`);
-      }
-    })();
-  }, []);
+  const code = searchParams.get('code');
+  const loginQuery = useQuery({
+    queryKey: ['kakaoLogin'],
+    queryFn: () => kakaoLogin(code!),
+    enabled: !!code,
+  });
 
-  return <Loading />;
+  useEffect(() => {
+    if (loginQuery.isSuccess) {
+      router.push('/workbook');
+    } else if (loginQuery.isError) {
+      router.push('/error');
+    }
+  }, [loginQuery.isSuccess, loginQuery.isError, router]);
+
+  if (loginQuery.isFetching) return <Loading />;
+  return null;
 };
 
 export default function Page() {

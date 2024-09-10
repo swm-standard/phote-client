@@ -12,25 +12,47 @@ import Container from '@/components/container';
 const Page = () => {
   return (
     <Container className="flex flex-col">
-      <section className="flex flex-grow flex-col items-center justify-center gap-2">
-        <div className="relative flex w-48 flex-col items-center justify-center gap-8 text-brand-blue-heavy">
-          <Image src={logo_character} alt="" width={150} height={150} />
-          <Image src={logo_typo} alt="포테" width={100} height={100} />
+      <section className="mx-32 flex flex-grow flex-col items-center justify-center gap-2">
+        <div className="relative w-full">
+          <Image
+            src={logo_character}
+            alt=""
+            layout="responsive"
+            objectFit="contain"
+          />
+        </div>
+        <div className="relative w-full">
+          <Image
+            src={logo_typo}
+            alt="포테"
+            layout="responsive"
+            objectFit="contain"
+          />
         </div>
       </section>
 
       <section className="mb-10 flex w-full flex-col items-center justify-center gap-4 px-4">
         <Link
           href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env['NEXT_PUBLIC_GOOGLE_API_KEY']}&response_type=code&redirect_uri=${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/google&scope=https://www.googleapis.com/auth/userinfo.email`}
-          className="relative w-full"
+          className="relative h-fit w-full"
         >
-          <Image src={google} alt="구글 로그인" width={360} />
+          <Image
+            src={google}
+            alt="구글 로그인"
+            layout="responsive"
+            objectFit="contain"
+          />
         </Link>
         <Link
           href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env['NEXT_PUBLIC_KAKAO_API_KEY']}&redirect_uri=${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/kakao&response_type=code`}
           className="relative w-full"
         >
-          <Image src={kakao} alt="카카오 로그인" width={360} />
+          <Image
+            src={kakao}
+            alt="카카오 로그인"
+            layout="responsive"
+            objectFit="contain"
+          />
         </Link>
       </section>
     </Container>
