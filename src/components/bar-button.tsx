@@ -8,7 +8,7 @@ type BarButtonProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   'className'
 > & {
-  icon: React.ComponentType<{ className: string }>;
+  icon?: React.ComponentType<{ className: string }>;
   className?: string;
   children?: React.ReactNode;
   href?: string;
@@ -32,7 +32,7 @@ const BarButton = ({
           className,
         )}
       >
-        <Icon className="h-5 w-5 fill-white" />
+        {Icon && <Icon className="h-5 w-5 fill-white" />}
         <p className="text-sm font-semibold text-white">{children}</p>
       </Link>
     );
@@ -45,7 +45,7 @@ const BarButton = ({
           className,
         )}
       >
-        <Icon className="h-5 w-5 fill-white" />
+        {Icon && <Icon className="h-5 w-5 fill-white" />}
         <p className="text-sm font-semibold text-white">{children}</p>
       </button>
     );

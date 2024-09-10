@@ -1,28 +1,23 @@
+import { throwCustomError } from '@/lib/error';
+
 export async function kakaoLogin(authCode: string) {
-  try {
-    const response = await fetch('/api/auth/kakao-login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        code: authCode,
-        redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/kakao`,
-      }),
-    });
+  const response = await fetch('/api/auth/kakao-login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      code: authCode,
+      redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/kakao`,
+    }),
+  });
 
-    if (!response.ok) {
-      const json = await response.json();
-      console.error(`[kakaoLogin] failed with status ${response.status}`);
-      console.error(`- ${json.message}`);
-      throw new Error(json.message || 'An error occurred during Kakao login.');
-    }
+  const jsonResponse = await response.json();
 
-    const json = await response.json();
-    const { accessToken } = json.data;
-
+  if (response.ok) {
+    const { accessToken } = jsonResponse.data;
     localStorage.setItem('accessToken', accessToken);
-  } catch (e) {
-    console.error('An error occurred in kakaoLogin:', e);
-    throw e;
+    return jsonResponse.data;
+  } else {
+    throwCustomError('kakaoLogin', jsonResponse);
   }
 }
 

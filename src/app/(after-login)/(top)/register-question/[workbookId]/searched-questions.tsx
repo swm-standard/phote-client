@@ -69,7 +69,7 @@ const SearchedQuestions = () => {
         />
       </section>
       <div className="sticky bottom-0 flex gap-4 bg-white px-4 py-3">
-        <SquareButton className="px-6 py-2">신규 문제</SquareButton>
+        {/*<SquareButton className="px-6 py-2">신규 문제</SquareButton>*/}
         <SquareButton
           className="flex-grow py-2"
           theme="blue"
