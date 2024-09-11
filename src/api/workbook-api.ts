@@ -1,4 +1,5 @@
 import { IWorkbookBase } from '@/model/i-workbook';
+import { throwCustomError } from '@/lib/error';
 
 export async function readWorkbookList() {
   try {
@@ -65,5 +66,21 @@ export async function deleteWorkbook(workbookId: string) {
     return json.data;
   } catch (e) {
     console.error(`deleteWorkbook failed by ${e}`);
+  }
+}
+
+export async function receiveWorkbook(workbookId: string) {
+  const response = await fetch(`/api/shared-workbook`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ workbookId }),
+  });
+
+  const jsonResponse = await response.json();
+
+  if (response.ok) {
+    return jsonResponse.data;
+  } else {
+    throwCustomError('receiveWorkbook', jsonResponse);
   }
 }

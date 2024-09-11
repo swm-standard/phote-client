@@ -24,6 +24,9 @@ const HeaderItems: Record<string, { text: string }> = {
   'take-exam': {
     text: '문제집 풀이',
   },
+  'share-workbook': {
+    text: '공유받은 문제집 받기',
+  },
   none: {
     text: '잘못된 주소',
   },

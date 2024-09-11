@@ -21,6 +21,7 @@ const WorkbookInformation = () => {
       <div className="flex flex-col gap-4 px-10 py-6">
         <WorkbookCard workbook={data} />
         <WorkbookEditButtons
+          workbookId={workbookId}
           workbookBase={{ title: data.title, description: data.description }}
         />
       </div>

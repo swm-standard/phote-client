@@ -9,12 +9,29 @@ import Dialog from '@/components/dialog';
 import CopyIcon from '@/static/icons/copy-icon';
 
 const WorkbookEditButtons = ({
+  workbookId,
   workbookBase,
 }: {
+  workbookId: string;
   workbookBase: IWorkbookBase;
 }) => {
   const { isOpen: isModifyOpen, toggleOpen: toggleModifyOpen } = useDialog();
   const { isOpen: isShareOpen, toggleOpen: toggleShareOpen } = useDialog();
+
+  const shareButtonClick = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Next.js Web Share API Demo',
+          text: '이 페이지를 확인해보세요!',
+          url: `/share-workbook/${workbookId}`,
+        });
+        console.log('공유 성공');
+      } catch (error) {
+        console.error('공유 실패', error);
+      }
+    }
+  };
 
   return (
     <div className="flex flex-row gap-3">
@@ -45,12 +62,15 @@ const WorkbookEditButtons = ({
         isOpen={isShareOpen}
         toggleOpen={toggleShareOpen}
       >
-        <div className="mx-auto flex flex-col gap-2">
+        <button
+          onClick={shareButtonClick}
+          className="mx-auto flex flex-col items-center justify-center gap-2"
+        >
           <div className="h-fit w-fit rounded-full bg-brand-white p-2.5">
             <CopyIcon className="h-6 w-6 text-brand-blue-heavy" />
           </div>
-          <p className="text-sm font-bold text-text-001">링크 복사</p>
-        </div>
+          <p className="text-sm font-bold text-text-001">공유</p>
+        </button>
       </Dialog>
     </div>
   );
