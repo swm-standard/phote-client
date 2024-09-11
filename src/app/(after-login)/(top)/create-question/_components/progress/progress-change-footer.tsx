@@ -3,15 +3,12 @@ import SquareButton from '@/components/square-button';
 import { StepProps } from '@/app/(after-login)/(top)/create-question/_components/content/create-question-content';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import {
-  createQuestion,
-  transformToQuestion,
-} from '@/app/(after-login)/(top)/create-question/create-question-api';
 import { useFormContext } from 'react-hook-form';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
 import useDialog from '@/hook/useDialog';
 import Dialog from '@/components/dialog';
 import Loading from '@/components/ui/loading';
+import { createQuestion, transformImageToQuestion } from '@/api/question-api';
 
 const ButtonText = {
   1: {
@@ -79,7 +76,7 @@ const ProgressChangeFooter = ({
   };
 
   const transformMutation = useMutation({
-    mutationFn: transformToQuestion,
+    mutationFn: transformImageToQuestion,
   });
 
   const createMutation = useMutation({

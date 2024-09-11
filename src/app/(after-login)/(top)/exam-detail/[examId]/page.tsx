@@ -7,8 +7,8 @@ import Check3D from '@/static/images/3d-check.png';
 import Image from 'next/image';
 import { WordChunk } from '@/app/(after-login)/(top)/workbook-detail/[workbookId]/_components/exam-list/exam-cards';
 import { useQuery } from '@tanstack/react-query';
-import { readExamDetail } from '@/app/(after-login)/(top)/exam-detail/[examId]/exam-detail-api';
 import Loading from '@/components/ui/loading';
+import { readExamDetail } from '@/api/exam-api';
 
 const Page = ({ params }: { params: { examId: string } }) => {
   const { data, isFetching, isError } = useQuery({

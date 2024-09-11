@@ -3,10 +3,6 @@
 import React from 'react';
 import Container from '@/components/container';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  deleteQuestionById,
-  readQuestionDetailById,
-} from '@/app/(after-login)/(top)/question-detail/[questionId]/question-detail-api';
 import Legend from '@/components/legend';
 import Image from 'next/image';
 import SquareButton from '@/components/square-button';
@@ -15,11 +11,12 @@ import BarButton from '@/components/bar-button';
 import TrashCanIcon from '@/static/icons/trash-can-icon';
 import { useRouter } from 'next/navigation';
 import Loading from '@/components/ui/loading';
+import { deleteQuestionById, readQuestionDetail } from '@/api/question-api';
 
 const Page = ({ params }: { params: { questionId: string } }) => {
   const { data, isFetching, isError } = useQuery({
     queryKey: ['questionDetail'],
-    queryFn: () => readQuestionDetailById(params.questionId),
+    queryFn: () => readQuestionDetail(params.questionId),
   });
 
   const mutation = useMutation({

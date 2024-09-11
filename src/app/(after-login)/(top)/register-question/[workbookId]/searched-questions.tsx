@@ -7,11 +7,11 @@ import QuestionCards from '@/components/question-cards';
 import { useImmer } from 'use-immer';
 import SquareButton from '@/components/square-button';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Loading from '@/components/ui/loading';
 import {
   registerQuestion,
-  searchQuestionsToRegister,
-} from '@/app/(after-login)/(top)/register-question/[workbookId]/register-question-api';
-import Loading from '@/components/ui/loading';
+  searchRegisterQuestions,
+} from '@/api/registered-question-api';
 
 const SearchedQuestions = () => {
   const searchParams = useSearchParams();
@@ -24,7 +24,7 @@ const SearchedQuestions = () => {
 
   const { data, isError, isFetching, refetch } = useQuery({
     queryKey: ['searchRegisterQuestion'],
-    queryFn: () => searchQuestionsToRegister(workbookId, params.toString()),
+    queryFn: () => searchRegisterQuestions(workbookId, params.toString()),
   });
 
   const [checkedQuestions, updateCheckedQuestions] = useImmer<string[]>([]);

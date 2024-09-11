@@ -8,11 +8,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import ExamFooter from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-footer';
 import ExamCard from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-card';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import { submitExam } from '@/app/(after-login)/(top)/take-exam/[workbookId]/take-exam-api';
 import { IQuestion } from '@/model/i-question';
 import { useRouter } from 'next/navigation';
 
 import { readRegisteredQuestion } from '@/api/registered-question-api';
+import { submitExam } from '@/api/exam-api';
 
 export type Answers = {
   answers: Answer[];
