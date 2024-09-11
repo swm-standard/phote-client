@@ -1,10 +1,10 @@
 'use client';
 
 import { Suspense, useEffect } from 'react';
-import { kakaoLogin } from '@/app/redirect/login-api';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Loading from '@/components/ui/loading';
 import { useQuery } from '@tanstack/react-query';
+import { kakaoLogin } from '@/api/auth-api';
 
 const Content = () => {
   const searchParams = useSearchParams();

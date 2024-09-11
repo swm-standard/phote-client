@@ -2,8 +2,8 @@
 
 import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { googleLogin } from '@/app/redirect/login-api';
 import Loading from '@/components/ui/loading';
+import { googleLogin } from '@/api/auth-api';
 
 const Content = () => {
   const searchParams = useSearchParams();
