@@ -18,7 +18,8 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
   });
 
   const router = useRouter();
-  const handleShareClick = async () => {
+
+  const handelShareClick = async () => {
     await postMutation.mutateAsync();
     router.replace('/workbook');
   };
@@ -31,7 +32,7 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
     readQuery.data && (
       <div className="flex flex-col">
         {readQuery.data.title} 문제집을 공유 받으시겠습니까?
-        <button onClick={() => postMutation.mutate()}>공유받기</button>
+        <button onClick={handelShareClick}>공유받기</button>
       </div>
     )
   );

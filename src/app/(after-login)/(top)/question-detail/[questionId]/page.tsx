@@ -11,7 +11,7 @@ import BarButton from '@/components/bar-button';
 import TrashCanIcon from '@/static/icons/trash-can-icon';
 import { useRouter } from 'next/navigation';
 import Loading from '@/components/ui/loading';
-import { deleteQuestionById, readQuestionDetail } from '@/api/question-api';
+import { deleteQuestion, readQuestionDetail } from '@/api/question-api';
 
 const Page = ({ params }: { params: { questionId: string } }) => {
   const { data, isFetching, isError } = useQuery({
@@ -20,7 +20,7 @@ const Page = ({ params }: { params: { questionId: string } }) => {
   });
 
   const mutation = useMutation({
-    mutationFn: deleteQuestionById,
+    mutationFn: deleteQuestion,
   });
 
   const router = useRouter();

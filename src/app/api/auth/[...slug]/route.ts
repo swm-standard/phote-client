@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
   clearTokens();
   return NextResponse.json({ message: 'success', status: 200 });
 }

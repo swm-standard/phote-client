@@ -3,10 +3,10 @@ export function throwCustomError(
   wrongResponseData: { status: string; message: string },
 ) {
   throw new Error(
-    `[kakaoLogin ${wrongResponseData.status} ${wrongResponseData.message}]`,
+    `[${fnName} ${wrongResponseData.status} ${wrongResponseData.message}]`,
   );
 }
 
-export function printCustomError(fnName: string, error: any) {
-  console.error();
-}
+// export function printCustomError(fnName: string, error: any) {
+//   console.error();
+// }
