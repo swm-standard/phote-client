@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { setAccessToken, setRefreshToken } from '@/util/cookies';
+import { clearTokens, setAccessToken, setRefreshToken } from '@/lib/cookies';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,20 +21,21 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(json);
     } else {
-      const error = await response.json();
-      return NextResponse.json(
-        {
-          message: error.message || '????' + 'error in route handler',
-        },
-        { status: response.status },
-      );
+      const errorJson = await response.json();
+      return NextResponse.json(errorJson);
     }
   } catch (e) {
+    console.error('[AuthRouteHandler]', e);
     return NextResponse.json(
-      { message: 'An unexpected error occurred.' },
+      { message: '[AuthRouteHandler] Internal Server Error' },
       { status: 500 },
     );
   }
+}
+
+export async function DELETE(request: NextRequest) {
+  clearTokens();
+  return NextResponse.json({ message: 'success', status: 200 });
 }
 
 function generateUrl(request: NextRequest) {

@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Container from '@/components/container';
 import { useForm } from 'react-hook-form';
 import { usePathname, useRouter } from 'next/navigation';
-import SearchInput from '@/app/(after-login)/(nav)/question/search-input';
-import SearchedWords from '@/app/(after-login)/(nav)/question/searched-words';
+import SearchInput from '@/app/(after-login)/(nav)/question/_components/search-input';
+import SearchedWords from '@/app/(after-login)/(nav)/question/_components/searched-words';
 
 const SearchHeader = () => {
   const [tags, setTags] = useState<string[]>([]);

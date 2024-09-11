@@ -7,10 +7,11 @@ import QuestionCards from '@/components/question-cards';
 import { useImmer } from 'use-immer';
 import SquareButton from '@/components/square-button';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Loading from '@/components/ui/loading';
 import {
   registerQuestion,
-  searchQuestionsToRegister,
-} from '@/app/(after-login)/(top)/register-question/[workbookId]/register-question-api';
+  searchRegisterQuestions,
+} from '@/api/registered-question-api';
 
 const SearchedQuestions = () => {
   const searchParams = useSearchParams();
@@ -21,9 +22,9 @@ const SearchedQuestions = () => {
   searchParams.get('keywords') &&
     params.append('keywords', searchParams.get('keywords') ?? '');
 
-  const { data, isError, isPending, refetch } = useQuery({
+  const { data, isError, isFetching, refetch } = useQuery({
     queryKey: ['searchRegisterQuestion'],
-    queryFn: () => searchQuestionsToRegister(workbookId, params.toString()),
+    queryFn: () => searchRegisterQuestions(workbookId, params.toString()),
   });
 
   const [checkedQuestions, updateCheckedQuestions] = useImmer<string[]>([]);
@@ -51,10 +52,10 @@ const SearchedQuestions = () => {
     await createMutation.mutateAsync({ workbookId, checkedQuestions });
     await queryClient.invalidateQueries({ queryKey: ['questionInWorkbook'] });
     await queryClient.invalidateQueries({ queryKey: ['workbookInformation'] });
-    router.replace(`/workbookDetail/${workbookId}`);
+    router.replace(`/workbook-detail/${workbookId}`);
   };
 
-  if (isPending) return <div>loading</div>;
+  if (isFetching) return <Loading />;
   else if (isError) return <div>error</div>;
   return (
     <Container className="flex flex-col">
@@ -68,7 +69,7 @@ const SearchedQuestions = () => {
         />
       </section>
       <div className="sticky bottom-0 flex gap-4 bg-white px-4 py-3">
-        <SquareButton className="px-6 py-2">신규 문제</SquareButton>
+        {/*<SquareButton className="px-6 py-2">신규 문제</SquareButton>*/}
         <SquareButton
           className="flex-grow py-2"
           theme="blue"

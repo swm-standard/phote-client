@@ -11,8 +11,7 @@ import { IWorkbookBase } from '@/model/i-workbook';
 import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { createWorkbook } from '@/app/(after-login)/(nav)/workbook/workbook-api';
-import { updateWorkbookDetail } from '@/app/(after-login)/(top)/workbookDetail/[workbookId]/workbook-detail-api';
+import { createWorkbook, updateWorkbookDetail } from '@/api/workbook-api';
 
 const WorkbookDetailDrawer = ({
   isOpen,

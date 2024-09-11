@@ -3,18 +3,18 @@ import { http, HttpResponse } from 'msw';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Questions } from '@/app/_lib/dummy';
 
-import Page from './page';
+import Page from '../app/(after-login)/(nav)/question/page';
 import Container from '@/components/container';
-import Header from '@/app/(after-login)/(top)/header';
+import Navigation from '@/app/(after-login)/(nav)/navigation';
 
 const meta = {
-  title: 'Register Question',
+  title: 'Question',
   component: Page,
   decorators: [
     (Story) => (
       <Container className="flex h-[932px] w-[430px] flex-col bg-app-bg">
-        <Header />
         <Story />
+        <Navigation />
       </Container>
     ),
   ],
@@ -27,7 +27,6 @@ const meta = {
           tags: 'test1,test2',
           keywords: 'key1,key2',
         },
-        segments: ['register-question', ['workbookId', '1']],
       },
     },
   },

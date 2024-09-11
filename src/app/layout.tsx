@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React from 'react';
 import AppContainer from '@/app/_components/app-container';
+import RQProvider from '@/components/r-q-provider';
 
 const pretendard = localFont({
   src: '../static/fonts/PretendardVariable.woff2',
@@ -24,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable} bg-outer-bg`}>
       <body className={`${pretendard.className} h-dvh w-dvw`}>
-        <AppContainer>{children}</AppContainer>
+        <RQProvider>
+          <AppContainer>{children}</AppContainer>
+        </RQProvider>
       </body>
     </html>
   );

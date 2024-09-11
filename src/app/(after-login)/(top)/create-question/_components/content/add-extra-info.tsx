@@ -41,7 +41,7 @@ export const AddExtraInfo = () => {
   return (
     <div className="flex flex-col gap-6">
       <fieldset>
-        <Legend required className="mb-2">
+        <Legend required className="mb-2 text-sm">
           정답
         </Legend>
         {values.category === 'ESSAY' && (
@@ -77,7 +77,7 @@ export const AddExtraInfo = () => {
         )}
       </fieldset>
       <fieldset>
-        <Legend className="mb-2">태그</Legend>
+        <Legend className="mb-2 text-sm">태그</Legend>
         <Input
           register={tagRegister('tagInput')}
           textLength={tagValue.tagInput?.length}
@@ -100,7 +100,7 @@ export const AddExtraInfo = () => {
         </div>
       </fieldset>
       <fieldset>
-        <Legend className="mb-2">메모</Legend>
+        <Legend className="mb-2 text-sm">메모</Legend>
         <Textarea
           className="h-32 w-full"
           register={register('memo')}

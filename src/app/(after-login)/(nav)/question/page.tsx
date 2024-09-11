@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import SearchHeader from '../../../../components/search-header';
 import Container from '../../../../components/container';
-import SearchedQuestions from './searched-questions';
+import SearchedQuestions from './_components/searched-questions';
 
 const Page = () => {
   return (
