@@ -8,6 +8,16 @@ export const logout = async () => {
   return jsonResponse.data;
 };
 
+export const unregister = async () => {
+  const response = await fetch('/api/member', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
+};
+
 export async function kakaoLogin(authCode: string) {
   const response = await fetch('/api/auth/kakao-login', {
     method: 'POST',
