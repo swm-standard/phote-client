@@ -3,15 +3,13 @@
 import React, { useState } from 'react';
 import Container from '@/components/container';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import {
-  AddExtraInfo,
-  CheckConvert,
-} from '@/app/(after-login)/(top)/create-question/_components/content';
 import UploadPicture from '@/app/(after-login)/(top)/create-question/_components/content/upload-picture';
 
 import ProgressChangeFooter from '@/app/(after-login)/(top)/create-question/_components/progress/progress-change-footer';
 import { IStep } from '@/model/i-step';
 import { EmptyCreateQuestion, ICreateQuestion } from '@/model/i-question';
+import { CheckConvert } from '@/app/(after-login)/(top)/create-question/_components/content/check-convert';
+import { AddExtraInfo } from '@/app/(after-login)/(top)/create-question/_components/content/add-extra-info';
 
 export type StepProps = {
   step: IStep;
