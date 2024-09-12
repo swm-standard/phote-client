@@ -46,6 +46,7 @@ export const AddExtraInfo = () => {
         </Legend>
         {values.category === 'ESSAY' && (
           <Input
+            autoComplete="off"
             placeholder="정답을 입력해주세요."
             register={register('answer')}
             state={values.answer?.length > 0 ? 'filled' : 'empty'}
@@ -79,6 +80,7 @@ export const AddExtraInfo = () => {
       <fieldset>
         <Legend className="mb-2 text-sm">태그</Legend>
         <Input
+          autoComplete="off"
           register={tagRegister('tagInput')}
           textLength={tagValue.tagInput?.length}
           maxLength={25}

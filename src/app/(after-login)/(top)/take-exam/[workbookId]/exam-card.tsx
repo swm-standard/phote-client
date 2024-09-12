@@ -35,6 +35,7 @@ const ExamCard = ({ question, idx }: { question: IQuestion; idx: number }) => {
         <Legend className="mb-2">정답</Legend>
         {question.category === 'ESSAY' && (
           <input
+            autoComplete="off"
             placeholder="정답을 입력해주세요."
             {...register(`answers.${idx}.answer`)}
             maxLength={25}

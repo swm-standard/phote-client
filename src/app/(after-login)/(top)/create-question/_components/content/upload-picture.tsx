@@ -130,6 +130,7 @@ const UploadPicture = ({
         </div>
       </button>
       <input
+        autoComplete="off"
         disabled={!!imageUrl}
         ref={hiddenInputRef}
         className="hidden"
