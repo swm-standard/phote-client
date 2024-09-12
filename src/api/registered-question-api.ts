@@ -1,15 +1,11 @@
 import { IQuestionInWorkbook } from '@/model/i-question';
 
 export async function readRegisteredQuestion(workbookId: string) {
-  try {
-    const response = await fetch(`/api/workbook/questions/${workbookId}`, {
-      method: 'GET',
-    });
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`readQuestionsByWorkbookId failed by ${e}`);
-  }
+  const response = await fetch(`/api/workbook/questions/${workbookId}`, {
+    method: 'GET',
+  });
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
 }
 
 export async function removeRegisteredQuestion({
@@ -19,18 +15,15 @@ export async function removeRegisteredQuestion({
   workbookId: string;
   questionId: string;
 }) {
-  try {
-    const response = await fetch(
-      `/api/workbook/${workbookId}/question/${questionId}`,
-      {
-        method: 'DELETE',
-      },
-    );
+  const response = await fetch(
+    `/api/workbook/${workbookId}/question/${questionId}`,
+    {
+      method: 'DELETE',
+    },
+  );
 
-    return await response.json();
-  } catch (e) {
-    console.error(`deleteQuestionInWorkbook failed by ${e}`);
-  }
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
 }
 
 export async function updateRegisteredQuestionSequence({
