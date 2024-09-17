@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { BASE_URL } from '@/app/_lib/constants';
 import { Dummy_Questions } from '@/app/_lib/dummy';
 
-import Page from './page';
+import Page from '../app/(after-login)/(top)/register-question/[workbookId]/page';
 import Container from '@/components/container';
 import Header from '@/app/(after-login)/(top)/header';
 

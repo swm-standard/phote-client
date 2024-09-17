@@ -79,6 +79,7 @@ const WorkbookDetailDrawer = ({
               문제집 제목
             </Legend>
             <Input
+              autoComplete="off"
               register={register('title')}
               maxLength={30}
               textLength={values.title.length}
@@ -89,6 +90,7 @@ const WorkbookDetailDrawer = ({
               문제집 설명
             </Legend>
             <Input
+              autoComplete="off"
               register={register('description')}
               maxLength={50}
               textLength={values.description.length}

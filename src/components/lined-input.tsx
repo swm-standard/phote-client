@@ -31,6 +31,7 @@ const LinedInput = ({
       )}
     >
       <input
+        autoComplete="off"
         {...register}
         {...props}
         className={cn(

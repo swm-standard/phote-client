@@ -24,6 +24,10 @@
     -ms-overflow-style: none;
 }
 
+html, body {
+    overscroll-behavior: none;
+}
+
 button {
     cursor: pointer;
 }

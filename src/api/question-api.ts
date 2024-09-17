@@ -1,37 +1,25 @@
 import { ICreateQuestion, ITmpQuestion } from '@/model/i-question';
 
 export const searchQuestions = async (params: string) => {
-  try {
-    const response = await fetch(`/api/questions?${params}`, { method: 'GET' });
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`searchQuestions failed by ${e}`);
-  }
+  const response = await fetch(`/api/questions?${params}`, { method: 'GET' });
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
 };
 
 export async function deleteQuestion(questionId: string) {
-  try {
-    const response = await fetch(`/api/question/${questionId}`, {
-      method: 'DELETE',
-    });
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`deleteQuestionById failed by ${e}`);
-  }
+  const response = await fetch(`/api/question/${questionId}`, {
+    method: 'DELETE',
+  });
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
 }
 
 export async function readQuestionDetail(questionId: string) {
-  try {
-    const response = await fetch(`/api/question/${questionId}`, {
-      method: 'GET',
-    });
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`readQuestionDetailById failed by ${e}`);
-  }
+  const response = await fetch(`/api/question/${questionId}`, {
+    method: 'GET',
+  });
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
 }
 
 export async function createQuestion(createQuestion: ICreateQuestion) {
@@ -44,16 +32,13 @@ export async function createQuestion(createQuestion: ICreateQuestion) {
       {} as { [key: number]: string },
     );
 
-  try {
-    const response = await fetch('api/question', {
-      method: 'POST',
-      body: JSON.stringify({ ...createQuestion, options: parsedOptions }),
-    });
+  const response = await fetch('api/question', {
+    method: 'POST',
+    body: JSON.stringify({ ...createQuestion, options: parsedOptions }),
+  });
 
-    return response.ok;
-  } catch (e) {
-    console.error(`[createQuestion] failed by ${e}`);
-  }
+  const jsonResponse = await response.json();
+  return jsonResponse.data;
 }
 
 export async function transformImageToQuestion({
@@ -90,37 +75,27 @@ export async function transformImageToQuestion({
     formData.append('imageCoordinates', blobImageCoordinates);
   }
 
-  try {
-    const response = await fetch(
-      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/question-transform`,
-      {
-        method: 'POST',
-        headers: {
-          accessToken: localStorage.getItem('accessToken')!,
-        },
-        body: formData,
+  const response = await fetch(
+    `${process.env['NEXT_PUBLIC_BASE_URL']}/api/question-transform`,
+    {
+      method: 'POST',
+      headers: {
+        accessToken: localStorage.getItem('accessToken')!,
       },
-    );
+      body: formData,
+    },
+  );
 
-    if (!response.ok) {
-      console.error(`${response.status}`, `${response.statusText}`);
-      const json = await response.json();
-      console.log(json);
-    } else {
-      const json = await response.json();
-      const { statement, options, image } = json.data;
-      const question: ITmpQuestion = {
-        statement,
-        image: image || '',
-        options,
-        category: options.length ? 'MULTIPLE' : 'ESSAY',
-        memo: '',
-        tags: [],
-        answer: '',
-      };
-      return question;
-    }
-  } catch (e) {
-    console.error(`[transformToQuestion] failed by ${e}`);
-  }
+  const json = await response.json();
+  const { statement, options, image: img } = json.data;
+  const question: ITmpQuestion = {
+    statement,
+    image: img || '',
+    options,
+    category: options.length ? 'MULTIPLE' : 'ESSAY',
+    memo: '',
+    tags: [],
+    answer: '',
+  };
+  return question;
 }

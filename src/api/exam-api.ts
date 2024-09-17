@@ -1,14 +1,10 @@
 export async function readExamHistories(workbookId: string) {
-  try {
-    const response = await fetch(`/api/exams/${workbookId}`, {
-      method: 'GET',
-    });
+  const response = await fetch(`/api/exams/${workbookId}`, {
+    method: 'GET',
+  });
 
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`readExamHistories failed by ${e}`);
-  }
+  const json = await response.json();
+  return json.data;
 }
 
 export async function submitExam({
@@ -20,17 +16,13 @@ export async function submitExam({
   answers: SubmitAnswers[];
   workbookId: string;
 }) {
-  try {
-    const response = await fetch(`/api/exam/${workbookId}`, {
-      method: 'POST',
-      body: JSON.stringify({ time, answers }),
-    });
+  const response = await fetch(`/api/exam/${workbookId}`, {
+    method: 'POST',
+    body: JSON.stringify({ time, answers }),
+  });
 
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`[createQuestion] failed by ${e}`);
-  }
+  const json = await response.json();
+  return json.data;
 }
 
 export type SubmitAnswer = {
@@ -40,14 +32,10 @@ export type SubmitAnswer = {
 type SubmitAnswers = SubmitAnswer[];
 
 export async function readExamDetail(examId: string) {
-  try {
-    const response = await fetch(`/api/exam/${examId}`, {
-      method: 'GET',
-    });
+  const response = await fetch(`/api/exam/${examId}`, {
+    method: 'GET',
+  });
 
-    const json = await response.json();
-    return json.data;
-  } catch (e) {
-    console.error(`[createQuestion] failed by ${e}`);
-  }
+  const json = await response.json();
+  return json.data;
 }

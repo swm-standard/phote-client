@@ -9,6 +9,7 @@ import { WordChunk } from '@/app/(after-login)/(top)/workbook-detail/[workbookId
 import { useQuery } from '@tanstack/react-query';
 import Loading from '@/components/ui/loading';
 import { readExamDetail } from '@/api/exam-api';
+import { fixFloatPoint } from '@/lib/utils';
 
 const Page = ({ params }: { params: { examId: string } }) => {
   const { data, isFetching, isError } = useQuery({
@@ -30,7 +31,7 @@ const Page = ({ params }: { params: { examId: string } }) => {
           <div className="flex items-center justify-center gap-20 border-b-[1px] border-brand-gray-heavy bg-inherit bg-white px-4 py-4">
             <WordChunk
               label="총 점수"
-              value={`${(data.totalCorrect / data.questions.length) * 100}점`}
+              value={`${fixFloatPoint((data.totalCorrect / data.questions.length) * 100)}점`}
             />
             <WordChunk label="걸린 시간" value={`${data.time}분`} />
             {/*<WordChunk label="시험" value={`${exam.sequence}번째 시험`} />*/}

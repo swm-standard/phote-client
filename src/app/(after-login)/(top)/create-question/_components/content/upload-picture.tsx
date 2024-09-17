@@ -48,29 +48,34 @@ const UploadPicture = ({
     }
   }, [imageUrl]);
 
-  const handleMouseDown: React.MouseEventHandler<HTMLCanvasElement> = (e) => {
+  const handleEnd = () => {
+    setIsSelecting(false);
+    onSelectionComplete(selection);
+  };
+
+  const handleStart = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
+    const x = (clientX - rect.left) * scaleX;
+    const y = (clientY - rect.top) * scaleY;
 
     setSelection({ x, y, width: 0, height: 0 });
     setIsSelecting(true);
   };
 
-  const handleMouseMove: React.MouseEventHandler<HTMLCanvasElement> = (e) => {
+  const handleMove = (clientX: number, clientY: number) => {
     if (!isSelecting || !canvasRef.current) return;
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
+    const x = (clientX - rect.left) * scaleX;
+    const y = (clientY - rect.top) * scaleY;
 
     setSelection((prev) => ({
       ...prev,
@@ -79,9 +84,30 @@ const UploadPicture = ({
     }));
   };
 
+  const handleMouseDown: React.MouseEventHandler<HTMLCanvasElement> = (e) => {
+    handleStart(e.clientX, e.clientY);
+  };
+
+  const handleMouseMove: React.MouseEventHandler<HTMLCanvasElement> = (e) => {
+    handleMove(e.clientX, e.clientY);
+  };
+
   const handleMouseUp: React.MouseEventHandler<HTMLCanvasElement> = () => {
-    setIsSelecting(false);
-    onSelectionComplete(selection);
+    handleEnd();
+  };
+
+  const handleTouchStart: React.TouchEventHandler<HTMLCanvasElement> = (e) => {
+    const touch = e.touches[0];
+    handleStart(touch.clientX, touch.clientY);
+  };
+
+  const handleTouchMove: React.TouchEventHandler<HTMLCanvasElement> = (e) => {
+    const touch = e.touches[0];
+    handleMove(touch.clientX, touch.clientY);
+  };
+
+  const handleTouchEnd: React.TouchEventHandler<HTMLCanvasElement> = () => {
+    handleEnd();
   };
 
   useEffect(() => {
@@ -119,6 +145,10 @@ const UploadPicture = ({
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               className="h-full w-full"
             />
           ) : (
@@ -130,6 +160,7 @@ const UploadPicture = ({
         </div>
       </button>
       <input
+        autoComplete="off"
         disabled={!!imageUrl}
         ref={hiddenInputRef}
         className="hidden"
