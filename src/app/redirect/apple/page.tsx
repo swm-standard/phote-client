@@ -4,7 +4,7 @@ import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Loading from '@/components/ui/loading';
 import { useQuery } from '@tanstack/react-query';
-import { googleLogin } from '@/api/auth-api';
+import { appleLogin } from '@/api/auth-api';
 
 const Content = () => {
   const searchParams = useSearchParams();
@@ -12,8 +12,8 @@ const Content = () => {
 
   const code = searchParams.get('code');
   const loginQuery = useQuery({
-    queryKey: ['googleLogin'],
-    queryFn: () => googleLogin(code!),
+    queryKey: ['appleLogin'],
+    queryFn: () => appleLogin(code!),
     enabled: !!code,
   });
 

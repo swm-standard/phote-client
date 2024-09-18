@@ -5,6 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import kakao from '@/static/images/kakao-login.png';
 import google from '@/static/images/google-login.png';
+import apple from '@/static/images/apple-login.png';
 import logo_character from '@/static/images/logo-character.png';
 import logo_typo from '@/static/images/logo-typo.png';
 import Container from '@/components/container';
@@ -50,6 +51,17 @@ const Page = () => {
           <Image
             src={kakao}
             alt="카카오 로그인"
+            layout="responsive"
+            objectFit="contain"
+          />
+        </Link>
+        <Link
+          href={`https://appleid.apple.com/auth/authorize?client_id=${process.env['NEXT_PUBLIC_APPLE_API_KEY']}&redirect_uri=${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/apple&response_type=code%20id_token&scope=name%20email&response_mode=form_post`}
+          className="relative w-full"
+        >
+          <Image
+            src={apple}
+            alt="애플 로그인"
             layout="responsive"
             objectFit="contain"
           />
