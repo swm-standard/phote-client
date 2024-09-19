@@ -47,3 +47,18 @@ export async function googleLogin(authCode: string) {
   localStorage.setItem('accessToken', jsonResponse.data.accessToken);
   return jsonResponse.data;
 }
+
+export async function appleLogin(authCode: string) {
+  const response = await fetch(`/api/auth/apple-login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      code: authCode,
+      redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}`,
+    }),
+  });
+
+  const jsonResponse = await response.json();
+  localStorage.setItem('accessToken', jsonResponse.data.accessToken);
+  return jsonResponse.data;
+}
