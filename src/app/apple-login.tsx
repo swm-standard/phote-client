@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Script from 'next/script';
+import { useRouter } from 'next/navigation';
 
 // interface AppleIDSignInOnFailure extends Event {
 //   detail: {
@@ -38,9 +39,11 @@ const AppleLogin = () => {
     setIsLoaded(true);
   };
 
+  const router = useRouter();
   // @ts-expect-error fix apple login
   const handleAppleCredentialResponse = async (e) => {
-    console.log(e.detail.authorization);
+    // console.log(e.detail.authorization);
+    router.push(`/redirect/apple?code=${e.detail.authorization.code}`);
   };
 
   return (
