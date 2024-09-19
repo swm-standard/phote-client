@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import Script from 'next/script';
 
-interface AppleIDSignInOnFailure extends Event {
-  detail: {
-    error: Error;
-  };
-}
+// interface AppleIDSignInOnFailure extends Event {
+//   detail: {
+//     error: Error;
+//   };
+// }
 
 const AppleLogin = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleAppleScriptLoad = () => {
-    // @ts-ignore
+    // @ts-expect-error fix apple login
     const apple = window['AppleID'];
     if (!apple) return;
 
@@ -36,7 +36,7 @@ const AppleLogin = () => {
     setIsLoaded(true);
   };
 
-  // @ts-ignore
+  // @ts-expect-error fix apple login
   const handleAppleCredentialResponse = async (e) => {
     console.log(e.detail.authorization);
   };
