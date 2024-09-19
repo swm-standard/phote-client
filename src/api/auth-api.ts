@@ -54,7 +54,7 @@ export async function appleLogin(authCode: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       code: authCode,
-      redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/apple`,
+      redirectUri: `${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}`,
     }),
   });
 

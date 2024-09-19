@@ -16,8 +16,6 @@ const AppleLogin = () => {
     const apple = window['AppleID'];
     if (!apple) return;
 
-    console.log(`${window.location.origin}${window.location.pathname}`);
-
     apple.auth.init({
       clientId: process.env['NEXT_PUBLIC_APPLE_API_KEY'],
       scope: 'name email',
