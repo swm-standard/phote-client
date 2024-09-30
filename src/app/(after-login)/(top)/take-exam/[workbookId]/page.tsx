@@ -13,6 +13,8 @@ import { useRouter } from 'next/navigation';
 
 import { readRegisteredQuestion } from '@/api/registered-question-api';
 import { submitExam } from '@/api/exam-api';
+import Dialog from '@/components/dialog';
+import useDialog from '@/hook/useDialog';
 
 export type Answers = {
   answers: Answer[];
@@ -25,6 +27,7 @@ export type Answer = {
 const Page = ({ params }: { params: { workbookId: string } }) => {
   const [currentQuestion, setCurrentQuestion] = React.useState<number>(1);
   const [elapsedMinute, setElapsedMinute] = React.useState<string>('0');
+  const { isOpen, toggleOpen } = useDialog(true);
 
   const methods = useForm<Answers>({
     defaultValues: {
@@ -92,6 +95,20 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
 
   if (isPending) return <div>loading...</div>;
   else if (isError) return <div>Error</div>;
+
+  if (data.length === 0)
+    return (
+      <>
+        <Dialog
+          isOpen={isOpen}
+          toggleOpen={toggleOpen}
+          dialogType="confirm"
+          confirmAction={() => router.back()}
+        >
+          <div>문제집 내에 한문제 이상이 포함되어 있어야 합니다.</div>
+        </Dialog>
+      </>
+    );
   return (
     <Container className="flex flex-col bg-white px-4">
       <FormProvider {...methods}>

@@ -25,7 +25,7 @@ export const AddExtraInfo = () => {
   const tagValue = tagWatch();
 
   const handleEnterDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key !== 'Enter') return;
+    if (e.key !== 'Enter' || e.nativeEvent.isComposing) return;
     setValue('tags', [...values.tags, tagValue.tagInput]);
     tagReset();
   };
