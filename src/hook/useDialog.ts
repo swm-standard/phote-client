@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useDialog = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const useDialog = (init = false) => {
+  const [isOpen, setIsOpen] = useState(init);
   const toggleOpen = () => {
     setIsOpen((prev) => !prev);
   };

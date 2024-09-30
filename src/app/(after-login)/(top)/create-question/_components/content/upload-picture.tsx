@@ -121,7 +121,7 @@ const UploadPicture = ({
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         ctx.strokeStyle = 'red';
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 20;
         ctx.strokeRect(
           selection.x,
           selection.y,

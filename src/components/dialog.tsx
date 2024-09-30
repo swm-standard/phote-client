@@ -20,7 +20,7 @@ function Dialog({
   isOpen: boolean;
   toggleOpen: () => void;
   dialogType?: 'alert' | 'confirm';
-  confirmAction?: () => Promise<void>;
+  confirmAction?: (() => Promise<void>) | (() => void);
   children?: React.ReactNode;
 }) {
   const handleConfirmClick: React.MouseEventHandler<
