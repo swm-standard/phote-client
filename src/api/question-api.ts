@@ -56,6 +56,8 @@ export async function transformImageToQuestion({
   const formData = new FormData();
   formData.append('image', image);
 
+  console.log('WTF', image.name.split('.').pop());
+
   if (crop) {
     const { x, y, width, height } = crop!;
     const xLeft = Math.min(x, x + width);
@@ -85,6 +87,14 @@ export async function transformImageToQuestion({
       body: formData,
     },
   );
+
+  if (!response.ok) {
+    const json = await response.json();
+    const error = new Error();
+    console.log('1', json);
+    error.message = json.data['서버 내 오류'];
+    throw error;
+  }
 
   const json = await response.json();
   const { statement, options, image: img } = json.data;
