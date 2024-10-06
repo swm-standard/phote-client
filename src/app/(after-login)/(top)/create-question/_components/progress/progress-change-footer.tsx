@@ -98,7 +98,6 @@ const ProgressChangeFooter = ({
       } catch (e) {
         // @ts-expect-error debuging
         setError(e.message);
-        console.log('2', e);
       }
     }
     if (step === 2) nextStep();
@@ -113,8 +112,8 @@ const ProgressChangeFooter = ({
       {transformMutation.isPending || createMutation.isPending ? (
         <Loading />
       ) : null}
+      <p className="text-center">{error}</p>
       <div className="sticky bottom-0 flex gap-4 bg-white py-4">
-        {error && <p>{error}</p>}
         <SquareButton
           theme="lightgray"
           disabled={isPrevDisabled()}

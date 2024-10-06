@@ -4,6 +4,9 @@ export const logout = async () => {
     headers: { 'Content-Type': 'application/json' },
   });
 
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+
   const jsonResponse = await response.json();
   return jsonResponse.data;
 };
@@ -30,6 +33,7 @@ export async function kakaoLogin(authCode: string) {
 
   const jsonResponse = await response.json();
   localStorage.setItem('accessToken', jsonResponse.data.accessToken);
+  localStorage.setItem('refreshToken', jsonResponse.data.refreshToken);
   return jsonResponse.data;
 }
 
@@ -45,6 +49,7 @@ export async function googleLogin(authCode: string) {
 
   const jsonResponse = await response.json();
   localStorage.setItem('accessToken', jsonResponse.data.accessToken);
+  localStorage.setItem('refreshToken', jsonResponse.data.refreshToken);
   return jsonResponse.data;
 }
 
@@ -60,5 +65,6 @@ export async function appleLogin(authCode: string) {
 
   const jsonResponse = await response.json();
   localStorage.setItem('accessToken', jsonResponse.data.accessToken);
+  localStorage.setItem('refreshToken', jsonResponse.data.refreshToken);
   return jsonResponse.data;
 }
