@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import WorkbookIcon from '@/static/icons/workbook-icon';
 import QuestionIcon from '@/static/icons/question-icon';
-import ShareIcon from '@/static/icons/share-icon';
 import ProfileIcon from '@/static/icons/profile-icon';
 
 interface NavigationItem {
@@ -25,11 +24,11 @@ const navigationList: NavigationItem[] = [
     buttonText: '문제',
     icon: QuestionIcon,
   },
-  {
-    path: 'share',
-    buttonText: '공유',
-    icon: ShareIcon,
-  },
+  // {
+  //   path: 'share',
+  //   buttonText: '공유',
+  //   icon: ShareIcon,
+  // },
   {
     path: 'my',
     buttonText: '마이페이지',
@@ -46,13 +45,13 @@ const Navigation = () => {
         segment === item.path ? (
           <li
             key={idx}
-            className="flex flex-col items-center justify-center gap-1"
+            className="flex flex-1 flex-col items-center justify-center gap-1"
           >
             <item.icon className="h-6 w-6" />
             <p className="text-xs">{item.buttonText}</p>
           </li>
         ) : (
-          <Link href={item.path} key={idx}>
+          <Link className="flex-1" href={item.path} key={idx}>
             <li className="flex flex-col items-center justify-center gap-1 text-text-003">
               <item.icon className="h-6 w-6" />
               <p className="text-xs">{item.buttonText}</p>
