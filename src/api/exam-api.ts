@@ -16,9 +16,9 @@ export async function submitExam({
   answers: SubmitAnswers[];
   workbookId: string;
 }) {
-  const response = await fetch(`/api/exam/${workbookId}`, {
+  const response = await fetch(`/api/exam`, {
     method: 'POST',
-    body: JSON.stringify({ time, answers }),
+    body: JSON.stringify({ time, answers, workbookId, examId: null }),
   });
 
   const json = await response.json();

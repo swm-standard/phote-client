@@ -90,7 +90,7 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
       answers: submitAnswers,
     });
 
-    router.replace(`/exam-detail/${responseData.examId}`);
+    if (mutate.isSuccess) router.replace(`/exam-detail/${responseData.examId}`);
   };
 
   if (isPending) return <div>loading...</div>;

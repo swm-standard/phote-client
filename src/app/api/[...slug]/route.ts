@@ -52,20 +52,18 @@ function generateUrl(request: NextRequest) {
 }
 
 async function authFetch(apiUrl: string, options: RequestInit) {
-  try {
-    return await tryAuthFetch(apiUrl, options); // 1차 시도
-  } catch (e) {
-    if (e instanceof AuthError) {
-      try {
-        await refresh();
-        return await tryAuthFetch(apiUrl, options); // 2차 시도
-      } catch (e) {
-        if (e instanceof AuthError) clearTokens();
-        throw e;
-      }
+  let response = await tryAuthFetch(apiUrl, options); // 1차 시도
+
+  if (response.status === 403) {
+    try {
+      await refresh();
+      response = await tryAuthFetch(apiUrl, options);
+    } catch (e) {
+      clearTokens();
     }
-    throw e;
   }
+
+  return response;
 }
 
 async function tryAuthFetch(apiUrl: string, options: RequestInit) {
@@ -77,14 +75,6 @@ async function tryAuthFetch(apiUrl: string, options: RequestInit) {
     },
     ...options,
   });
-
-  if (!response.ok) {
-    if (response.status === 403) {
-      throw new AuthError(`[tryAuthFetch] ${response.status} response`);
-    } else {
-      throw new Error(`[tryAuthFetch] ${response.status} response`);
-    }
-  }
 
   return response;
 }

@@ -6,7 +6,6 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import WorkbookIcon from '@/static/icons/workbook-icon';
 import QuestionIcon from '@/static/icons/question-icon';
 import ProfileIcon from '@/static/icons/profile-icon';
-import ShareIcon from '@/static/icons/share-icon';
 
 interface NavigationItem {
   path: string;
@@ -25,11 +24,11 @@ const navigationList: NavigationItem[] = [
     buttonText: '문제',
     icon: QuestionIcon,
   },
-  {
-    path: 'share',
-    buttonText: '공유',
-    icon: ShareIcon,
-  },
+  // {
+  //   path: 'share',
+  //   buttonText: '공유',
+  //   icon: ShareIcon,
+  // },
   {
     path: 'my',
     buttonText: '마이페이지',
