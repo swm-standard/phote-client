@@ -86,7 +86,7 @@ export async function transformImageToQuestion({
     },
   );
 
-  if (response.status === 403) {
+  if (response.status === 403 || response.status === 500) {
     const refreshResponse = await fetch(
       `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/refreshtoken`,
       {

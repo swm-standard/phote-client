@@ -7,6 +7,7 @@ import useDialog from '@/hook/useDialog';
 import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
 import Dialog from '@/components/dialog';
 import CopyIcon from '@/static/icons/copy-icon';
+import StopwatchIcon from '@/static/icons/stopwatch-icon';
 
 const WorkbookEditButtons = ({
   workbookId,
@@ -17,6 +18,7 @@ const WorkbookEditButtons = ({
 }) => {
   const { isOpen: isModifyOpen, toggleOpen: toggleModifyOpen } = useDialog();
   const { isOpen: isShareOpen, toggleOpen: toggleShareOpen } = useDialog();
+  const { isOpen: isTestOpen, toggleOpen: toggleTestOpen } = useDialog();
 
   const shareButtonClick = async () => {
     if (navigator.share) {
@@ -62,15 +64,35 @@ const WorkbookEditButtons = ({
         isOpen={isShareOpen}
         toggleOpen={toggleShareOpen}
       >
-        <button
-          onClick={shareButtonClick}
-          className="mx-auto flex flex-col items-center justify-center gap-2"
-        >
-          <div className="h-fit w-fit rounded-full bg-brand-white p-2.5">
-            <CopyIcon className="h-6 w-6 text-brand-blue-heavy" />
-          </div>
-          <p className="text-sm font-bold text-text-001">공유</p>
-        </button>
+        <div className="flex justify-between">
+          <button
+            onClick={shareButtonClick}
+            className="mx-auto flex flex-col items-center justify-center gap-2"
+          >
+            <div className="h-fit w-fit rounded-full bg-brand-white p-2.5">
+              <CopyIcon className="h-6 w-6 text-brand-blue-heavy" />
+            </div>
+            <p className="text-sm font-bold text-text-001">공유</p>
+          </button>
+          <button
+            onClick={() => {
+              toggleShareOpen();
+              toggleTestOpen();
+            }}
+            className="mx-auto flex flex-col items-center justify-center gap-2"
+          >
+            <div className="h-fit w-fit rounded-full bg-brand-white p-2.5">
+              <StopwatchIcon className="h-6 w-6 text-brand-blue-heavy" />
+            </div>
+            <p className="text-sm font-bold text-text-001">시험</p>
+          </button>
+        </div>
+      </Dialog>
+      <Dialog isOpen={isTestOpen} toggleOpen={toggleTestOpen}>
+        <label className="font-bold text-brand-blue-heavy">시작일</label>
+        <input type="datetime-local" />
+        <label className="font-bold text-brand-blue-heavy">마감일</label>
+        <input type="datetime-local" />
       </Dialog>
     </div>
   );
