@@ -68,3 +68,19 @@ export async function appleLogin(authCode: string) {
   localStorage.setItem('refreshToken', jsonResponse.data.refreshToken);
   return jsonResponse.data;
 }
+
+export async function guestLogin() {
+  const response = await fetch(`/api/auth/native-login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: `${process.env['NEXT_PUBLIC_GUEST_ID']}`,
+      password: `${process.env['NEXT_PUBLIC_GUEST_PW']}`,
+    }),
+  });
+
+  const jsonResponse = await response.json();
+  localStorage.setItem('accessToken', jsonResponse.data.accessToken);
+  localStorage.setItem('refreshToken', jsonResponse.data.refreshToken);
+  return jsonResponse.data;
+}

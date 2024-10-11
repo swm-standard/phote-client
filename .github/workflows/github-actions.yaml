@@ -24,6 +24,8 @@ jobs:
           echo "NEXT_PUBLIC_APPLE_API_KEY=${{ secrets.NEXT_PUBLIC_APPLE_API_KEY }}" >> .env
           echo "NEXT_PUBLIC_ACCESS_TOKEN_TTL=${{ secrets.NEXT_PUBLIC_ACCESS_TOKEN_TTL }}" >> .env
           echo "NEXT_PUBLIC_REFRESH_TOKEN_TTL=${{ secrets.NEXT_PUBLIC_REFRESH_TOKEN_TTL }}" >> .env
+          echo "NEXT_PUBLIC_GUEST_ID=${{ secrets.NEXT_PUBLIC_GUEST_ID }}" >> .env
+          echo "NEXT_PUBLIC_GUEST_PW=${{ secrets.NEXT_PUBLIC_GUEST_PW }}" >> .env
 
       # Log in to Docker Hub
       - name: Log in to Docker Hub
