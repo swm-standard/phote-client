@@ -95,7 +95,7 @@ const QuestionCard = ({
           ) : questionCardType === 'check' ? (
             <button onClick={handleClickBlock}>
               <CheckCircleIcon
-                className={`h-4 w-4 ${isChecked ? 'text-brand-blue-light' : 'text-text-004'}`}
+                className={`h-5 w-5 ${isChecked ? 'text-brand-blue-light' : 'text-text-004'}`}
               />
             </button>
           ) : null}

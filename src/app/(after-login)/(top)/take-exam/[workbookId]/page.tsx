@@ -84,13 +84,16 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
       };
     });
 
-    const responseData = await mutate.mutateAsync({
-      workbookId: params.workbookId,
-      time: Number(elapsedMinute),
-      answers: submitAnswers,
-    });
-
-    if (mutate.isSuccess) router.replace(`/exam-detail/${responseData.examId}`);
+    try {
+      const responseData = await mutate.mutateAsync({
+        workbookId: params.workbookId,
+        time: Number(elapsedMinute),
+        answers: submitAnswers,
+      });
+      router.replace(`/exam-detail/${responseData.examId}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   if (isPending) return <div>loading...</div>;
