@@ -8,6 +8,19 @@ import WorkbookDetailDrawer from '@/components/workbook-detail-drawer';
 import Dialog from '@/components/dialog';
 import CopyIcon from '@/static/icons/copy-icon';
 import StopwatchIcon from '@/static/icons/stopwatch-icon';
+import { useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { useMutation } from '@tanstack/react-query';
+import { createTest } from '@/api/exam-api';
+import { useRouter } from 'next/navigation';
+
+export type TestForm = {
+  title: string;
+  startTime: string;
+  endTime: string;
+  workbookId: string;
+  capacity: number;
+};
 
 const WorkbookEditButtons = ({
   workbookId,
@@ -18,7 +31,28 @@ const WorkbookEditButtons = ({
 }) => {
   const { isOpen: isModifyOpen, toggleOpen: toggleModifyOpen } = useDialog();
   const { isOpen: isShareOpen, toggleOpen: toggleShareOpen } = useDialog();
+
   const { isOpen: isTestOpen, toggleOpen: toggleTestOpen } = useDialog();
+  const { register, handleSubmit } = useForm<TestForm>({
+    defaultValues: {
+      title: workbookBase.title,
+      startTime: dayjs().format('YYYY-MM-DDTHH:mm'),
+      endTime: dayjs().format('YYYY-MM-DDTHH:mm'),
+      workbookId,
+      capacity: 10,
+    },
+  });
+
+  const router = useRouter();
+  const mutate = useMutation({ mutationFn: createTest });
+  const onSubmit = async (data: TestForm) => {
+    try {
+      const response = await mutate.mutateAsync(data);
+      router.push(`/test/${response.sharedExamId}`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const shareButtonClick = async () => {
     if (navigator.share) {
@@ -88,11 +122,17 @@ const WorkbookEditButtons = ({
           </button>
         </div>
       </Dialog>
-      <Dialog isOpen={isTestOpen} toggleOpen={toggleTestOpen}>
+      <Dialog
+        isOpen={isTestOpen}
+        toggleOpen={toggleTestOpen}
+        confirmAction={handleSubmit(onSubmit)}
+      >
         <label className="font-bold text-brand-blue-heavy">시작일</label>
-        <input type="datetime-local" />
+        <input {...register('startTime')} type="datetime-local" />
         <label className="font-bold text-brand-blue-heavy">마감일</label>
-        <input type="datetime-local" />
+        <input {...register('endTime')} type="datetime-local" />
+        <label className="font-bold text-brand-blue-heavy">인원수</label>
+        <input {...register('capacity', { max: 20, min: 1 })} type="number" />
       </Dialog>
     </div>
   );
