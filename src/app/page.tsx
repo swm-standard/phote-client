@@ -9,24 +9,21 @@ import logo_character from '@/static/images/logo-character.png';
 import logo_typo from '@/static/images/logo-typo.png';
 import Container from '@/components/container';
 import AppleLogin from '@/app/apple-login';
-import {useMutation} from '@tanstack/react-query';
-import {guestLogin} from '@/api/auth-api';
-import {useRouter} from 'next/navigation';
 
 const Page = () => {
-  const mutation = useMutation({
-    mutationFn: guestLogin,
-  });
+  // const mutation = useMutation({
+  //   mutationFn: guestLogin,
+  // });
 
-  const router = useRouter();
-  const handleGuestLoginClick = async () => {
-    try {
-      await mutation.mutateAsync();
-      router.replace('/workbook');
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const router = useRouter();
+  // const handleGuestLoginClick = async () => {
+  //   try {
+  //     await mutation.mutateAsync();
+  //     router.replace('/workbook');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <>
