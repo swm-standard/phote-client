@@ -4,7 +4,10 @@ export async function readExamHistories(workbookId: string) {
   });
 
   const json = await response.json();
-  return json.data;
+  return json.data.sort(
+    (a: { sequence: number }, b: { sequence: number }) =>
+      b.sequence - a.sequence,
+  );
 }
 
 export async function submitExam({
