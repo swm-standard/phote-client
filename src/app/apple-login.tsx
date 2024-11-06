@@ -92,8 +92,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Script from 'next/script';
 import { useRouter } from 'next/navigation';
-import apple from '@/static/images/apple-login.png';
-import Image from 'next/image';
+import AppleLoginIcon from '@/static/icons/apple-login';
 
 // 전역 변수로 스크립트 로드 상태 관리
 let isAppleScriptLoaded = false;
@@ -182,14 +181,9 @@ const AppleLogin = () => {
           data-width="323"
           data-height="36"
         />
-        <Image
-          onClick={handleCustomButtonClick}
-          className="cursor-pointer"
-          src={apple}
-          alt="애플 로그인"
-          layout="responsive"
-          objectFit="contain"
-        />
+        <span onClick={handleCustomButtonClick} className="cursor-pointer">
+          <AppleLoginIcon className="w-full" />
+        </span>
       </div>
     </>
   );
