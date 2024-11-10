@@ -30,6 +30,24 @@ export async function submitExam({
   return json.data;
 }
 
+export async function submitTest({
+  time,
+  answers,
+  examId,
+}: {
+  time: number;
+  answers: SubmitAnswers[];
+  examId: string;
+}) {
+  const response = await fetch(`/api/exam`, {
+    method: 'POST',
+    body: JSON.stringify({ time, answers, examId, workbookId: null }),
+  });
+
+  const json = await response.json();
+  return json.data;
+}
+
 export type SubmitAnswer = {
   questionId: string;
   submittedAnswer: string;
@@ -54,3 +72,53 @@ export async function createTest(requestBody: TestForm) {
   const json = await response.json();
   return json.data;
 }
+
+export async function readAllSharedExams() {
+  const response = await fetch(`/api/exams`, {
+    method: 'GET',
+  });
+
+  const json = await response.json();
+  return json.data;
+}
+
+export async function readStudentResultOverview(testId: string) {
+  const response = await fetch(`/api/exams/result/${testId}`, {
+    method: 'GET',
+  });
+
+  const json = await response.json();
+  return json.data;
+}
+
+export async function readStudentResultDetail({
+  testId,
+  memberId,
+}: {
+  testId: string;
+  memberId: string;
+}): Promise<IStudentResultDetailResponse> {
+  const response = await fetch(`/api/exam/result/${testId}/${memberId}`, {
+    method: 'GET',
+  });
+
+  const json = await response.json();
+  return json.data;
+}
+
+export type IStudentResultDetailResponse = {
+  memberName: string;
+  totalCorrect: number;
+  time: number;
+  questions: Ques[];
+};
+
+export type Ques = {
+  statement: string;
+  options: string[];
+  image: string;
+  category: 'MULTIPLE' | 'ESSAY';
+  answer: string;
+  isCorrect: boolean;
+  sequence: number;
+};

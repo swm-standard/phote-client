@@ -48,7 +48,7 @@ const WorkbookEditButtons = ({
   const onSubmit = async (data: TestForm) => {
     try {
       const response = await mutate.mutateAsync(data);
-      router.push(`/test/${response.sharedExamId}`);
+      router.push(`/test-detail/${response.sharedExamId}`);
     } catch (e) {
       console.error(e);
     }

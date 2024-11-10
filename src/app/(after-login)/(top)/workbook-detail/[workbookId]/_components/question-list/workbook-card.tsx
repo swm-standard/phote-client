@@ -29,7 +29,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
 
   return (
     <div
-      className="flex h-full w-full flex-col rounded-2xl border-[1px] border-[#ecflfa] bg-white p-3"
+      className="flex h-full w-full flex-col rounded-2xl border-[1px] border-[#ecfafa] bg-white p-3"
       style={{ boxShadow: '0px 11px 15px 0px #0000000A' }}
     >
       <div className="flex flex-grow flex-col gap-2">
