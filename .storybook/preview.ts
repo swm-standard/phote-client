@@ -13,9 +13,7 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      values: [
-        { name: 'default', value: '#f5f5f5' },
-      ],
+      values: [{ name: 'default', value: '#f5f5f5' }],
     },
   },
   loaders: [mswLoader],

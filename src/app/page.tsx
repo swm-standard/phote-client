@@ -52,16 +52,15 @@ const Page = () => {
         </section>
 
         <section className="mb-10 flex w-full flex-col items-center justify-center gap-4 px-4">
-          {
-            process.env.NODE_ENV === 'development' &&
-          <button
-            className="relative flex h-full w-full items-center justify-center rounded-full bg-[#3AC6DB] px-7 py-3.5 text-lg font-semibold text-white"
-            onClick={handleGuestLoginClick}
-          >
-            <ProfileIcon className="absolute left-7 flex h-6 w-6 items-center" />
-            <p className="text-center">게스트 로그인</p>
-          </button>
-          }
+          {process.env.NODE_ENV === 'development' && (
+            <button
+              className="relative flex h-full w-full items-center justify-center rounded-full bg-[#3AC6DB] px-7 py-3.5 text-lg font-semibold text-white"
+              onClick={handleGuestLoginClick}
+            >
+              <ProfileIcon className="absolute left-7 flex h-6 w-6 items-center" />
+              <p className="text-center">게스트 로그인</p>
+            </button>
+          )}
 
           <Link
             href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env['NEXT_PUBLIC_GOOGLE_API_KEY']}&response_type=code&redirect_uri=${process.env['NEXT_PUBLIC_LOGIN_REDIRECT_URL']}/redirect/google&scope=https://www.googleapis.com/auth/userinfo.email`}

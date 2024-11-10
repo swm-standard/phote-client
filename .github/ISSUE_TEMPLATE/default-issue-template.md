@@ -11,11 +11,9 @@ assignees: Goonco
 
 * A straightforward but detailed description about the issue
 
-
 ### 📌 ToDo
 
 - [ ] Todo
-
 
 ### 💬 Others
 
