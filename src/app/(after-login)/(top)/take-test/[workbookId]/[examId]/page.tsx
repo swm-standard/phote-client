@@ -5,14 +5,14 @@ import Container from '@/components/container';
 import dayjs from 'dayjs';
 import StopwatchIcon from '@/static/icons/stopwatch-icon';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import ExamFooter from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-footer';
-import ExamCard from '@/app/(after-login)/(top)/take-exam/[workbookId]/exam-card';
+import ExamFooter from '@/app/(after-login)/(top)/take-exam/[workbookId]/[examId]/exam-footer';
+import ExamCard from '@/app/(after-login)/(top)/take-exam/[workbookId]/[examId]/exam-card';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { IQuestion } from '@/model/i-question';
 import { useRouter } from 'next/navigation';
 
 import { readRegisteredQuestion } from '@/api/registered-question-api';
-import { submitExam } from '@/api/exam-api';
+import { submitTest } from '@/api/exam-api';
 import Dialog from '@/components/dialog';
 import useDialog from '@/hook/useDialog';
 
@@ -24,7 +24,11 @@ export type Answer = {
   answer: string;
 };
 
-const Page = ({ params }: { params: { workbookId: string } }) => {
+const Page = ({
+  params,
+}: {
+  params: { workbookId: string; examId: string };
+}) => {
   const [currentQuestion, setCurrentQuestion] = React.useState<number>(1);
   const [elapsedMinute, setElapsedMinute] = React.useState<string>('0');
   const { isOpen, toggleOpen } = useDialog(true);
@@ -71,7 +75,7 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
   }, []);
 
   const mutate = useMutation({
-    mutationFn: submitExam,
+    mutationFn: submitTest,
   });
 
   const router = useRouter();
@@ -84,13 +88,16 @@ const Page = ({ params }: { params: { workbookId: string } }) => {
       };
     });
 
-    const responseData = await mutate.mutateAsync({
-      workbookId: params.workbookId,
-      time: Number(elapsedMinute),
-      answers: submitAnswers,
-    });
-
-    router.replace(`/exam-detail/${responseData.examId}`);
+    try {
+      const responseData = await mutate.mutateAsync({
+        examId: params.examId,
+        time: Number(elapsedMinute),
+        answers: submitAnswers,
+      });
+      router.replace(`/exam-detail/${responseData.examId}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   if (isPending) return <div>loading...</div>;

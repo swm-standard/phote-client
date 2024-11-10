@@ -75,7 +75,7 @@ export async function transformImageToQuestion({
     formData.append('imageCoordinates', blobImageCoordinates);
   }
 
-  const response = await fetch(
+  let response = await fetch(
     `${process.env['NEXT_PUBLIC_BASE_URL']}/api/question-transform`,
     {
       method: 'POST',
@@ -85,6 +85,51 @@ export async function transformImageToQuestion({
       body: formData,
     },
   );
+
+  if (response.status === 403 || response.status === 500) {
+    const refreshResponse = await fetch(
+      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/auth/refreshtoken`,
+      {
+        method: 'POST',
+        headers: {
+          refreshToken: localStorage.getItem('refreshToken')!,
+        },
+      },
+    );
+
+    if (!refreshResponse.ok) {
+      const json = await refreshResponse.json();
+      const error = new Error();
+      error.message = json.data['서버 내 오류'];
+      throw error;
+    }
+
+    const json = await refreshResponse.json();
+    localStorage.setItem('accessToken', json.data.accessToken);
+
+    response = await fetch(
+      `${process.env['NEXT_PUBLIC_BASE_URL']}/api/question-transform`,
+      {
+        method: 'POST',
+        headers: {
+          accessToken: localStorage.getItem('accessToken')!,
+        },
+        body: formData,
+      },
+    );
+
+    if (!response.ok) {
+      const json = await response.json();
+      const error = new Error();
+      error.message = json.data['서버 내 오류'];
+      throw error;
+    }
+  } else if (!response.ok) {
+    const json = await response.json();
+    const error = new Error();
+    error.message = json.data['서버 내 오류'];
+    throw error;
+  }
 
   const json = await response.json();
   const { statement, options, image: img } = json.data;

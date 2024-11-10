@@ -70,7 +70,7 @@ export const CheckConvert = ({
       {values.image && (
         <fieldset>
           <Legend className="mb-2 text-sm">문제 그림</Legend>
-          <div className="relative mx-auto h-96 w-96 overflow-hidden rounded-lg">
+          <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-lg">
             <Image src={values.image} alt="문제" fill />
           </div>
         </fieldset>

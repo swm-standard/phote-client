@@ -12,6 +12,7 @@
     font-size: inherit;
     font-weight: inherit;
     background: inherit;
+    user-select: none;
 }
 
 *::-webkit-scrollbar {

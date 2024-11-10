@@ -24,7 +24,7 @@ const WorkbookCard = ({ workbook }: { workbook: IWorkbook }) => {
           <textarea
             disabled
             rows={2}
-            className="line-clamp-2 text-xs font-normal text-[#9b9b9b]"
+            className="pointer-events-none line-clamp-2 text-xs font-normal text-[#9b9b9b]"
             value={workbook.description}
           />
         </div>

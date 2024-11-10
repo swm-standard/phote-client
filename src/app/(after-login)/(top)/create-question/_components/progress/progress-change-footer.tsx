@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SquareButton from '@/components/square-button';
 import { StepProps } from '@/app/(after-login)/(top)/create-question/_components/content/create-question-content';
 import { useRouter } from 'next/navigation';
@@ -83,15 +83,22 @@ const ProgressChangeFooter = ({
     mutationFn: createQuestion,
   });
 
+  const [error, setError] = useState<string>('');
   const handleNextButtonClick = async () => {
     if (step === 1 && rawImage) {
-      const question = await transformMutation.mutateAsync({
-        image: rawImage,
-        crop,
-      });
-      reset({ ...question, options: [] });
-      readOptions(question ? question.options : []);
-      nextStep();
+      try {
+        const question = await transformMutation.mutateAsync({
+          image: rawImage,
+          crop,
+        });
+
+        reset({ ...question, options: [] });
+        readOptions(question ? question.options : []);
+        nextStep();
+      } catch (e) {
+        // @ts-expect-error debuging
+        setError(e.message);
+      }
     }
     if (step === 2) nextStep();
     if (step === 3) {
@@ -105,6 +112,7 @@ const ProgressChangeFooter = ({
       {transformMutation.isPending || createMutation.isPending ? (
         <Loading />
       ) : null}
+      <p className="text-center">{error}</p>
       <div className="sticky bottom-0 flex gap-4 bg-white py-4">
         <SquareButton
           theme="lightgray"
